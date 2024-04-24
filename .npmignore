@@ -1,0 +1,6 @@
+src/
+tests/
+biome.json
+tsconfig.json
+*.config.ts
+*.config.?ts

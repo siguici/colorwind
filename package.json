@@ -21,8 +21,8 @@
     ".": "./js/index.js",
     "./package.json": "./package.json"
   },
-  "bugs": "https://github.com/siguici/tailwind-color-scheme/issues",
-  "homepage": "https://github.com/siguici/tailwind-color-scheme",
+  "bugs": "https://github.com/siguici/colorwind/issues",
+  "homepage": "https://github.com/siguici/colorwind",
   "author": {
     "name": "Sigui Kessé Emmanuel",
     "email": "siguici@proton.me",

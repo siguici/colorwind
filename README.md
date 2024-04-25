@@ -1,4 +1,6 @@
-# Tailwind Color Scheme Plugin 🎨
+# ColorWind 🎨
+
+TailwindCSS plugin simplifying light/dark color scheme management with intuitive class names.
 
 ## 🚀 Installation
 
@@ -7,25 +9,25 @@ You can install the plugin :
 - Using `npm`:
 
 ```bash
-npm install tailwind-color-scheme
+npm install colorwind
 ```
 
 - Using `Yarn`:
 
 ```bash
-yarn add tailwind-color-scheme
+yarn add colorwind
 ```
 
 - Using `PNPM`:
 
 ```bash
-pnpm add tailwind-color-scheme
+pnpm add colorwind
 ```
 
 - Using `Bun`:
 
 ```bash
-bun install tailwind-color-scheme
+bun install colorwind
 ```
 
 ## 💡 Usage
@@ -61,4 +63,4 @@ Use the following class convention to apply color styles that adapt to light/dar
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE.md file](./LICENSE.md) for details.

@@ -42,7 +42,7 @@
     "utilities"
   ],
   "sideEffects": false,
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "pnpm clean && tsc --build",
     "clean": "rimraf js && rimraf ts",

@@ -37,7 +37,6 @@ describe.concurrent("suite", () => {
 
   it("should have red text class", async () => {
     return run(config).then((result) => {
-      console.log(result.css);
       expect(result.css).toContain(css`.text-red`);
     });
   });

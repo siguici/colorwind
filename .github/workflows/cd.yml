@@ -1,0 +1,41 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ${{ matrix.operating-system }}
+
+    environment: 
+      name: production
+      url: https://sigui.ci
+
+    permissions:
+      id-token: write
+      contents: read
+
+    defaults:
+      run:
+        working-directory: ./src
+
+    strategy:
+      matrix:
+        operating-system: [ubuntu-latest]
+        deno-version: [1.43.6]
+
+    name: 🚀 Deploy colorwind to JSR using Deno ${{ matrix.deno-version }}
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      - name: 🔨 Configure Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: ${{ matrix.deno-version }}
+
+      - name: 🚀 Publish to JSR
+        run: deno publish

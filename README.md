@@ -8,27 +8,63 @@ You can install the plugin :
 
 - Using `npm`:
 
-```bash
-npm install colorwind
-```
+  ```bash
+  npm install colorwind
+  ```
+
+  From `JSR`:
+
+  ```bash
+  npx jsr add @siguici/colorwind
+  ```
 
 - Using `Yarn`:
 
-```bash
-yarn add colorwind
-```
+  ```bash
+  yarn add colorwind
+  ```
+
+  From `JSR`:
+
+  ```bash
+  yarn dlx jsr add @siguici/colorwind
+  ```
 
 - Using `PNPM`:
 
-```bash
-pnpm add colorwind
-```
+  ```bash
+  pnpm add colorwind
+  ```
+
+  From `JSR`:
+
+  ```bash
+  pnpm dlx jsr add @siguici/colorwind
+  ```
 
 - Using `Bun`:
 
-```bash
-bun install colorwind
-```
+  ```bash
+  bun install colorwind
+  ```
+
+  From `JSR`:
+
+  ```bash
+  bunx jsr add @siguici/colorwind
+  ```
+
+- Using `Deno`:
+
+  ```bash
+  deno add @siguici/colorwind
+  ```
+
+  Without install:
+
+  ```bash
+  import colorwind from "jsr:@siguici/colorwind";
+  ```
 
 ## 💡 Usage
 

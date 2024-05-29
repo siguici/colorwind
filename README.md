@@ -62,7 +62,7 @@ You can install the plugin :
 
   Without install:
 
-  ```bash
+  ```typescript
   import colorwind from "jsr:@siguici/colorwind";
   ```
 

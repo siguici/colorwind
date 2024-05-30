@@ -9,6 +9,9 @@
   },
   "include": ["jsr.json", "jsr/*.ts", "README.md", "LICENSE.md"],
   "exclude": ["jsr/*.test.ts", "js/*", "ts/*", "src/*", "tests/*"],
+  "publish": {
+    "exclude": ["!jsr/*.ts"]
+  },
   "fmt": {
     "useTabs": false,
     "lineWidth": 80,

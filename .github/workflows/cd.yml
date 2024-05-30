@@ -6,15 +6,14 @@ on:
       - main
 
   workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
-    branches:
-      - main
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ${{ matrix.operating-system }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     environment: 
       name: production

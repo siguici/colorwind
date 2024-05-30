@@ -8,7 +8,7 @@ import type {
   StyleCallback,
   StyleCallbacks,
   UtilityList,
-} from "./plugin";
+} from "./plugin.ts";
 
 export function darken(
   darkMode: DarkMode,

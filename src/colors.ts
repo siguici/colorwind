@@ -7,13 +7,13 @@ import {
   type PropertyValue,
   type RuleSet,
   type UtilityList,
-} from "./plugin";
+} from "./plugin.ts";
 import {
   append_style,
   darken_class,
   darken_utility,
   stylize_utility,
-} from "./utils";
+} from "./utils.ts";
 
 export type ColorName = PropertyName;
 export type ColorScheme = "dark" | "light";

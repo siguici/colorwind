@@ -2,13 +2,13 @@
   "name": "colorwind",
   "version": "0.0.1",
   "license": "MIT",
-  "packageManager": "pnpm@9.0.6",
+  "packageManager": "pnpm@9.1.4",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=20.12",
-    "pnpm": ">=9.0",
+    "node": ">=20.14",
+    "pnpm": ">=9.1",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },

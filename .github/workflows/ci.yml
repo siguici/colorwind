@@ -13,8 +13,8 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node: [20.12]
-        pnpm: [9.0.6]
+        node: [20.14]
+        pnpm: [9.1.4]
         experimental: [false]
     name: 👷 CI Node-${{ matrix.node }} on ${{ matrix.os }}
 

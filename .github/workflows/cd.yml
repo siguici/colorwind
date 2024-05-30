@@ -23,10 +23,6 @@ jobs:
       id-token: write
       contents: read
 
-    defaults:
-      run:
-        working-directory: ./jsr
-
     strategy:
       matrix:
         operating-system: [ubuntu-latest]

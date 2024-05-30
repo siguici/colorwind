@@ -46,7 +46,7 @@
   "scripts": {
     "build": "pnpm build.node && pnpm build.deno",
     "build.node": "pnpm clear.node && tsc --build",
-    "build.deno": "pnpm clear.deno && pnpm denoify && cp LICENSE.md jsr/",
+    "build.deno": "pnpm clear.deno && pnpm denoify",
     "clear": "pnpm clear.node && pnpm clear.deno",
     "clear.node": "rimraf js && rimraf ts",
     "clear.deno": "rimraf jsr/*",

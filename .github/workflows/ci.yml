@@ -37,3 +37,9 @@ jobs:
 
       - name: 🧪 Test code style and components
         run: make test
+
+      - name: 🚚 Upload Deno distribution files
+        uses: actions/upload-artifact@v4
+        with:
+          name: deno_dist
+          path: jsr

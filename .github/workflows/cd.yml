@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
 jobs:
   deploy:
     runs-on: ${{ matrix.operating-system }}
@@ -19,7 +24,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./src
+        working-directory: ./jsr
 
     strategy:
       matrix:

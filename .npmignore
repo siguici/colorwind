@@ -1,4 +1,5 @@
 src/
+jsr/
 tests/
 biome.json
 tsconfig.json

@@ -1,7 +1,7 @@
 import plugin from "tailwindcss/plugin";
 import type { PluginAPI } from "tailwindcss/types/config";
-import { Colors, type ColorsConfig, DEFAULT_COLORS } from "./colors.ts";
-import type { PluginWithOptions } from "./plugin.ts";
+import { Colors, type ColorsConfig, DEFAULT_COLORS } from "./colors";
+import type { PluginWithOptions } from "./plugin";
 
 export type RequiredPluginConfig = {
   colors: boolean | ColorsConfig;

@@ -12,7 +12,7 @@ import {
   stylize_properties_callback,
   stylize_property,
   stylize_property_callback,
-} from "./utils.ts";
+} from "./utils";
 
 export interface PluginContract<T> {
   readonly api: PluginAPI;

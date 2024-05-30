@@ -16,7 +16,7 @@ jobs:
 
     environment: 
       name: production
-      url: https://sigui.ci
+      url: https://jsr.io/@siguici/colorwind
 
     permissions:
       id-token: write

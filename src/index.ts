@@ -33,4 +33,6 @@ function useColors(api: PluginAPI, options: ColorsConfig): Colors {
   return new Colors(api, options).create();
 }
 
-export default plugColors();
+const colorwind = plugColors();
+
+export default colorwind;

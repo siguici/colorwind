@@ -1,4 +1,5 @@
 {
+  "name": "@siguici/colorwind",
   "imports": {
     "tailwindcss": "npm:tailwindcss@3.4.3",
     "tailwindcss/": "npm:/tailwindcss@3.4.3/",

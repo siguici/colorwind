@@ -39,13 +39,16 @@ jobs:
         with:
           deno-version: ${{ matrix.deno-version }}
 
-      - name: 🚚 Download Deno distribution files
+      - name: 📦️ Download Deno distribution files
         uses: actions/download-artifact@v4
         with:
           name: deno_dist
           path: jsr
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🚨 Fix code style
+        run: deno task fix
 
       - name: 🚀 Publish to JSR
         run: deno publish

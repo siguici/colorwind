@@ -32,13 +32,13 @@ jobs:
         with:
           version: ${{ matrix.pnpm }}
 
-      - name: 📦️ Fix code style and build for production
+      - name: ✅ Fix code style and build for production
         run: make build
 
       - name: 🧪 Test code style and components
         run: make test
 
-      - name: 🚚 Upload Deno distribution files
+      - name: 📦️ Upload Deno distribution files
         uses: actions/upload-artifact@v4
         with:
           name: deno_dist

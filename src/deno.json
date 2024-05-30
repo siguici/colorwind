@@ -1,5 +1,7 @@
 {
   "name": "@siguici/colorwind",
+  "version": "0.0.0",
+  "exports": "./index.ts",
   "imports": {
     "tailwindcss": "npm:tailwindcss@3.4.3",
     "tailwindcss/": "npm:/tailwindcss@3.4.3/",

@@ -8,7 +8,7 @@ import type {
   StyleCallback,
   StyleCallbacks,
   UtilityList,
-} from "./plugin";
+} from './plugin';
 
 export function darken(
   darkMode: DarkMode,
@@ -23,22 +23,22 @@ export function darken(
     let selector: string | string[] | undefined;
 
     if (
-      darkMode === "media" ||
-      darkMode === "class" ||
-      darkMode === "selector"
+      darkMode === 'media' ||
+      darkMode === 'class' ||
+      darkMode === 'selector'
     ) {
       strategy = darkMode;
       selector = undefined;
     } else {
-      strategy = darkMode[0] || "media";
+      strategy = darkMode[0] || 'media';
       selector = darkMode[1];
     }
 
     switch (strategy) {
-      case "variant": {
+      case 'variant': {
         const selectors = Array.isArray(selector)
           ? selector
-          : [selector || ".dark"];
+          : [selector || '.dark'];
         for (const selector of selectors) {
           rules[ruleName] = {
             ...lightRules,
@@ -49,18 +49,18 @@ export function darken(
         }
         break;
       }
-      case "selector":
+      case 'selector':
         rules[ruleName] = {
           ...lightRules,
-          [`&:where(${selector || ".dark"}, ${selector || ".dark"} *)`]: {
+          [`&:where(${selector || '.dark'}, ${selector || '.dark'} *)`]: {
             ...darkRules,
           },
         };
         break;
-      case "class":
+      case 'class':
         rules[ruleName] = {
           ...lightRules,
-          [`:is(${selector || ".dark"} &)`]: {
+          [`:is(${selector || '.dark'} &)`]: {
             ...darkRules,
           },
         };
@@ -68,8 +68,8 @@ export function darken(
       default:
         rules[ruleName] = {
           ...lightRules,
-          "@media (prefers-color-scheme: dark)": {
-            "&": {
+          '@media (prefers-color-scheme: dark)': {
+            '&': {
               ...darkRules,
             },
           },

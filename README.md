@@ -63,7 +63,7 @@ You can install the plugin :
   Without install:
 
   ```typescript
-  import colorwind from "jsr:@siguici/colorwind";
+  import colorwind from 'jsr:@siguici/colorwind';
   ```
 
 ## 💡 Usage
@@ -82,7 +82,6 @@ Use the following class convention to apply color styles that adapt to light/dar
   - 3: color-300 in light mode or color-700 in dark mode
   - 4: color-400 in light mode or color-600 in dark mode
 - You can also use variant-color for variant-color-500 (adapts to theme)
-
 
 ### Example in HTML
 

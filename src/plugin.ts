@@ -3,7 +3,7 @@ import type {
   DarkModeConfig,
   PluginAPI,
   PluginCreator,
-} from "tailwindcss/types/config";
+} from 'tailwindcss/types/config';
 
 import {
   append_style,
@@ -12,7 +12,7 @@ import {
   stylize_properties_callback,
   stylize_property,
   stylize_property_callback,
-} from "./utils";
+} from './utils';
 
 export interface PluginContract<T> {
   readonly api: PluginAPI;
@@ -82,7 +82,7 @@ export type StyleValues = Record<string, string>;
 export type DarkMode = Partial<DarkModeConfig>;
 
 export abstract class Plugin<T> implements PluginContract<T> {
-  readonly darkMode: DarkMode = "media";
+  readonly darkMode: DarkMode = 'media';
   abstract readonly components: ComponentList;
   abstract readonly utilities: UtilityList;
 
@@ -91,7 +91,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
     readonly options: T,
   ) {
     const { config } = api;
-    this.darkMode = config().darkMode || "media";
+    this.darkMode = config().darkMode || 'media';
   }
 
   abstract create(): this;
@@ -140,7 +140,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
       const name = `${component[0]}-${e(variant)}`;
       const utilities = component[1];
 
-      if (typeof utilities === "string") {
+      if (typeof utilities === 'string') {
         rules[name] = this.stylizeUtilityCallback(utilities);
       } else if (Array.isArray(utilities)) {
         rules[name] = this.stylizeUtilitiesCallback(utilities);
@@ -148,9 +148,9 @@ export abstract class Plugin<T> implements PluginContract<T> {
         // biome-ignore lint/complexity/noForEach: <explanation>
         Object.entries(utilities).forEach((utility) => {
           const utilityName =
-            utility[0] === "DEFAULT" ? name : `${name}-${e(utility[0])}`;
+            utility[0] === 'DEFAULT' ? name : `${name}-${e(utility[0])}`;
           const properties = utility[1];
-          if (typeof properties === "string") {
+          if (typeof properties === 'string') {
             rules[utilityName] = this.stylizeUtilityCallback(properties);
           } else {
             rules[utilityName] = this.stylizeUtilitiesCallback(properties);
@@ -170,7 +170,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
       const name = `${component[0]}-${e(variant)}`;
       const utilities = component[1];
 
-      if (typeof utilities === "string") {
+      if (typeof utilities === 'string') {
         rules = append_style(
           stylize_class(name, this.stylizeUtility(utilities, value)),
           rules,
@@ -184,9 +184,9 @@ export abstract class Plugin<T> implements PluginContract<T> {
         // biome-ignore lint/complexity/noForEach: <explanation>
         Object.entries(utilities).forEach((utility) => {
           const utilityName =
-            utility[0] === "DEFAULT" ? name : `${name}-${e(utility[0])}`;
+            utility[0] === 'DEFAULT' ? name : `${name}-${e(utility[0])}`;
           const properties = utility[1];
-          if (typeof properties === "string") {
+          if (typeof properties === 'string') {
             rules = append_style(
               stylize_class(
                 utilityName,
@@ -211,7 +211,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
 
   protected addVar(name: string, value: string): this {
     return this.addBase({
-      ":root": {
+      ':root': {
         [`--s-${name}`]: value,
       },
     });

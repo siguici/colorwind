@@ -1,7 +1,7 @@
-import plugin from "tailwindcss/plugin";
-import type { PluginAPI } from "tailwindcss/types/config";
-import { Colors, type ColorsConfig, DEFAULT_COLORS } from "./colors";
-import type { PluginWithOptions } from "./plugin";
+import plugin from 'tailwindcss/plugin';
+import type { PluginAPI } from 'tailwindcss/types/config';
+import { Colors, type ColorsConfig, DEFAULT_COLORS } from './colors';
+import type { PluginWithOptions } from './plugin';
 
 export type RequiredPluginConfig = {
   colors: boolean | ColorsConfig;
@@ -20,7 +20,7 @@ export function plugColors(): PluginWithOptions<PluginConfig> {
         if (options.colors) {
           useColors(
             api,
-            typeof options.colors === "boolean"
+            typeof options.colors === 'boolean'
               ? DEFAULT_COLORS
               : options.colors,
           );

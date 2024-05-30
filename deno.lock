@@ -618,23 +618,23 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@biomejs/biome@^1.7.1",
+        "npm:@biomejs/biome@^1.7.3",
         "npm:@tailwindcss/nesting@0.0.0-insiders.565cd3e",
-        "npm:@types/node@^20.12.7",
-        "npm:@vitest/coverage-v8@^1.5.1",
+        "npm:@types/node@^20.12.13",
+        "npm:@vitest/coverage-v8@^1.6.0",
         "npm:autoprefixer@^10.4.19",
         "npm:denoify@^1.6.12",
         "npm:postcss-import@^16.1.0",
-        "npm:postcss-load-config@^5.0.3",
+        "npm:postcss-load-config@^5.1.0",
         "npm:postcss-nested@^6.0.1",
         "npm:postcss@^8.4.38",
-        "npm:rimraf@^5.0.5",
+        "npm:rimraf@^5.0.7",
         "npm:tailwindcss@^3.4.3",
         "npm:ts-node@^10.9.2",
         "npm:typescript@^5.4.5",
         "npm:vite-tsconfig-paths@^4.3.2",
-        "npm:vite@^5.2.10",
-        "npm:vitest@^1.5.1"
+        "npm:vite@^5.2.12",
+        "npm:vitest@^1.6.0"
       ]
     }
   }

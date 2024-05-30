@@ -1,6 +1,6 @@
-import colorScheme from "./src";
+import colorScheme from './src';
 
 export default {
-  content: ["./design/**/*.{html,css,ts}"],
+  content: ['./design/**/*.{html,css,ts}'],
   plugins: [colorScheme],
 };

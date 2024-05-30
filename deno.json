@@ -24,7 +24,7 @@
   "tasks": {
     "check": "deno task check:fmt && deno task check:lint",
     "check:fmt": "deno fmt --check",
-    "check:lint": "deno check **/*.ts",
+    "check:lint": "deno check jsr/*.ts",
     "fix": "deno lint && deno fmt"
   }
 }

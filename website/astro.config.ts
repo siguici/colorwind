@@ -3,8 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://siguici.github.io',
-  base: 'colorwind',
+  site: 'https://colorwind.js.org',
   compressHTML: true,
   integrations: [
     starlight({

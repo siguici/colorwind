@@ -1,4 +1,4 @@
-import colorScheme from './src';
+import colorScheme from 'colorwind';
 
 export default {
   content: ['./design/**/*.{html,css,ts}'],

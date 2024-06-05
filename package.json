@@ -64,6 +64,7 @@
     "@types/node": "^20.14.1",
     "@vitest/coverage-v8": "^1.6.0",
     "autoprefixer": "^10.4.19",
+    "colorwind": "workspace:*",
     "postcss": "^8.4.38",
     "postcss-import": "^16.1.0",
     "postcss-load-config": "^5.1.0",

@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["packages/colorwind/biome.json"],
+  "extends": ["packages/colorwind/biome.json", "website/biome.json"],
   "organizeImports": {
     "enabled": true,
     "ignore": ["node_modules"]

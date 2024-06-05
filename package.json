@@ -36,7 +36,7 @@
   "sideEffects": false,
   "private": false,
   "scripts": {
-    "build": "pnpm cw.build",
+    "build": "pnpm cw.build && pnpm doc.build",
     "check": "biome ci .",
     "check.format": "biome format .",
     "check.lint": "biome check .",
@@ -47,7 +47,14 @@
     "debug": "pnpm check && pnpm test",
     "deno.check": "cd packages/colorwind && deno task check",
     "deno.fix": "cd packages/colorwind && deno task fix",
-    "dev": "vite",
+    "dev": "pnpm doc.dev",
+    "doc.i": "cd website && pnpm i",
+    "doc.up": "cd website && pnpm up",
+    "doc.uL": "cd website && pnpm up -L",
+    "doc.dev": "cd website && pnpm dev",
+    "doc.check": "cd website && pnpm check",
+    "doc.build": "cd website && pnpm build",
+    "doc.start": "cd website && pnpm start",
     "fix": "pnpm lint && pnpm format",
     "format": "biome format --write .",
     "inspect": "node --inspect-brk ./node_modules/vite/bin/vite.js --force",
@@ -56,7 +63,7 @@
     "test.ui": "vitest --ui",
     "test.cov": "vitest run --coverage",
     "test.watch": "vitest",
-    "start": "vite --open"
+    "start": "pnpm doc.start"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.0",

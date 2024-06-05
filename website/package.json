@@ -1,0 +1,32 @@
+{
+  "name": "@colorwind/website",
+  "type": "module",
+  "private": true,
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/siguici/colorwind",
+    "directory": "website"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev --open",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/starlight": "^0.23.3",
+    "astro": "^4.9.2",
+    "colorwind": "workspace:*",
+    "postcss": "^8.4.38",
+    "postcss-import": "^16.1.0",
+    "postcss-load-config": "^5.1.0",
+    "postcss-nested": "^6.0.1",
+    "tailwindcss": "^3.4.3",
+    "sharp": "^0.32.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

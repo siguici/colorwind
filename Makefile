@@ -2,12 +2,14 @@
 
 install: node_modules pnpm-lock.yaml
 
-node_modules: package.json packages/colorwind/package.json
+node_modules: package.json packages/colorwind/package.json website/package.json
 	pnpm cw.i
+	pnpm doc.i
 	pnpm i
 
-pnpm-lock.yaml: package.json packages/colorwind/package.json
+pnpm-lock.yaml: package.json packages/colorwind/package.json website/package.json
 	pnpm cw.up
+	pnpm doc.up
 	pnpm up
 
 check: install

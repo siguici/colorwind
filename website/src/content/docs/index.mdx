@@ -2,6 +2,8 @@
 title: The Colors plugin for TailwindCSS projects
 description: 🎨 ColorWind is a TailwindCSS plugin that allows you to manage colors when changing themes according to the user's dark mode configuration.
 template: splash
+editUrl: false
+lastUpdated: false
 hero:
   tagline: Easily manage light/dark mode switching according to your configuration without worrying about color matching.
   image:
@@ -17,6 +19,27 @@ hero:
 ---
 
 import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+	<Card title="Safe" icon="approve-check">
+    Built with TypeScript and using the strictest lint tools.
+	</Card>
+	<Card title="Fast" icon="rocket">
+    Use the power of TailwindCSS for better performance.
+	</Card>
+	<Card title="Simple" icon="heart">
+    Color-based class names available in TailwindCSS.
+	</Card>
+	<Card title="Optimized" icon="puzzle">
+    No third party dependencies you just need TailwindCSS.
+	</Card>
+	<Card title="Scalable" icon="setting">
+    Can be customized from your TailwindCSS configuration.
+	</Card>
+	<Card title="Reusable" icon="document">
+    Intuitive and well-documented APIs for easy integration.
+  </Card>
+</CardGrid>
 
 <Tabs>
   <TabItem label="npm">

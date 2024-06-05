@@ -30,6 +30,9 @@
     "inlineSources": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "~/*": ["src/*"]
+    }
   }
 }

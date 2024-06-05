@@ -10,6 +10,10 @@ on:
     types: [completed]
     branches: [main]
 
+defaults:
+  run:
+    working-directory: ./packages/colorwind
+
 jobs:
   deploy:
     runs-on: ${{ matrix.operating-system }}
@@ -43,7 +47,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: deno_dist
-          path: jsr
+          path: packages/colorwind/jsr
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 

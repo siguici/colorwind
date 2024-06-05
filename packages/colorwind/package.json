@@ -54,7 +54,7 @@
     "denoify": "denoify --out jsr"
   },
   "devDependencies": {
-    "@types/node": "^20.12.13",
+    "@types/node": "^20.14.1",
     "denoify": "^1.6.12",
     "rimraf": "^5.0.7",
     "tailwindcss": "^3.4.3",

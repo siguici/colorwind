@@ -26,11 +26,16 @@ export default defineConfig({
           link: '/',
         },
         {
-          label: 'Guides',
-          items: [{ label: '🎉 Quickstart', link: '/guides/' }],
+          label: '📖 Guides',
+          items: [
+            {
+              label: '🎉 Quickstart',
+              link: '/guides/',
+            },
+          ],
         },
         {
-          label: 'Reference',
+          label: '📚 Reference',
           autogenerate: { directory: 'reference' },
         },
       ],

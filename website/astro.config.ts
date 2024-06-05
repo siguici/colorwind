@@ -29,7 +29,7 @@ export default defineConfig({
           label: '📖 Guides',
           items: [
             {
-              label: '🎉 Quickstart',
+              label: 'Getting Started 🎉',
               link: '/guides/',
             },
           ],

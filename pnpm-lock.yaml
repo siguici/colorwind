@@ -23,9 +23,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
-      denoify:
-        specifier: ^1.6.12
-        version: 1.6.12
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
@@ -38,9 +35,6 @@ importers:
       postcss-nested:
         specifier: ^6.0.1
         version: 6.0.1(postcss@8.4.38)
-      rimraf:
-        specifier: ^5.0.7
-        version: 5.0.7
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
@@ -59,6 +53,24 @@ importers:
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.12.13)
+
+  packages/colorwind:
+    devDependencies:
+      '@types/node':
+        specifier: ^20.12.13
+        version: 20.12.13
+      denoify:
+        specifier: ^1.6.12
+        version: 1.6.12
+      rimraf:
+        specifier: ^5.0.7
+        version: 5.0.7
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
 
 packages:
 

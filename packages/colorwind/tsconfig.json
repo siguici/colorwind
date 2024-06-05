@@ -1,12 +1,11 @@
 {
-  "include": ["packages/colorwind/src"],
-  "exclude": [
-    "node_modules",
-    "packages/colorwind/js/**/*",
-    "packages/colorwind/ts/**/*"
-  ],
+  "include": ["src"],
+  "exclude": ["node_modules", "js/**/*", "ts/**/*"],
   "compilerOptions": {
     "strict": true,
+    "outDir": "js",
+    "declaration": true,
+    "declarationDir": "ts",
     "lib": ["ESNext", "DOM", "webworker", "DOM.Iterable"],
     "module": "ESNext",
     "target": "ESNext",
@@ -35,9 +34,6 @@
     "inlineSources": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "types": ["node", "vite/client", "vitest/globals"],
-    "paths": {
-      "colorwind/*": ["src/*"]
-    }
+    "types": ["node"]
   }
 }

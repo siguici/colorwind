@@ -2,6 +2,8 @@ name: CI
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 on: ['push', 'pull_request']
 
@@ -43,3 +45,21 @@ jobs:
         with:
           name: deno_dist
           path: packages/colorwind/jsr
+
+      - name: 📚 Install, build, and upload docs
+        uses: withastro/action@v2
+        with:
+          path: ./website
+          node-version: ${{ matrix.node-version }}
+          package-manager: pnpm@${{ matrix.pnpm-version }}
+
+  docs:
+    needs: ci
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 📂 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

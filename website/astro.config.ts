@@ -23,11 +23,12 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Home',
+          link: '/',
+        },
+        {
           label: 'Guides',
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: 'Example Guide', link: '/guides/example/' },
-          ],
+          items: [{ label: '🎉 Quickstart', link: '/guides/' }],
         },
         {
           label: 'Reference',

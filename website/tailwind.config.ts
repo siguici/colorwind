@@ -1,6 +1,7 @@
-import colorScheme from 'colorwind';
+import starlight from '@astrojs/starlight-tailwind';
+import colorwind from 'colorwind';
 
 export default {
-  content: ['./design/**/*.{html,css,ts}'],
-  plugins: [colorScheme],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  plugins: [starlight, colorwind],
 };

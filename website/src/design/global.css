@@ -1,0 +1,9 @@
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer components {
+  .logo {
+    content: url('../assets/colorwind.svg');
+  }
+}
+

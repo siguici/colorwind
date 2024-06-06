@@ -68,7 +68,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.8.0",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
-    "@types/node": "^20.14.1",
+    "@types/node": "^20.14.2",
     "@vitest/coverage-v8": "^1.6.0",
     "autoprefixer": "^10.4.19",
     "colorwind": "workspace:*",
@@ -76,7 +76,7 @@
     "postcss-import": "^16.1.0",
     "postcss-load-config": "^5.1.0",
     "postcss-nested": "^6.0.1",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",

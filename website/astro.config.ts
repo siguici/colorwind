@@ -1,6 +1,8 @@
 import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
 
+import tailwind from '@astrojs/tailwind';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://colorwind.js.org',
@@ -36,9 +38,15 @@ export default defineConfig({
         },
         {
           label: '📚 Reference',
-          autogenerate: { directory: 'reference' },
+          autogenerate: {
+            directory: 'reference',
+          },
         },
       ],
+      customCss: ['./src/design/global.css'],
+    }),
+    tailwind({
+      applyBaseStyles: false,
     }),
   ],
 });

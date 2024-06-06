@@ -1,5 +1,5 @@
 ---
-title: TailwindCSS Colors
+title: TailwindCSS Colors 🎨
 description: Reference of TailwindCSS colors used in ColorWind.
 ---
 

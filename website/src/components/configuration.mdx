@@ -1,0 +1,28 @@
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="NPM">
+
+  ```javascript ins={1,5}
+  import colorwind from "colorwind";
+
+  /** @type {import('tailwindcss').Config} */
+  export default {
+    plugins: [colorwind],
+  };
+  ```
+
+  </TabItem>
+  <TabItem label="JSR">
+
+  ```javascript ins={1,5}
+  import colorwind from "jsr:@siguici/colorwind";
+
+  /** @type {import('tailwindcss').Config} */
+  export default {
+    plugins: [colorwind],
+  };
+  ```
+
+  </TabItem>
+</Tabs>

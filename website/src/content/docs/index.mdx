@@ -20,6 +20,7 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import Installation from "~/components/installation.mdx";
+import Configuration from "~/components/configuration.mdx";
 
 <CardGrid stagger>
 	<Card title="Safe" icon="approve-check">
@@ -42,4 +43,18 @@ import Installation from "~/components/installation.mdx";
   </Card>
 </CardGrid>
 
-<Installation />
+<section class="flex flex-col items-center">
+  <h3 class="text-3xl mt-8 mb-4">Try ColorWind</h3>
+
+  <div class="grid gap-12 lg:gap-8 space-y-0 grid-rows-2 grid-cols-1 lg:grid-rows-1 lg:grid-cols-2">
+    <div class="flex flex-col items-center">
+      <h5>Install</h5>
+      <Installation />
+    </div>
+
+    <div class="flex flex-col items-center">
+      <h5>Configure</h5>
+      <Configuration />
+    </div>
+  </div>
+</section>

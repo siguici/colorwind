@@ -1,18 +1,20 @@
-# ColorWind 🎨
+# [ColorWind 🎨](https://colorwind.js.org)
 
-TailwindCSS plugin simplifying light/dark color scheme management with intuitive class names.
+[ColorWind](https://colorwind.js.org) is a [TailwindCSS](https://tailwindcss.com) plugin simplifying light/dark color scheme management with intuitive class names.
 
 ## 🚀 Installation
 
-You can install the plugin :
+You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npmjs.com/package/colorwind) or [`JSR`](https://jsr.io/@siguici/colorwind):
 
 - Using `npm`:
+
+  From [`NPM`](https://npmjs.com/package/colorwind):
 
   ```bash
   npm install colorwind
   ```
 
-  From `JSR`:
+  From [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   npx jsr add @siguici/colorwind
@@ -20,11 +22,13 @@ You can install the plugin :
 
 - Using `Yarn`:
 
+  From [`NPM`](https://npmjs.com/package/colorwind):
+
   ```bash
   yarn add colorwind
   ```
 
-  From `JSR`:
+  From [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   yarn dlx jsr add @siguici/colorwind
@@ -32,11 +36,13 @@ You can install the plugin :
 
 - Using `PNPM`:
 
+  From [`NPM`](https://npmjs.com/package/colorwind):
+
   ```bash
   pnpm add colorwind
   ```
 
-  From `JSR`:
+  From [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   pnpm dlx jsr add @siguici/colorwind
@@ -44,17 +50,27 @@ You can install the plugin :
 
 - Using `Bun`:
 
+  From [`NPM`](https://npmjs.com/package/colorwind):
+
   ```bash
   bun install colorwind
   ```
 
-  From `JSR`:
+  From [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   bunx jsr add @siguici/colorwind
   ```
 
 - Using `Deno`:
+
+  From [`NPM`](https://npmjs.com/package/colorwind):
+
+  ```bash
+  deno install npm:colorwind
+  ```
+
+  From [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   deno add @siguici/colorwind
@@ -65,6 +81,33 @@ You can install the plugin :
   ```typescript
   import colorwind from 'jsr:@siguici/colorwind';
   ```
+
+## 🔧 Configuration
+
+Add [`ColorWind`](https://colorwind.js.org) to your [TailwindCSS configuration](https://tailwindcss.com/docs/configuration):
+
+- With `NPM` (from `node_modules`):
+
+  ```javascript ins={1,5}
+  import colorwind from "colorwind";
+
+  /** @type {import('tailwindcss').Config} */
+  export default {
+    plugins: [colorwind],
+  };
+  ```
+
+- With `JSR` (using `Deno`):
+
+  ```javascript ins={1,5}
+  import colorwind from "jsr:@siguici/colorwind";
+
+  /** @type {import('tailwindcss').Config} */
+  export default {
+    plugins: [colorwind],
+  };
+  ```
+
 
 ## 💡 Usage
 

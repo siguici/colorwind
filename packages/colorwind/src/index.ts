@@ -186,29 +186,16 @@ export class Colorwind extends Plugin<RequiredPluginConfig> {
         );
   }
 }
-export function plugColors(): PluginWithOptions<PluginConfig> {
-  return plugin.withOptions(
-    (options: PluginConfig = DEFAULT_OPTIONS) =>
-      (api) => {
-        options = options ?? DEFAULT_OPTIONS;
-        options.colors = options.colors ?? DEFAULT_COLORS;
-        options.utilities = options.utilities ?? DEFAULT_UTILITIES;
-        options.components = options.components ?? DEFAULT_COMPONENTS;
-        useColorwind(
-          api,
-          options as RequiredPluginConfig,
-        );
-      },
-  );
-}
 
-function useColorwind(
-  api: PluginAPI,
-  options: RequiredPluginConfig,
-): Colorwind {
-  return new Colorwind(api, options).create();
-}
-
-const colorwind: PluginWithOptions<PluginConfig> = plugColors();
+const colorwind: PluginWithOptions<PluginConfig> = plugin.withOptions(
+  (options: PluginConfig = DEFAULT_OPTIONS) =>
+    (api) => {
+      options = options ?? DEFAULT_OPTIONS;
+      options.colors = options.colors ?? DEFAULT_COLORS;
+      options.utilities = options.utilities ?? DEFAULT_UTILITIES;
+      options.components = options.components ?? DEFAULT_COMPONENTS;
+      new Colorwind(api, options as RequiredPluginConfig).create();
+    },
+);
 
 export default colorwind;

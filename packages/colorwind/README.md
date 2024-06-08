@@ -89,7 +89,7 @@ Add [`ColorWind`](https://colorwind.js.org) to your [TailwindCSS configuration](
 - With `NPM` (from `node_modules`):
 
   ```javascript ins={1,5}
-  import colorwind from "colorwind";
+  import colorwind from 'colorwind';
 
   /** @type {import('tailwindcss').Config} */
   export default {
@@ -100,14 +100,13 @@ Add [`ColorWind`](https://colorwind.js.org) to your [TailwindCSS configuration](
 - With `JSR` (using `Deno`):
 
   ```javascript ins={1,5}
-  import colorwind from "jsr:@siguici/colorwind";
+  import colorwind from 'jsr:@siguici/colorwind';
 
   /** @type {import('tailwindcss').Config} */
   export default {
     plugins: [colorwind],
   };
   ```
-
 
 ## 💡 Usage
 

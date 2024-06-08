@@ -72,14 +72,11 @@ export class Colorwind extends Plugin<RequiredPluginConfig> {
     super(api, options as RequiredPluginConfig);
     this.utilities = options.utilities;
     this.components = options.components;
-  }
-
-  public create(): this {
     for (const color of Object.entries(this.options.colors)) {
       this.addColor(color[0], color[1]);
     }
-    return this;
   }
+
   public addColor(name: ColorName, color: ColorOption): this {
     return this.addColorComponents(name, color).addColorUtilities(name, color);
   }
@@ -194,7 +191,7 @@ const colorwind: PluginWithOptions<PluginConfig> = plugin.withOptions(
       options.colors = options.colors ?? DEFAULT_COLORS;
       options.utilities = options.utilities ?? DEFAULT_UTILITIES;
       options.components = options.components ?? DEFAULT_COMPONENTS;
-      new Colorwind(api, options as RequiredPluginConfig).create();
+      new Colorwind(api, options as RequiredPluginConfig);
     },
 );
 

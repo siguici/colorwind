@@ -19,7 +19,6 @@ export interface PluginContract<T> {
   readonly options: T;
   readonly components: ComponentList;
   readonly utilities: UtilityList;
-  create(): this;
 }
 
 export type PluginWithoutOptions =
@@ -93,8 +92,6 @@ export abstract class Plugin<T> implements PluginContract<T> {
     const { config } = api;
     this.darkMode = config().darkMode || 'media';
   }
-
-  abstract create(): this;
 
   protected getPropertyOf(utility: UtilityName): PropertyName {
     return this.utilities[utility];

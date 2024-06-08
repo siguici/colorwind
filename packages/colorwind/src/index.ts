@@ -20,54 +20,66 @@ import {
 } from './utils';
 
 export type RequiredPluginConfig = {
-  colors: boolean | ColorsConfig;
+  colors: ColorsConfig;
+  utilities: UtilityList;
+  components: ComponentList;
 };
 
 export type PluginConfig = Partial<RequiredPluginConfig> | undefined;
 
-export const DEFAULT_OPTIONS: RequiredPluginConfig = {
-  colors: true,
+export const DEFAULT_UTILITIES: UtilityList = {
+  text: 'color',
+  bg: 'background-color',
+  decoration: 'text-decoration-color',
+  border: 'border-color',
+  outline: 'outline-color',
+  accent: 'accent-color',
+  caret: 'caret-color',
+  divide: 'border-color',
+  fill: 'fill',
+  stroke: 'stroke',
+  shadow: '--tw-shadow-color',
+  ring: '--tw-ring-color',
 };
 
-export class Colors extends Plugin<ColorsConfig> {
-  readonly components: ComponentList = {
+export const DEFAULT_COMPONENTS: ComponentList = {
+  link: ['text', 'decoration'],
+
+  entry: ['text', 'caret', 'border'],
+
+  choice: ['accent'],
+
+  button: {
+    DEFAULT: ['bg'],
     link: ['text', 'decoration'],
+    ring: ['text', 'ring'],
+    bordered: ['text', 'border'],
+    outlined: ['text', 'outline'],
+  },
+};
 
-    entry: ['text', 'caret', 'border'],
+export const DEFAULT_OPTIONS: RequiredPluginConfig = {
+  colors: DEFAULT_COLORS,
+  utilities: DEFAULT_UTILITIES,
+  components: DEFAULT_COMPONENTS,
+};
 
-    choice: ['accent'],
+export class Colorwind extends Plugin<RequiredPluginConfig> {
+  readonly components: ComponentList;
+  readonly utilities: UtilityList;
 
-    button: {
-      DEFAULT: ['bg'],
-      link: ['text', 'decoration'],
-      ring: ['text', 'ring'],
-      bordered: ['text', 'border'],
-      outlined: ['text', 'outline'],
-    },
-  };
-
-  readonly utilities: UtilityList = {
-    text: 'color',
-    bg: 'background-color',
-    decoration: 'text-decoration-color',
-    border: 'border-color',
-    outline: 'outline-color',
-    accent: 'accent-color',
-    caret: 'caret-color',
-    divide: 'border-color',
-    fill: 'fill',
-    stroke: 'stroke',
-    shadow: '--tw-shadow-color',
-    ring: '--tw-ring-color',
-  };
+  public constructor(api: PluginAPI, options: RequiredPluginConfig) {
+    super(api, options as RequiredPluginConfig);
+    this.utilities = options.utilities;
+    this.components = options.components;
+  }
 
   public create(): this {
-    for (const color of Object.entries(this.options)) {
+    for (const color of Object.entries(this.options.colors)) {
       this.addColor(color[0], color[1]);
     }
     return this;
   }
-
   public addColor(name: ColorName, color: ColorOption): this {
     return this.addColorComponents(name, color).addColorUtilities(name, color);
   }
@@ -178,20 +190,23 @@ export function plugColors(): PluginWithOptions<PluginConfig> {
   return plugin.withOptions(
     (options: PluginConfig = DEFAULT_OPTIONS) =>
       (api) => {
-        if (options.colors) {
-          useColors(
-            api,
-            typeof options.colors === 'boolean'
-              ? DEFAULT_COLORS
-              : options.colors,
-          );
-        }
+        options = options ?? DEFAULT_OPTIONS;
+        options.colors = options.colors ?? DEFAULT_COLORS;
+        options.utilities = options.utilities ?? DEFAULT_UTILITIES;
+        options.components = options.components ?? DEFAULT_COMPONENTS;
+        useColorwind(
+          api,
+          options as RequiredPluginConfig,
+        );
       },
   );
 }
 
-function useColors(api: PluginAPI, options: ColorsConfig): Colors {
-  return new Colors(api, options).create();
+function useColorwind(
+  api: PluginAPI,
+  options: RequiredPluginConfig,
+): Colorwind {
+  return new Colorwind(api, options).create();
 }
 
 const colorwind: PluginWithOptions<PluginConfig> = plugColors();

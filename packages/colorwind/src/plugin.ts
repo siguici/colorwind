@@ -209,10 +209,10 @@ export abstract class Plugin<T> implements PluginContract<T> {
     return rules;
   }
 
-  protected addVar(name: string, value: string): this {
+  protected addVar(name: string, value: string, prefix = 'cw'): this {
     return this.addBase({
       ':root': {
-        [`--s-${name}`]: value,
+        [`--${prefix}-${name}`]: value,
       },
     });
   }

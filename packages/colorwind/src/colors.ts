@@ -174,16 +174,18 @@ export const common_colors = {
   yellowgreen: [154, 205, 50],
 };
 
-const custom_colors: ColorsConfig = {};
+const css: Record<string, { rgb: string; hex: string }> = {};
 
-for (const color of Object.entries(common_colors)) {
-  const rgb_color = color[1];
-  custom_colors[color[0]] =
-    `rgb(${rgb_color[0]},${rgb_color[1]},${rgb_color[2]})`;
+for (const [k, v] of Object.entries(common_colors)) {
+  const [r, g, b] = v;
+  css[k].rgb = `rgb(${r}, ${g}, ${b})`;
+  css[k].hex =
+    `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 }
 
+export const cssColors = css;
+
 export const DEFAULT_COLORS: ColorsConfig = {
-  ...custom_colors,
   pure: {
     light: colors.white,
     dark: colors.black,

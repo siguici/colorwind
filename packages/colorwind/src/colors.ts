@@ -169,8 +169,9 @@ export const css = {
 
 export type ColorName = PropertyName;
 export type ColorScheme = 'dark' | 'light';
-export type ColorValue = PropertyValue;
-export type ColorOption = PropertyOption<ColorScheme>;
+export type ColorValue = string;
+export type ColorVariant = Record<ColorScheme, ColorValue>;
+export type ColorOption = ColorValue | ColorVariant;
 export type ColorsConfig = {
   [key: ColorName]: ColorOption;
 };

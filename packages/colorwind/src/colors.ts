@@ -1,21 +1,7 @@
-import colors from 'tailwindcss/colors';
-import {
-  type ComponentList,
-  Plugin,
-  type PropertyName,
-  type PropertyOption,
-  type PropertyValue,
-  type RuleSet,
-  type UtilityList,
-} from './plugin';
-import {
-  append_style,
-  darken_class,
-  darken_utility,
-  stylize_utility,
-} from './utils';
+import tailwind from 'tailwindcss/colors';
 
 export { default as tailwind } from 'tailwindcss/colors';
+
 export const css = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
@@ -167,7 +153,7 @@ export const css = {
   yellowgreen: '#9acd32',
 } as const;
 
-export type ColorName = PropertyName;
+export type ColorName = string;
 export type ColorScheme = 'dark' | 'light';
 export type ColorValue = string;
 export type ColorVariant = Record<ColorScheme, ColorValue>;
@@ -176,617 +162,473 @@ export type ColorsConfig = {
   [key: ColorName]: ColorOption;
 };
 
-export const DEFAULT_COLORS: ColorsConfig = {
+const colors = {
   pure: {
-    light: colors.white,
-    dark: colors.black,
+    light: tailwind.white,
+    dark: tailwind.black,
   },
-  slate: colors.slate[500],
+  slate: tailwind.slate[500],
   'slate-xs': {
-    light: colors.slate[400],
-    dark: colors.slate[600],
+    light: tailwind.slate[400],
+    dark: tailwind.slate[600],
   },
   'slate-sm': {
-    light: colors.slate[300],
-    dark: colors.slate[700],
+    light: tailwind.slate[300],
+    dark: tailwind.slate[700],
   },
   'slate-md': {
-    light: colors.slate[200],
-    dark: colors.slate[800],
+    light: tailwind.slate[200],
+    dark: tailwind.slate[800],
   },
   'slate-lg': {
-    light: colors.slate[100],
-    dark: colors.slate[900],
+    light: tailwind.slate[100],
+    dark: tailwind.slate[900],
   },
   'slate-xl': {
-    light: colors.slate[50],
-    dark: colors.slate[950],
+    light: tailwind.slate[50],
+    dark: tailwind.slate[950],
   },
-  gray: colors.gray[500],
+  gray: tailwind.gray[500],
   'gray-xs': {
-    light: colors.gray[400],
-    dark: colors.gray[600],
+    light: tailwind.gray[400],
+    dark: tailwind.gray[600],
   },
   'gray-sm': {
-    light: colors.gray[300],
-    dark: colors.gray[700],
+    light: tailwind.gray[300],
+    dark: tailwind.gray[700],
   },
   'gray-md': {
-    light: colors.gray[200],
-    dark: colors.gray[800],
+    light: tailwind.gray[200],
+    dark: tailwind.gray[800],
   },
   'gray-lg': {
-    light: colors.gray[100],
-    dark: colors.gray[900],
+    light: tailwind.gray[100],
+    dark: tailwind.gray[900],
   },
   'gray-xl': {
-    light: colors.gray[50],
-    dark: colors.gray[950],
+    light: tailwind.gray[50],
+    dark: tailwind.gray[950],
   },
-  zinc: colors.zinc[500],
+  zinc: tailwind.zinc[500],
   'zinc-xs': {
-    light: colors.zinc[400],
-    dark: colors.zinc[600],
+    light: tailwind.zinc[400],
+    dark: tailwind.zinc[600],
   },
   'zinc-sm': {
-    light: colors.zinc[300],
-    dark: colors.zinc[700],
+    light: tailwind.zinc[300],
+    dark: tailwind.zinc[700],
   },
   'zinc-md': {
-    light: colors.zinc[200],
-    dark: colors.zinc[800],
+    light: tailwind.zinc[200],
+    dark: tailwind.zinc[800],
   },
   'zinc-lg': {
-    light: colors.zinc[100],
-    dark: colors.zinc[900],
+    light: tailwind.zinc[100],
+    dark: tailwind.zinc[900],
   },
   'zinc-xl': {
-    light: colors.zinc[50],
-    dark: colors.zinc[950],
+    light: tailwind.zinc[50],
+    dark: tailwind.zinc[950],
   },
-  neutral: colors.neutral[500],
+  neutral: tailwind.neutral[500],
   'neutral-xs': {
-    light: colors.neutral[400],
-    dark: colors.neutral[600],
+    light: tailwind.neutral[400],
+    dark: tailwind.neutral[600],
   },
   'neutral-sm': {
-    light: colors.neutral[300],
-    dark: colors.neutral[700],
+    light: tailwind.neutral[300],
+    dark: tailwind.neutral[700],
   },
   'neutral-md': {
-    light: colors.neutral[200],
-    dark: colors.neutral[800],
+    light: tailwind.neutral[200],
+    dark: tailwind.neutral[800],
   },
   'neutral-lg': {
-    light: colors.neutral[100],
-    dark: colors.neutral[900],
+    light: tailwind.neutral[100],
+    dark: tailwind.neutral[900],
   },
   'neutral-xl': {
-    light: colors.neutral[50],
-    dark: colors.neutral[950],
+    light: tailwind.neutral[50],
+    dark: tailwind.neutral[950],
   },
-  stone: colors.stone[500],
+  stone: tailwind.stone[500],
   'stone-xs': {
-    light: colors.stone[400],
-    dark: colors.stone[600],
+    light: tailwind.stone[400],
+    dark: tailwind.stone[600],
   },
   'stone-sm': {
-    light: colors.stone[300],
-    dark: colors.stone[700],
+    light: tailwind.stone[300],
+    dark: tailwind.stone[700],
   },
   'stone-md': {
-    light: colors.stone[200],
-    dark: colors.stone[800],
+    light: tailwind.stone[200],
+    dark: tailwind.stone[800],
   },
   'stone-lg': {
-    light: colors.stone[100],
-    dark: colors.stone[900],
+    light: tailwind.stone[100],
+    dark: tailwind.stone[900],
   },
   'stone-xl': {
-    light: colors.stone[50],
-    dark: colors.stone[950],
+    light: tailwind.stone[50],
+    dark: tailwind.stone[950],
   },
-  red: colors.red[500],
+  red: tailwind.red[500],
   'red-xs': {
-    light: colors.red[400],
-    dark: colors.red[600],
+    light: tailwind.red[400],
+    dark: tailwind.red[600],
   },
   'red-sm': {
-    light: colors.red[300],
-    dark: colors.red[700],
+    light: tailwind.red[300],
+    dark: tailwind.red[700],
   },
   'red-md': {
-    light: colors.red[200],
-    dark: colors.red[800],
+    light: tailwind.red[200],
+    dark: tailwind.red[800],
   },
   'red-lg': {
-    light: colors.red[100],
-    dark: colors.red[900],
+    light: tailwind.red[100],
+    dark: tailwind.red[900],
   },
   'red-xl': {
-    light: colors.red[50],
-    dark: colors.red[950],
+    light: tailwind.red[50],
+    dark: tailwind.red[950],
   },
-  orange: colors.orange[500],
+  orange: tailwind.orange[500],
   'orange-xs': {
-    light: colors.orange[400],
-    dark: colors.orange[600],
+    light: tailwind.orange[400],
+    dark: tailwind.orange[600],
   },
   'orange-sm': {
-    light: colors.orange[300],
-    dark: colors.orange[700],
+    light: tailwind.orange[300],
+    dark: tailwind.orange[700],
   },
   'orange-md': {
-    light: colors.orange[200],
-    dark: colors.orange[800],
+    light: tailwind.orange[200],
+    dark: tailwind.orange[800],
   },
   'orange-lg': {
-    light: colors.orange[100],
-    dark: colors.orange[900],
+    light: tailwind.orange[100],
+    dark: tailwind.orange[900],
   },
   'orange-xl': {
-    light: colors.orange[50],
-    dark: colors.orange[950],
+    light: tailwind.orange[50],
+    dark: tailwind.orange[950],
   },
-  amber: colors.amber[500],
+  amber: tailwind.amber[500],
   'amber-xs': {
-    light: colors.amber[400],
-    dark: colors.amber[600],
+    light: tailwind.amber[400],
+    dark: tailwind.amber[600],
   },
   'amber-sm': {
-    light: colors.amber[300],
-    dark: colors.amber[700],
+    light: tailwind.amber[300],
+    dark: tailwind.amber[700],
   },
   'amber-md': {
-    light: colors.amber[200],
-    dark: colors.amber[800],
+    light: tailwind.amber[200],
+    dark: tailwind.amber[800],
   },
   'amber-lg': {
-    light: colors.amber[100],
-    dark: colors.amber[900],
+    light: tailwind.amber[100],
+    dark: tailwind.amber[900],
   },
   'amber-xl': {
-    light: colors.amber[50],
-    dark: colors.amber[950],
+    light: tailwind.amber[50],
+    dark: tailwind.amber[950],
   },
-  yellow: colors.yellow[500],
+  yellow: tailwind.yellow[500],
   'yellow-xs': {
-    light: colors.yellow[400],
-    dark: colors.yellow[600],
+    light: tailwind.yellow[400],
+    dark: tailwind.yellow[600],
   },
   'yellow-sm': {
-    light: colors.yellow[300],
-    dark: colors.yellow[700],
+    light: tailwind.yellow[300],
+    dark: tailwind.yellow[700],
   },
   'yellow-md': {
-    light: colors.yellow[200],
-    dark: colors.yellow[800],
+    light: tailwind.yellow[200],
+    dark: tailwind.yellow[800],
   },
   'yellow-lg': {
-    light: colors.yellow[100],
-    dark: colors.yellow[900],
+    light: tailwind.yellow[100],
+    dark: tailwind.yellow[900],
   },
   'yellow-xl': {
-    light: colors.yellow[50],
-    dark: colors.yellow[950],
+    light: tailwind.yellow[50],
+    dark: tailwind.yellow[950],
   },
-  lime: colors.lime[500],
+  lime: tailwind.lime[500],
   'lime-xs': {
-    light: colors.lime[400],
-    dark: colors.lime[600],
+    light: tailwind.lime[400],
+    dark: tailwind.lime[600],
   },
   'lime-sm': {
-    light: colors.lime[300],
-    dark: colors.lime[700],
+    light: tailwind.lime[300],
+    dark: tailwind.lime[700],
   },
   'lime-md': {
-    light: colors.lime[200],
-    dark: colors.lime[800],
+    light: tailwind.lime[200],
+    dark: tailwind.lime[800],
   },
   'lime-lg': {
-    light: colors.lime[100],
-    dark: colors.lime[900],
+    light: tailwind.lime[100],
+    dark: tailwind.lime[900],
   },
   'lime-xl': {
-    light: colors.lime[50],
-    dark: colors.lime[950],
+    light: tailwind.lime[50],
+    dark: tailwind.lime[950],
   },
-  green: colors.green[500],
+  green: tailwind.green[500],
   'green-xs': {
-    light: colors.green[400],
-    dark: colors.green[600],
+    light: tailwind.green[400],
+    dark: tailwind.green[600],
   },
   'green-sm': {
-    light: colors.green[300],
-    dark: colors.green[700],
+    light: tailwind.green[300],
+    dark: tailwind.green[700],
   },
   'green-md': {
-    light: colors.green[200],
-    dark: colors.green[800],
+    light: tailwind.green[200],
+    dark: tailwind.green[800],
   },
   'green-lg': {
-    light: colors.green[100],
-    dark: colors.green[900],
+    light: tailwind.green[100],
+    dark: tailwind.green[900],
   },
   'green-xl': {
-    light: colors.green[50],
-    dark: colors.green[950],
+    light: tailwind.green[50],
+    dark: tailwind.green[950],
   },
-  emerald: colors.emerald[500],
+  emerald: tailwind.emerald[500],
   'emerald-xs': {
-    light: colors.emerald[400],
-    dark: colors.emerald[600],
+    light: tailwind.emerald[400],
+    dark: tailwind.emerald[600],
   },
   'emerald-sm': {
-    light: colors.emerald[300],
-    dark: colors.emerald[700],
+    light: tailwind.emerald[300],
+    dark: tailwind.emerald[700],
   },
   'emerald-md': {
-    light: colors.emerald[200],
-    dark: colors.emerald[800],
+    light: tailwind.emerald[200],
+    dark: tailwind.emerald[800],
   },
   'emerald-lg': {
-    light: colors.emerald[100],
-    dark: colors.emerald[900],
+    light: tailwind.emerald[100],
+    dark: tailwind.emerald[900],
   },
   'emerald-xl': {
-    light: colors.emerald[50],
-    dark: colors.emerald[950],
+    light: tailwind.emerald[50],
+    dark: tailwind.emerald[950],
   },
-  teal: colors.teal[500],
+  teal: tailwind.teal[500],
   'teal-xs': {
-    light: colors.teal[400],
-    dark: colors.teal[600],
+    light: tailwind.teal[400],
+    dark: tailwind.teal[600],
   },
   'teal-sm': {
-    light: colors.teal[300],
-    dark: colors.teal[700],
+    light: tailwind.teal[300],
+    dark: tailwind.teal[700],
   },
   'teal-md': {
-    light: colors.teal[200],
-    dark: colors.teal[800],
+    light: tailwind.teal[200],
+    dark: tailwind.teal[800],
   },
   'teal-lg': {
-    light: colors.teal[100],
-    dark: colors.teal[900],
+    light: tailwind.teal[100],
+    dark: tailwind.teal[900],
   },
   'teal-xl': {
-    light: colors.teal[50],
-    dark: colors.teal[950],
+    light: tailwind.teal[50],
+    dark: tailwind.teal[950],
   },
-  cyan: colors.cyan[500],
+  cyan: tailwind.cyan[500],
   'cyan-xs': {
-    light: colors.cyan[400],
-    dark: colors.cyan[600],
+    light: tailwind.cyan[400],
+    dark: tailwind.cyan[600],
   },
   'cyan-sm': {
-    light: colors.cyan[300],
-    dark: colors.cyan[700],
+    light: tailwind.cyan[300],
+    dark: tailwind.cyan[700],
   },
   'cyan-md': {
-    light: colors.cyan[200],
-    dark: colors.cyan[800],
+    light: tailwind.cyan[200],
+    dark: tailwind.cyan[800],
   },
   'cyan-lg': {
-    light: colors.cyan[100],
-    dark: colors.cyan[900],
+    light: tailwind.cyan[100],
+    dark: tailwind.cyan[900],
   },
   'cyan-xl': {
-    light: colors.cyan[50],
-    dark: colors.cyan[950],
+    light: tailwind.cyan[50],
+    dark: tailwind.cyan[950],
   },
-  sky: colors.sky[500],
+  sky: tailwind.sky[500],
   'sky-xs': {
-    light: colors.sky[400],
-    dark: colors.sky[600],
+    light: tailwind.sky[400],
+    dark: tailwind.sky[600],
   },
   'sky-sm': {
-    light: colors.sky[300],
-    dark: colors.sky[700],
+    light: tailwind.sky[300],
+    dark: tailwind.sky[700],
   },
   'sky-md': {
-    light: colors.sky[200],
-    dark: colors.sky[800],
+    light: tailwind.sky[200],
+    dark: tailwind.sky[800],
   },
   'sky-lg': {
-    light: colors.sky[100],
-    dark: colors.sky[900],
+    light: tailwind.sky[100],
+    dark: tailwind.sky[900],
   },
   'sky-xl': {
-    light: colors.sky[50],
-    dark: colors.sky[950],
+    light: tailwind.sky[50],
+    dark: tailwind.sky[950],
   },
-  blue: colors.blue[500],
+  blue: tailwind.blue[500],
   'blue-xs': {
-    light: colors.blue[400],
-    dark: colors.blue[600],
+    light: tailwind.blue[400],
+    dark: tailwind.blue[600],
   },
   'blue-sm': {
-    light: colors.blue[300],
-    dark: colors.blue[700],
+    light: tailwind.blue[300],
+    dark: tailwind.blue[700],
   },
   'blue-md': {
-    light: colors.blue[200],
-    dark: colors.blue[800],
+    light: tailwind.blue[200],
+    dark: tailwind.blue[800],
   },
   'blue-lg': {
-    light: colors.blue[100],
-    dark: colors.blue[900],
+    light: tailwind.blue[100],
+    dark: tailwind.blue[900],
   },
   'blue-xl': {
-    light: colors.blue[50],
-    dark: colors.blue[950],
+    light: tailwind.blue[50],
+    dark: tailwind.blue[950],
   },
-  indigo: colors.indigo[500],
+  indigo: tailwind.indigo[500],
   'indigo-xs': {
-    light: colors.indigo[400],
-    dark: colors.indigo[600],
+    light: tailwind.indigo[400],
+    dark: tailwind.indigo[600],
   },
   'indigo-sm': {
-    light: colors.indigo[300],
-    dark: colors.indigo[700],
+    light: tailwind.indigo[300],
+    dark: tailwind.indigo[700],
   },
   'indigo-md': {
-    light: colors.indigo[200],
-    dark: colors.indigo[800],
+    light: tailwind.indigo[200],
+    dark: tailwind.indigo[800],
   },
   'indigo-lg': {
-    light: colors.indigo[100],
-    dark: colors.indigo[900],
+    light: tailwind.indigo[100],
+    dark: tailwind.indigo[900],
   },
   'indigo-xl': {
-    light: colors.indigo[50],
-    dark: colors.indigo[950],
+    light: tailwind.indigo[50],
+    dark: tailwind.indigo[950],
   },
-  violet: colors.violet[500],
+  violet: tailwind.violet[500],
   'violet-xs': {
-    light: colors.violet[400],
-    dark: colors.violet[600],
+    light: tailwind.violet[400],
+    dark: tailwind.violet[600],
   },
   'violet-sm': {
-    light: colors.violet[300],
-    dark: colors.violet[700],
+    light: tailwind.violet[300],
+    dark: tailwind.violet[700],
   },
   'violet-md': {
-    light: colors.violet[200],
-    dark: colors.violet[800],
+    light: tailwind.violet[200],
+    dark: tailwind.violet[800],
   },
   'violet-lg': {
-    light: colors.violet[100],
-    dark: colors.violet[900],
+    light: tailwind.violet[100],
+    dark: tailwind.violet[900],
   },
   'violet-xl': {
-    light: colors.violet[50],
-    dark: colors.violet[950],
+    light: tailwind.violet[50],
+    dark: tailwind.violet[950],
   },
-  purple: colors.purple[500],
+  purple: tailwind.purple[500],
   'purple-xs': {
-    light: colors.purple[400],
-    dark: colors.purple[600],
+    light: tailwind.purple[400],
+    dark: tailwind.purple[600],
   },
   'purple-sm': {
-    light: colors.purple[300],
-    dark: colors.purple[700],
+    light: tailwind.purple[300],
+    dark: tailwind.purple[700],
   },
   'purple-md': {
-    light: colors.purple[200],
-    dark: colors.purple[800],
+    light: tailwind.purple[200],
+    dark: tailwind.purple[800],
   },
   'purple-lg': {
-    light: colors.purple[100],
-    dark: colors.purple[900],
+    light: tailwind.purple[100],
+    dark: tailwind.purple[900],
   },
   'purple-xl': {
-    light: colors.purple[50],
-    dark: colors.purple[950],
+    light: tailwind.purple[50],
+    dark: tailwind.purple[950],
   },
-  fuchsia: colors.fuchsia[500],
+  fuchsia: tailwind.fuchsia[500],
   'fuchsia-xs': {
-    light: colors.fuchsia[400],
-    dark: colors.fuchsia[600],
+    light: tailwind.fuchsia[400],
+    dark: tailwind.fuchsia[600],
   },
   'fuchsia-sm': {
-    light: colors.fuchsia[300],
-    dark: colors.fuchsia[700],
+    light: tailwind.fuchsia[300],
+    dark: tailwind.fuchsia[700],
   },
   'fuchsia-md': {
-    light: colors.fuchsia[200],
-    dark: colors.fuchsia[800],
+    light: tailwind.fuchsia[200],
+    dark: tailwind.fuchsia[800],
   },
   'fuchsia-lg': {
-    light: colors.fuchsia[100],
-    dark: colors.fuchsia[900],
+    light: tailwind.fuchsia[100],
+    dark: tailwind.fuchsia[900],
   },
   'fuchsia-xl': {
-    light: colors.fuchsia[50],
-    dark: colors.fuchsia[950],
+    light: tailwind.fuchsia[50],
+    dark: tailwind.fuchsia[950],
   },
-  pink: colors.pink[500],
+  pink: tailwind.pink[500],
   'pink-xs': {
-    light: colors.pink[400],
-    dark: colors.pink[600],
+    light: tailwind.pink[400],
+    dark: tailwind.pink[600],
   },
   'pink-sm': {
-    light: colors.pink[300],
-    dark: colors.pink[700],
+    light: tailwind.pink[300],
+    dark: tailwind.pink[700],
   },
   'pink-md': {
-    light: colors.pink[200],
-    dark: colors.pink[800],
+    light: tailwind.pink[200],
+    dark: tailwind.pink[800],
   },
   'pink-lg': {
-    light: colors.pink[100],
-    dark: colors.pink[900],
+    light: tailwind.pink[100],
+    dark: tailwind.pink[900],
   },
   'pink-xl': {
-    light: colors.pink[50],
-    dark: colors.pink[950],
+    light: tailwind.pink[50],
+    dark: tailwind.pink[950],
   },
-  rose: colors.rose[500],
+  rose: tailwind.rose[500],
   'rose-xs': {
-    light: colors.rose[400],
-    dark: colors.rose[600],
+    light: tailwind.rose[400],
+    dark: tailwind.rose[600],
   },
   'rose-sm': {
-    light: colors.rose[300],
-    dark: colors.rose[700],
+    light: tailwind.rose[300],
+    dark: tailwind.rose[700],
   },
   'rose-md': {
-    light: colors.rose[200],
-    dark: colors.rose[800],
+    light: tailwind.rose[200],
+    dark: tailwind.rose[800],
   },
   'rose-lg': {
-    light: colors.rose[100],
-    dark: colors.rose[900],
+    light: tailwind.rose[100],
+    dark: tailwind.rose[900],
   },
   'rose-xl': {
-    light: colors.rose[50],
-    dark: colors.rose[950],
+    light: tailwind.rose[50],
+    dark: tailwind.rose[950],
   },
-};
+} as const satisfies ColorsConfig;
 
-export class Colors extends Plugin<ColorsConfig> {
-  readonly components: ComponentList = {
-    link: ['text', 'decoration'],
-
-    entry: ['text', 'caret', 'border'],
-
-    choice: ['accent'],
-
-    button: {
-      DEFAULT: ['bg'],
-      link: ['text', 'decoration'],
-      ring: ['text', 'ring'],
-      bordered: ['text', 'border'],
-      outlined: ['text', 'outline'],
-    },
-  };
-
-  readonly utilities: UtilityList = {
-    text: 'color',
-    bg: 'background-color',
-    decoration: 'text-decoration-color',
-    border: 'border-color',
-    outline: 'outline-color',
-    accent: 'accent-color',
-    caret: 'caret-color',
-    divide: 'border-color',
-    fill: 'fill',
-    stroke: 'stroke',
-    shadow: '--tw-shadow-color',
-    ring: '--tw-ring-color',
-  };
-
-  public create(): this {
-    for (const color of Object.entries(this.options)) {
-      this.addColor(color[0], color[1]);
-    }
-    return this;
-  }
-
-  public addColor(name: ColorName, color: ColorOption): this {
-    return this.addColorComponents(name, color).addColorUtilities(name, color);
-  }
-
-  public addColorComponents(name: ColorName, color: ColorOption): this {
-    return this.addComponents(this.stylizeColorComponents(name, color));
-  }
-
-  public addColorUtilities(name: ColorName, color: ColorOption): this {
-    return this.addUtilities(this.stylizeColorUtility(name, color));
-  }
-
-  public stylizeColorComponents(
-    name: ColorName,
-    color: ColorOption,
-  ): RuleSet[] {
-    const { e } = this.api;
-    const rules: RuleSet[] = [];
-    for (const component of Object.entries(this.components)) {
-      const componentName = `${component[0]}-${name}`;
-      const utilities = component[1];
-      let rule: RuleSet = {};
-
-      if (typeof utilities === 'string') {
-        rule =
-          typeof color === 'string'
-            ? {
-                [`.${componentName}`]: this.stylizeUtility(utilities, color),
-              }
-            : darken_class(
-                this.darkMode,
-                componentName,
-                this.stylizeUtility(utilities, color.light),
-                this.stylizeUtility(utilities, color.dark),
-              );
-      } else if (Array.isArray(utilities)) {
-        rule =
-          typeof color === 'string'
-            ? {
-                [`.${componentName}`]: this.stylizeUtilities(utilities, color),
-              }
-            : darken_class(
-                this.darkMode,
-                componentName,
-                this.stylizeUtilities(utilities, color.light),
-                this.stylizeUtilities(utilities, color.dark),
-              );
-      } else {
-        for (const utility of Object.entries(utilities)) {
-          const utilityName =
-            utility[0] === 'DEFAULT'
-              ? componentName
-              : `${componentName}-${e(utility[0])}`;
-          const properties = utility[1];
-          if (typeof properties === 'string') {
-            if (typeof color === 'string') {
-              rule[`.${utilityName}`] = this.stylizeUtility(properties, color);
-            } else {
-              rule = append_style(
-                darken_class(
-                  this.darkMode,
-                  utilityName,
-                  this.stylizeUtility(properties, color.light),
-                  this.stylizeUtility(properties, color.dark),
-                ),
-                rule,
-              );
-            }
-          } else {
-            if (typeof color === 'string') {
-              rule[`.${utilityName}`] = this.stylizeUtilities(
-                properties,
-                color,
-              );
-            } else {
-              rule = append_style(
-                darken_class(
-                  this.darkMode,
-                  utilityName,
-                  this.stylizeUtilities(properties, color.light),
-                  this.stylizeUtilities(properties, color.dark),
-                ),
-                rule,
-              );
-            }
-          }
-          rules.push(rule);
-        }
-      }
-    }
-    return rules;
-  }
-
-  public stylizeColorUtility(name: string, color: ColorOption): RuleSet {
-    const { e } = this.api;
-    return typeof color === 'string'
-      ? stylize_utility(this.utilities, e(name), color)
-      : darken_utility(
-          this.darkMode,
-          this.utilities,
-          e(name),
-          color.light,
-          color.dark,
-        );
-  }
-}
+export default colors;

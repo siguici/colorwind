@@ -2,13 +2,13 @@
   "name": "colorwind-monorepo",
   "version": "0.1.1",
   "license": "MIT",
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "pnpm@9.2.0",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
     "node": ">=20.14",
-    "pnpm": ">=9.1",
+    "pnpm": ">=9.2",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },
@@ -74,12 +74,12 @@
     "colorwind": "workspace:*",
     "postcss": "^8.4.38",
     "postcss-import": "^16.1.0",
-    "postcss-load-config": "^5.1.0",
+    "postcss-load-config": "^6.0.1",
     "postcss-nested": "^6.0.1",
     "tailwindcss": "^3.4.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
-    "vite": "^5.2.12",
+    "vite": "^5.2.13",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   }

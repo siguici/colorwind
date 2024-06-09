@@ -2,13 +2,13 @@
   "name": "colorwind",
   "version": "0.1.1",
   "license": "MIT",
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "pnpm@9.2.0",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
     "node": ">=20.14",
-    "pnpm": ">=9.1",
+    "pnpm": ">=9.2",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },
@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
-    "denoify": "^1.6.12",
+    "denoify": "^1.6.13",
     "rimraf": "^5.0.7",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.4.5"

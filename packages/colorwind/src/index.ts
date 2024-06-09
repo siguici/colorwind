@@ -9,6 +9,7 @@ import {
   type ComponentList,
   Plugin,
   type PluginWithOptions,
+  type PluginWithoutOptions,
   type RuleSet,
   type UtilityList,
 } from './plugin';
@@ -19,13 +20,13 @@ import {
   stylize_utility,
 } from './utils';
 
-export type RequiredPluginConfig = {
+export type PluginConfig = {
   colors: ColorsConfig;
   utilities: UtilityList;
   components: ComponentList;
 };
 
-export type PluginConfig = Partial<RequiredPluginConfig> | undefined;
+export type PluginOptions = Partial<PluginConfig>;
 
 export const DEFAULT_UTILITIES: UtilityList = {
   text: 'color',
@@ -58,18 +59,18 @@ export const DEFAULT_COMPONENTS: ComponentList = {
   },
 };
 
-export const DEFAULT_OPTIONS: RequiredPluginConfig = {
+export const DEFAULT_OPTIONS: PluginConfig = {
   colors: DEFAULT_COLORS,
   utilities: DEFAULT_UTILITIES,
   components: DEFAULT_COMPONENTS,
 };
 
-export class Colorwind extends Plugin<RequiredPluginConfig> {
+export class Colorwind extends Plugin<PluginConfig> {
   readonly components: ComponentList;
   readonly utilities: UtilityList;
 
-  public constructor(api: PluginAPI, options: RequiredPluginConfig) {
-    super(api, options as RequiredPluginConfig);
+  public constructor(api: PluginAPI, options: PluginConfig) {
+    super(api, options);
     this.utilities = options.utilities;
     this.components = options.components;
     for (const color of Object.entries(this.options.colors)) {
@@ -184,15 +185,19 @@ export class Colorwind extends Plugin<RequiredPluginConfig> {
   }
 }
 
-const colorwind: PluginWithOptions<PluginConfig> = plugin.withOptions(
-  (options: PluginConfig = DEFAULT_OPTIONS) =>
-    (api) => {
-      options = options ?? DEFAULT_OPTIONS;
-      options.colors = options.colors ?? DEFAULT_COLORS;
-      options.utilities = options.utilities ?? DEFAULT_UTILITIES;
-      options.components = options.components ?? DEFAULT_COMPONENTS;
-      new Colorwind(api, options as RequiredPluginConfig);
-    },
-);
+function colorwind(): PluginWithoutOptions {
+  return plugin((api: PluginAPI) => new Colorwind(api, DEFAULT_OPTIONS));
+}
+
+function colorwind_with(): PluginWithOptions<PluginOptions> {
+  return plugin.withOptions((options: PluginOptions) => (api: PluginAPI) => {
+    options.colors = options.colors ?? DEFAULT_COLORS;
+    options.utilities = options.utilities ?? DEFAULT_UTILITIES;
+    options.components = options.components ?? DEFAULT_COMPONENTS;
+    new Colorwind(api, options as PluginConfig);
+  });
+}
+
+colorwind.with = colorwind_with;
 
 export default colorwind;

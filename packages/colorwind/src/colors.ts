@@ -629,6 +629,6 @@ const colors = {
     light: tailwind.rose[50],
     dark: tailwind.rose[950],
   },
-} as const satisfies ColorsConfig;
+} as const;
 
 export default colors;

@@ -8,6 +8,7 @@ import DEFAULT_COLORS, {
 import {
   type ComponentList,
   Plugin,
+  type PluginConfig,
   type PluginWithOptions,
   type PluginWithoutOptions,
   type RuleSet,
@@ -20,13 +21,11 @@ import {
   stylize_utility,
 } from './utils';
 
-export type PluginConfig = {
+export interface ColorwindConfig extends PluginConfig {
   colors: ColorsConfig;
-  utilities: UtilityList;
-  components: ComponentList;
-};
+}
 
-export type PluginOptions = Partial<PluginConfig>;
+export type ColorwindOptions = Partial<ColorwindConfig>;
 
 export const DEFAULT_UTILITIES: UtilityList = {
   text: 'color',
@@ -59,23 +58,23 @@ export const DEFAULT_COMPONENTS: ComponentList = {
   },
 };
 
-export const DEFAULT_OPTIONS: PluginConfig = {
+export const DEFAULT_OPTIONS: ColorwindConfig = {
   colors: DEFAULT_COLORS,
   utilities: DEFAULT_UTILITIES,
   components: DEFAULT_COMPONENTS,
 };
 
-export class Colorwind extends Plugin<PluginConfig> {
-  readonly components: ComponentList;
-  readonly utilities: UtilityList;
-
-  public constructor(api: PluginAPI, options: PluginConfig) {
+export class Colorwind extends Plugin<ColorwindConfig> {
+  public constructor(api: PluginAPI, options: ColorwindConfig) {
     super(api, options);
-    this.utilities = options.utilities;
-    this.components = options.components;
+    this.addColors();
+  }
+
+  public addColors(): this {
     for (const color of Object.entries(this.options.colors)) {
       this.addColor(color[0], color[1]);
     }
+    return this;
   }
 
   public addColor(name: ColorName, color: ColorOption): this {
@@ -96,7 +95,7 @@ export class Colorwind extends Plugin<PluginConfig> {
   ): RuleSet[] {
     const { e } = this.api;
     const rules: RuleSet[] = [];
-    for (const component of Object.entries(this.components)) {
+    for (const component of Object.entries(this.options.components)) {
       const componentName = `${component[0]}-${name}`;
       const utilities = component[1];
       let rule: RuleSet = {};
@@ -174,10 +173,10 @@ export class Colorwind extends Plugin<PluginConfig> {
   public stylizeColorUtility(name: string, color: ColorOption): RuleSet {
     const { e } = this.api;
     return typeof color === 'string'
-      ? stylize_utility(this.utilities, e(name), color)
+      ? stylize_utility(this.options.utilities, e(name), color)
       : darken_utility(
           this.darkMode,
-          this.utilities,
+          this.options.utilities,
           e(name),
           color.light,
           color.dark,
@@ -189,12 +188,12 @@ function colorwind(): PluginWithoutOptions {
   return plugin((api: PluginAPI) => new Colorwind(api, DEFAULT_OPTIONS));
 }
 
-function colorwind_with(): PluginWithOptions<PluginOptions> {
-  return plugin.withOptions((options: PluginOptions) => (api: PluginAPI) => {
+function colorwind_with(): PluginWithOptions<ColorwindOptions> {
+  return plugin.withOptions((options: ColorwindOptions) => (api: PluginAPI) => {
     options.colors = options.colors ?? DEFAULT_COLORS;
     options.utilities = options.utilities ?? DEFAULT_UTILITIES;
     options.components = options.components ?? DEFAULT_COMPONENTS;
-    new Colorwind(api, options as PluginConfig);
+    new Colorwind(api, options as ColorwindConfig);
   });
 }
 

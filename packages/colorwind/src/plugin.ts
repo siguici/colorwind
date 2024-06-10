@@ -14,11 +14,14 @@ import {
   stylize_property_callback,
 } from './utils';
 
-export interface PluginContract<T> {
+export type PluginConfig = {
+  utilities: UtilityList;
+  components: ComponentList;
+};
+
+export interface PluginContract<T extends PluginConfig> {
   readonly api: PluginAPI;
   readonly options: T;
-  readonly components: ComponentList;
-  readonly utilities: UtilityList;
 }
 
 export type PluginWithoutOptions =
@@ -80,10 +83,10 @@ export type StyleValues = Record<string, string>;
 
 export type DarkMode = Partial<DarkModeConfig>;
 
-export abstract class Plugin<T> implements PluginContract<T> {
+export abstract class Plugin<T extends PluginConfig>
+  implements PluginContract<T>
+{
   readonly darkMode: DarkMode = 'media';
-  abstract readonly components: ComponentList;
-  abstract readonly utilities: UtilityList;
 
   constructor(
     readonly api: PluginAPI,
@@ -94,15 +97,14 @@ export abstract class Plugin<T> implements PluginContract<T> {
   }
 
   protected getPropertyOf(utility: UtilityName): PropertyName {
-    return this.utilities[utility];
+    return this.options.utilities[utility];
   }
 
   protected getPropertiesOf(utilities: UtilityName[]): PropertyName[] {
     const properties: PropertyName[] = [];
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    utilities.forEach((utility) => {
+    for (const utility of utilities) {
       properties.push(this.getPropertyOf(utility));
-    });
+    }
     return properties;
   }
 
@@ -133,7 +135,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
     const rules: StyleCallbacks = {};
 
     // biome-ignore lint/complexity/noForEach: <explanation>
-    Object.entries(this.components).forEach((component) => {
+    Object.entries(this.options.components).forEach((component) => {
       const name = `${component[0]}-${e(variant)}`;
       const utilities = component[1];
 
@@ -162,8 +164,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
     const { e } = this.api;
     let rules: RuleSet = {};
 
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    Object.entries(this.components).forEach((component) => {
+    for (const component of Object.entries(this.options.components)) {
       const name = `${component[0]}-${e(variant)}`;
       const utilities = component[1];
 
@@ -178,8 +179,7 @@ export abstract class Plugin<T> implements PluginContract<T> {
           rules,
         );
       } else {
-        // biome-ignore lint/complexity/noForEach: <explanation>
-        Object.entries(utilities).forEach((utility) => {
+        for (const utility of Object.entries(utilities)) {
           const utilityName =
             utility[0] === 'DEFAULT' ? name : `${name}-${e(utility[0])}`;
           const properties = utility[1];
@@ -200,9 +200,9 @@ export abstract class Plugin<T> implements PluginContract<T> {
               rules,
             );
           }
-        });
+        }
       }
-    });
+    }
     return rules;
   }
 

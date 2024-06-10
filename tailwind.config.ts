@@ -1,5 +1,5 @@
 import colorwind from 'colorwind';
 
 export default {
-  plugins: [colorwind()],
+  plugins: [colorwind],
 };

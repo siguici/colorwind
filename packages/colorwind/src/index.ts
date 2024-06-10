@@ -10,7 +10,6 @@ import {
   Plugin,
   type PluginConfig,
   type PluginWithOptions,
-  type PluginWithoutOptions,
   type RuleSet,
   type UtilityList,
 } from './plugin';
@@ -184,16 +183,14 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   }
 }
 
-export const colorwind: PluginWithOptions<ColorwindOptions> =
-  plugin.withOptions((options: ColorwindOptions) => (api: PluginAPI) => {
+const colorwind: PluginWithOptions<ColorwindOptions> = plugin.withOptions(
+  (options?: ColorwindOptions) => (api: PluginAPI) => {
+    options = options ?? DEFAULT_OPTIONS;
     options.colors = options.colors ?? DEFAULT_COLORS;
     options.utilities = options.utilities ?? DEFAULT_UTILITIES;
     options.components = options.components ?? DEFAULT_COMPONENTS;
     new Colorwind(api, options as ColorwindConfig);
-  });
-
-const _colorwind: PluginWithoutOptions = plugin(
-  (api: PluginAPI) => new Colorwind(api, DEFAULT_OPTIONS),
+  },
 );
 
-export default _colorwind;
+export default colorwind;

@@ -70,8 +70,8 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   }
 
   public addColors(): this {
-    for (const color of Object.entries(this.options.colors)) {
-      this.addColor(color[0], color[1]);
+    for (const [colorName, colorOption] of Object.entries(this.options.colors)) {
+      this.addColor(colorName, colorOption);
     }
     return this;
   }

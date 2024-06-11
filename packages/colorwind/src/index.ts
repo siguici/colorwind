@@ -185,11 +185,11 @@ export class Colorwind extends Plugin<ColorwindConfig> {
 
 const colorwind: PluginWithOptions<ColorwindOptions> = plugin.withOptions(
   (options?: ColorwindOptions) => (api: PluginAPI) => {
-    options = options ?? DEFAULT_OPTIONS;
-    options.colors = options.colors ?? DEFAULT_COLORS;
-    options.utilities = options.utilities ?? DEFAULT_UTILITIES;
-    options.components = options.components ?? DEFAULT_COMPONENTS;
-    new Colorwind(api, options as ColorwindConfig);
+    const opts = options ?? DEFAULT_OPTIONS;
+    opts.colors = opts.colors ?? DEFAULT_COLORS;
+    opts.utilities = opts.utilities ?? DEFAULT_UTILITIES;
+    opts.components = opts.components ?? DEFAULT_COMPONENTS;
+    new Colorwind(api, opts as ColorwindConfig);
   },
 );
 

@@ -6,16 +6,19 @@ import type {
 } from 'tailwindcss/types/config';
 
 import {
-  append_style,
-  stylize_class,
-  stylize_properties,
-  stylize_properties_callback,
-  stylize_property,
-  stylize_property_callback,
+  appendStyle,
+  isArray,
+  isObject,
+  isString,
+  stylizeClass,
+  stylizeProperties,
+  stylizePropertiesCallback,
+  stylizeProperty,
+  stylizePropertyCallback,
 } from './utils';
 
 export type PluginConfig = {
-  utilities: UtilityList;
+  utilities: UtilityMap;
   components: ComponentList;
 };
 
@@ -56,19 +59,62 @@ export type PropertyConfig<T extends string> = {
 };
 
 export type UtilityName = string;
-export type UtilityList = {
-  [key: UtilityName]: PropertyName;
+export type UtilityValue = PropertyName;
+export type UtilityList = UtilityName[];
+export type UtilityMap = {
+  [key: UtilityName]: UtilityValue;
 };
+export type Utilities = UtilityList | UtilityMap;
 
 export type ComponentName = string;
+export type ComponentOption =
+  | UtilityName
+  | Utilities
+  | Record<UtilityName, Utilities>;
 
 export interface ComponentList {
-  [key: ComponentName]:
-    | UtilityName
-    | UtilityName[]
-    | UtilityList
-    | Record<UtilityName, UtilityList | UtilityName[]>;
+  [key: ComponentName]: ComponentOption;
 }
+
+export function isUtilityName(name: unknown): name is UtilityName {
+  return isString(name);
+}
+
+export function isUtilityValue(value: unknown): value is UtilityValue {
+  return isString(value);
+}
+
+export function isUtilityList(utilities: unknown): utilities is UtilityList {
+  return isArray<UtilityName>(utilities, isString);
+}
+
+export function isUtilityMap(utilities: unknown): utilities is UtilityMap {
+  return isObject<UtilityName, UtilityValue>(
+    utilities,
+    isUtilityName,
+    isUtilityValue,
+  );
+}
+
+export function isUtilities(utilities: unknown): utilities is Utilities {
+  return isUtilityList(utilities) || isUtilityMap(utilities);
+}
+
+export function isComponentName(name: unknown): name is ComponentName {
+  return isString(name);
+}
+
+export function isComponentOption(option: unknown): option is ComponentOption {
+  return (
+    isUtilityName(option) ||
+    isUtilities(option) ||
+    isObject<UtilityName, Utilities>(option, isUtilityName, isUtilities)
+  );
+}
+
+export class UtilityError extends Error {}
+
+export class ComponentError extends Error {}
 
 export type DeclarationBlock = Record<string, string>;
 export interface RuleSet {
@@ -100,7 +146,7 @@ export abstract class Plugin<T extends PluginConfig>
     return this.options.utilities[utility];
   }
 
-  protected getPropertiesOf(utilities: UtilityName[]): PropertyName[] {
+  protected getPropertiesOf(utilities: UtilityList): PropertyName[] {
     const properties: PropertyName[] = [];
     for (const utility of utilities) {
       properties.push(this.getPropertyOf(utility));
@@ -112,51 +158,49 @@ export abstract class Plugin<T extends PluginConfig>
     utility: UtilityName,
     value: PropertyValue,
   ): DeclarationBlock {
-    return stylize_property(this.getPropertyOf(utility), value);
+    return stylizeProperty(this.getPropertyOf(utility), value);
   }
 
   protected stylizeUtilityCallback(utility: UtilityName): StyleCallback {
-    return stylize_property_callback(this.getPropertyOf(utility));
+    return stylizePropertyCallback(this.getPropertyOf(utility));
   }
 
   protected stylizeUtilities(
-    utilities: UtilityName[],
+    utilities: UtilityList,
     value: PropertyValue,
   ): DeclarationBlock {
-    return stylize_properties(this.getPropertiesOf(utilities), value);
+    return stylizeProperties(this.getPropertiesOf(utilities), value);
   }
 
-  protected stylizeUtilitiesCallback(utilities: UtilityName[]): StyleCallback {
-    return stylize_properties_callback(this.getPropertiesOf(utilities));
+  protected stylizeUtilitiesCallback(utilities: UtilityList): StyleCallback {
+    return stylizePropertiesCallback(this.getPropertiesOf(utilities));
   }
 
   protected stylizeComponentsCallback(variant: string): StyleCallbacks {
     const { e } = this.api;
     const rules: StyleCallbacks = {};
 
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    Object.entries(this.options.components).forEach((component) => {
-      const name = `${component[0]}-${e(variant)}`;
-      const utilities = component[1];
+    for (const [componentName, option] of Object.entries(
+      this.options.components,
+    )) {
+      const name = `${componentName}-${e(variant)}`;
 
-      if (typeof utilities === 'string') {
-        rules[name] = this.stylizeUtilityCallback(utilities);
-      } else if (Array.isArray(utilities)) {
-        rules[name] = this.stylizeUtilitiesCallback(utilities);
+      if (isUtilityName(option)) {
+        rules[name] = this.stylizeUtilityCallback(option);
+      } else if (isUtilityList(option)) {
+        rules[name] = this.stylizeUtilitiesCallback(option);
       } else {
-        // biome-ignore lint/complexity/noForEach: <explanation>
-        Object.entries(utilities).forEach((utility) => {
-          const utilityName =
-            utility[0] === 'DEFAULT' ? name : `${name}-${e(utility[0])}`;
-          const properties = utility[1];
-          if (typeof properties === 'string') {
-            rules[utilityName] = this.stylizeUtilityCallback(properties);
+        for (const [utilityName, properties] of Object.entries(option)) {
+          const className =
+            utilityName === 'DEFAULT' ? name : `${name}-${e(utilityName)}`;
+          if (isUtilityValue(properties)) {
+            rules[className] = this.stylizeUtilityCallback(properties);
           } else {
-            rules[utilityName] = this.stylizeUtilitiesCallback(properties);
+            rules[className] = this.stylizeUtilitiesCallback(properties);
           }
-        });
+        }
       }
-    });
+    }
     return rules;
   }
 
@@ -164,36 +208,34 @@ export abstract class Plugin<T extends PluginConfig>
     const { e } = this.api;
     let rules: RuleSet = {};
 
-    for (const component of Object.entries(this.options.components)) {
-      const name = `${component[0]}-${e(variant)}`;
-      const utilities = component[1];
+    for (const [componentName, option] of Object.entries(
+      this.options.components,
+    )) {
+      const name = `${componentName}-${e(variant)}`;
 
-      if (typeof utilities === 'string') {
-        rules = append_style(
-          stylize_class(name, this.stylizeUtility(utilities, value)),
+      if (isUtilityName(option)) {
+        rules = appendStyle(
+          stylizeClass(name, this.stylizeUtility(option, value)),
           rules,
         );
-      } else if (Array.isArray(utilities)) {
-        rules = append_style(
-          stylize_class(name, this.stylizeUtilities(utilities, value)),
+      } else if (isUtilityList(option)) {
+        rules = appendStyle(
+          stylizeClass(name, this.stylizeUtilities(option, value)),
           rules,
         );
       } else {
-        for (const utility of Object.entries(utilities)) {
+        for (const utility of Object.entries(option)) {
           const utilityName =
             utility[0] === 'DEFAULT' ? name : `${name}-${e(utility[0])}`;
           const properties = utility[1];
           if (typeof properties === 'string') {
-            rules = append_style(
-              stylize_class(
-                utilityName,
-                this.stylizeUtility(properties, value),
-              ),
+            rules = appendStyle(
+              stylizeClass(utilityName, this.stylizeUtility(properties, value)),
               rules,
             );
           } else {
-            rules = append_style(
-              stylize_class(
+            rules = appendStyle(
+              stylizeClass(
                 utilityName,
                 this.stylizeUtilities(properties, value),
               ),

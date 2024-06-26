@@ -7,7 +7,7 @@ import type {
   RuleSet,
   StyleCallback,
   StyleCallbacks,
-  UtilityList,
+  UtilityMap,
 } from './plugin';
 
 export function darken(
@@ -82,7 +82,7 @@ export function darken(
   return rules;
 }
 
-export function darken_class(
+export function darkenClass(
   darkMode: DarkMode,
   className: string,
   lightRules: RuleSet,
@@ -91,14 +91,14 @@ export function darken_class(
   return darken(darkMode, `.${className}`, lightRules, darkRules);
 }
 
-export function stylize_class(
+export function stylizeClass(
   className: ClassName,
   properties: DeclarationBlock,
 ): RuleSet {
   let declarations: DeclarationBlock = {};
   for (const property of Object.entries(properties)) {
-    declarations = append_style(
-      stylize_property(property[0], property[1]),
+    declarations = appendStyle(
+      stylizeProperty(property[0], property[1]),
       declarations,
     );
   }
@@ -108,7 +108,7 @@ export function stylize_class(
   };
 }
 
-export function stylize_property(
+export function stylizeProperty(
   property: PropertyName,
   value: PropertyValue,
 ): DeclarationBlock {
@@ -117,35 +117,33 @@ export function stylize_property(
   };
 }
 
-export function stylize_properties(
+export function stylizeProperties(
   properties: PropertyName[],
   value: PropertyValue,
 ): DeclarationBlock {
   let rule: DeclarationBlock = {};
   for (const propertyName of properties) {
-    rule = append_style(stylize_property(propertyName, value), rule);
+    rule = appendStyle(stylizeProperty(propertyName, value), rule);
   }
   return rule;
 }
 
-export function stylize_property_callback(
-  property: PropertyName,
-): StyleCallback {
+export function stylizePropertyCallback(property: PropertyName): StyleCallback {
   return (value) => {
-    return stylize_property(property, value);
+    return stylizeProperty(property, value);
   };
 }
 
-export function stylize_properties_callback(
+export function stylizePropertiesCallback(
   properties: PropertyName[],
 ): StyleCallback {
   return (value) => {
-    return stylize_properties(properties, value);
+    return stylizeProperties(properties, value);
   };
 }
 
-export function stylize_utility(
-  utilities: UtilityList,
+export function stylizeUtility(
+  utilities: UtilityMap,
   name: PropertyName,
   value: PropertyValue,
 ): RuleSet {
@@ -160,22 +158,22 @@ export function stylize_utility(
   return rules;
 }
 
-export function stylize_utility_callback(
-  utilities: UtilityList,
+export function stylizeUtilityCallback(
+  utilities: UtilityMap,
   name: PropertyName,
 ): StyleCallbacks {
   const rules: StyleCallbacks = {};
 
   for (const utility of Object.entries(utilities)) {
-    rules[`.${utility[0]}-${name}`] = stylize_property_callback(utility[1]);
+    rules[`.${utility[0]}-${name}`] = stylizePropertyCallback(utility[1]);
   }
 
   return rules;
 }
 
-export function darken_utility(
+export function darkenUtility(
   darkMode: DarkMode,
-  utilities: UtilityList,
+  utilities: UtilityMap,
   name: PropertyName,
   lightValue: PropertyValue,
   darkValue: PropertyValue,
@@ -185,14 +183,14 @@ export function darken_utility(
   for (const utility of Object.entries(utilities)) {
     const utilityName = `${utility[0]}-${name}`;
     const propertyName = utility[1];
-    rules[`.${utilityName}-light`] = stylize_property(propertyName, lightValue);
-    rules[`.${utilityName}-dark`] = stylize_property(propertyName, darkValue);
-    rules = append_style(
-      darken_class(
+    rules[`.${utilityName}-light`] = stylizeProperty(propertyName, lightValue);
+    rules[`.${utilityName}-dark`] = stylizeProperty(propertyName, darkValue);
+    rules = appendStyle(
+      darkenClass(
         darkMode,
         utilityName,
-        stylize_property(propertyName, lightValue),
-        stylize_property(propertyName, darkValue),
+        stylizeProperty(propertyName, lightValue),
+        stylizeProperty(propertyName, darkValue),
       ),
       rules,
     );
@@ -201,7 +199,7 @@ export function darken_utility(
   return rules;
 }
 
-export function append_style<T extends DeclarationBlock | RuleSet>(
+export function appendStyle<T extends DeclarationBlock | RuleSet>(
   style: T,
   styles: T,
 ): T {
@@ -219,4 +217,30 @@ export function prependStyle<T extends DeclarationBlock | RuleSet>(
     ...style,
     ...styles,
   };
+}
+
+export function isString(str: unknown): str is string {
+  return typeof str === 'string' || str instanceof String;
+}
+
+export function isArray<T = unknown>(
+  arr: unknown,
+  filter?: (value: unknown, index: number) => boolean,
+): arr is T[] {
+  return Array.isArray(arr) && (filter ? arr.every(filter) : true);
+}
+
+export function isObject<K extends string | number | symbol, V = unknown>(
+  obj: unknown,
+  keyFilter?: (key: K) => boolean,
+  valueFilter?: (value: V) => boolean,
+): obj is Record<K, V> {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    !isArray(obj) &&
+    !(obj instanceof RegExp) &&
+    (keyFilter ? (Object.keys(obj) as K[]).every(keyFilter) : true) &&
+    (valueFilter ? Object.values(obj).every(valueFilter) : true)
+  );
 }

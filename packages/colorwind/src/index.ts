@@ -11,13 +11,13 @@ import {
   type PluginConfig,
   type PluginWithOptions,
   type RuleSet,
-  type UtilityList,
+  type UtilityMap,
 } from './plugin';
 import {
-  append_style,
-  darken_class,
-  darken_utility,
-  stylize_utility,
+  appendStyle,
+  darkenClass,
+  darkenUtility,
+  stylizeUtility,
 } from './utils';
 
 export interface ColorwindConfig extends PluginConfig {
@@ -26,7 +26,7 @@ export interface ColorwindConfig extends PluginConfig {
 
 export type ColorwindOptions = Partial<ColorwindConfig>;
 
-export const DEFAULT_UTILITIES: UtilityList = {
+export const DEFAULT_UTILITIES: UtilityMap = {
   text: 'color',
   bg: 'background-color',
   decoration: 'text-decoration-color',
@@ -70,7 +70,9 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   }
 
   public addColors(): this {
-    for (const [colorName, colorOption] of Object.entries(this.options.colors)) {
+    for (const [colorName, colorOption] of Object.entries(
+      this.options.colors,
+    )) {
       this.addColor(colorName, colorOption);
     }
     return this;
@@ -105,7 +107,7 @@ export class Colorwind extends Plugin<ColorwindConfig> {
             ? {
                 [`.${componentName}`]: this.stylizeUtility(utilities, color),
               }
-            : darken_class(
+            : darkenClass(
                 this.darkMode,
                 componentName,
                 this.stylizeUtility(utilities, color.light),
@@ -117,7 +119,7 @@ export class Colorwind extends Plugin<ColorwindConfig> {
             ? {
                 [`.${componentName}`]: this.stylizeUtilities(utilities, color),
               }
-            : darken_class(
+            : darkenClass(
                 this.darkMode,
                 componentName,
                 this.stylizeUtilities(utilities, color.light),
@@ -126,7 +128,7 @@ export class Colorwind extends Plugin<ColorwindConfig> {
       } else {
         for (const utility of Object.entries(utilities)) {
           const utilityName =
-            utility[0] === 'DEFAULT'
+            utility[0] === 'DEFAULT_'
               ? componentName
               : `${componentName}-${e(utility[0])}`;
           const properties = utility[1];
@@ -134,8 +136,8 @@ export class Colorwind extends Plugin<ColorwindConfig> {
             if (typeof color === 'string') {
               rule[`.${utilityName}`] = this.stylizeUtility(properties, color);
             } else {
-              rule = append_style(
-                darken_class(
+              rule = appendStyle(
+                darkenClass(
                   this.darkMode,
                   utilityName,
                   this.stylizeUtility(properties, color.light),
@@ -151,8 +153,8 @@ export class Colorwind extends Plugin<ColorwindConfig> {
                 color,
               );
             } else {
-              rule = append_style(
-                darken_class(
+              rule = appendStyle(
+                darkenClass(
                   this.darkMode,
                   utilityName,
                   this.stylizeUtilities(properties, color.light),
@@ -172,8 +174,8 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   public stylizeColorUtility(name: string, color: ColorOption): RuleSet {
     const { e } = this.api;
     return typeof color === 'string'
-      ? stylize_utility(this.options.utilities, e(name), color)
-      : darken_utility(
+      ? stylizeUtility(this.options.utilities, e(name), color)
+      : darkenUtility(
           this.darkMode,
           this.options.utilities,
           e(name),

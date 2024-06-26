@@ -128,7 +128,7 @@ export class Colorwind extends Plugin<ColorwindConfig> {
       } else {
         for (const utility of Object.entries(utilities)) {
           const utilityName =
-            utility[0] === 'DEFAULT_'
+            utility[0] === 'DEFAULT'
               ? componentName
               : `${componentName}-${e(utility[0])}`;
           const properties = utility[1];

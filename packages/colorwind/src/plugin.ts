@@ -6,6 +6,7 @@ import type {
 } from 'tailwindcss/types/config';
 
 import {
+  darkenClass,
   isArray,
   isObject,
   isString,
@@ -172,19 +173,49 @@ export abstract class Plugin<T extends PluginConfig>
     return this;
   }
 
+  protected addDarkUtility(
+    className: string,
+    utilityName: string,
+    lightPropertyValue: string,
+    darkPropertyValue: string,
+  ): this {
+    return this.addComponents(
+      darkenClass(
+        this.darkMode,
+        className,
+        this.stylizeUtility(utilityName, lightPropertyValue),
+        this.stylizeUtility(utilityName, darkPropertyValue),
+      ),
+    );
+  }
+
   protected addUtility(
     className: string,
     utilityName: string,
     propertyValue?: string,
   ): this {
     const { e } = this.api;
-    this.addUtilities({
+    return this.addUtilities({
       [`.${e(className)}`]: this.stylizeUtility(
         propertyValue ? utilityName : className,
         propertyValue ?? utilityName,
       ),
     });
-    return this;
+  }
+
+  protected addComponent(className: string, componentRule: RuleSet): this {
+    const { e } = this.api;
+    return this.addComponents({ [`.${e(className)}`]: componentRule });
+  }
+
+  protected addDarkComponent(
+    className: string,
+    lightRule: RuleSet,
+    darkRule: RuleSet,
+  ): this {
+    return this.addComponents(
+      darkenClass(this.darkMode, className, lightRule, darkRule),
+    );
   }
 
   protected addUtilities(utilities: RuleSet | RuleSet[]): this {

@@ -4,6 +4,7 @@ import type {
   RuleSet,
   StyleCallback,
   StyleCallbacks,
+  UtilityList,
   UtilityMap,
 } from './plugin';
 
@@ -88,6 +89,78 @@ export function darkenClass(
   return darken(darkMode, `.${className}`, lightRules, darkRules);
 }
 
+export function darkenUtility(
+  darkMode: DarkMode,
+  className: string,
+  propertyName: string,
+  lightValue: string,
+  darkValue: string,
+): RuleSet {
+  let rules: RuleSet = {};
+  rules[`.${className}-light`] = stylizeProperty(propertyName, lightValue);
+  rules[`.${className}-dark`] = stylizeProperty(propertyName, darkValue);
+  rules = appendStyle(
+    darkenClass(
+      darkMode,
+      className,
+      stylizeProperty(propertyName, lightValue),
+      stylizeProperty(propertyName, darkValue),
+    ),
+    rules,
+  );
+
+  return rules;
+}
+
+export function darkenUtilityList(
+  darkMode: DarkMode,
+  className: string,
+  utilityList: UtilityList,
+  propertyName: string,
+  lightValue: string,
+  darkValue: string,
+): RuleSet[] {
+  const rules: RuleSet[] = [];
+
+  for (const utilityName of utilityList) {
+    rules.push(
+      darkenUtility(
+        darkMode,
+        `${className}-${utilityName}`,
+        propertyName,
+        lightValue,
+        darkValue,
+      ),
+    );
+  }
+
+  return rules;
+}
+
+export function darkenUtilityMap(
+  darkMode: DarkMode,
+  className: string,
+  utilityMap: UtilityMap,
+  lightValue: string,
+  darkValue: string,
+): RuleSet[] {
+  const rules: RuleSet[] = [];
+
+  for (const [utilityName, propertyName] of Object.entries(utilityMap)) {
+    rules.push(
+      darkenUtility(
+        darkMode,
+        `${className}-${utilityName}`,
+        propertyName,
+        lightValue,
+        darkValue,
+      ),
+    );
+  }
+
+  return rules;
+}
+
 export function stylizeClass(
   className: string,
   properties: DeclarationBlock,
@@ -161,34 +234,6 @@ export function stylizeUtilityCallback(
 
   for (const utility of Object.entries(utilities)) {
     rules[`.${utility[0]}-${name}`] = stylizePropertyCallback(utility[1]);
-  }
-
-  return rules;
-}
-
-export function darkenUtility(
-  darkMode: DarkMode,
-  utilities: UtilityMap,
-  name: string,
-  lightValue: string,
-  darkValue: string,
-): RuleSet {
-  let rules: RuleSet = {};
-
-  for (const utility of Object.entries(utilities)) {
-    const utilityName = `${utility[0]}-${name}`;
-    const propertyName = utility[1];
-    rules[`.${utilityName}-light`] = stylizeProperty(propertyName, lightValue);
-    rules[`.${utilityName}-dark`] = stylizeProperty(propertyName, darkValue);
-    rules = appendStyle(
-      darkenClass(
-        darkMode,
-        utilityName,
-        stylizeProperty(propertyName, lightValue),
-        stylizeProperty(propertyName, darkValue),
-      ),
-      rules,
-    );
   }
 
   return rules;

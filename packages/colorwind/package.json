@@ -54,11 +54,11 @@
     "denoify": "denoify --out jsr"
   },
   "devDependencies": {
-    "@types/node": "^20.14.2",
+    "@types/node": "^20.14.9",
     "denoify": "^1.6.13",
     "rimraf": "^5.0.7",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   },
   "peerDependencies": {
     "tailwindcss": "^3.4.3"

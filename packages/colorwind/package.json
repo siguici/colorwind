@@ -62,5 +62,8 @@
   },
   "peerDependencies": {
     "tailwindcss": "^3.4.3"
+  },
+  "dependencies": {
+    "@siguici/plugwind": "npm:@jsr/siguici__plugwind@^0.1.0"
   }
 }

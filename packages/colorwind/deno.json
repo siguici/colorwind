@@ -1,6 +1,9 @@
 {
   "name": "@siguici/colorwind",
   "version": "0.1.1",
+  "imports": {
+    "@siguici/plugwind": "jsr:@siguici/plugwind@^0.1.0"
+  },
   "exports": {
     ".": "./jsr/index.ts",
     "./colors": "./jsr/colors.ts",

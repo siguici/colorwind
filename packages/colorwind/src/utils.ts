@@ -1,9 +1,6 @@
 import type {
-  ClassName,
   DarkMode,
   DeclarationBlock,
-  PropertyName,
-  PropertyValue,
   RuleSet,
   StyleCallback,
   StyleCallbacks,
@@ -92,7 +89,7 @@ export function darkenClass(
 }
 
 export function stylizeClass(
-  className: ClassName,
+  className: string,
   properties: DeclarationBlock,
 ): RuleSet {
   let declarations: DeclarationBlock = {};
@@ -109,8 +106,8 @@ export function stylizeClass(
 }
 
 export function stylizeProperty(
-  property: PropertyName,
-  value: PropertyValue,
+  property: string,
+  value: string,
 ): DeclarationBlock {
   return {
     [property]: value,
@@ -118,8 +115,8 @@ export function stylizeProperty(
 }
 
 export function stylizeProperties(
-  properties: PropertyName[],
-  value: PropertyValue,
+  properties: string[],
+  value: string,
 ): DeclarationBlock {
   let rule: DeclarationBlock = {};
   for (const propertyName of properties) {
@@ -128,15 +125,13 @@ export function stylizeProperties(
   return rule;
 }
 
-export function stylizePropertyCallback(property: PropertyName): StyleCallback {
+export function stylizePropertyCallback(property: string): StyleCallback {
   return (value) => {
     return stylizeProperty(property, value);
   };
 }
 
-export function stylizePropertiesCallback(
-  properties: PropertyName[],
-): StyleCallback {
+export function stylizePropertiesCallback(properties: string[]): StyleCallback {
   return (value) => {
     return stylizeProperties(properties, value);
   };
@@ -144,8 +139,8 @@ export function stylizePropertiesCallback(
 
 export function stylizeUtility(
   utilities: UtilityMap,
-  name: PropertyName,
-  value: PropertyValue,
+  name: string,
+  value: string,
 ): RuleSet {
   const rules: RuleSet = {};
 
@@ -160,7 +155,7 @@ export function stylizeUtility(
 
 export function stylizeUtilityCallback(
   utilities: UtilityMap,
-  name: PropertyName,
+  name: string,
 ): StyleCallbacks {
   const rules: StyleCallbacks = {};
 
@@ -174,9 +169,9 @@ export function stylizeUtilityCallback(
 export function darkenUtility(
   darkMode: DarkMode,
   utilities: UtilityMap,
-  name: PropertyName,
-  lightValue: PropertyValue,
-  darkValue: PropertyValue,
+  name: string,
+  lightValue: string,
+  darkValue: string,
 ): RuleSet {
   let rules: RuleSet = {};
 

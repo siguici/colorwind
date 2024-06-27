@@ -1,24 +1,19 @@
 import plugin from 'tailwindcss/plugin';
 import type { PluginAPI } from 'tailwindcss/types/config';
-import DEFAULT_COLORS, {
-  type ColorsConfig,
-  type ColorOption,
-  type ColorName,
-} from './colors';
+import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import {
   type ComponentList,
+  type ComponentOption,
+  type ComponentVariant,
   Plugin,
   type PluginConfig,
   type PluginWithOptions,
   type RuleSet,
+  type UtilityList,
   type UtilityMap,
+  isUtilityList,
 } from './plugin';
-import {
-  appendStyle,
-  darkenClass,
-  darkenUtility,
-  stylizeUtility,
-} from './utils';
+import { darkenClass, darkenUtility, isString, stylizeUtility } from './utils';
 
 export interface ColorwindConfig extends PluginConfig {
   colors: ColorsConfig;
@@ -78,106 +73,144 @@ export class Colorwind extends Plugin<ColorwindConfig> {
     return this;
   }
 
-  public addColor(name: ColorName, color: ColorOption): this {
-    return this.addColorComponents(name, color).addColorUtilities(name, color);
+  public addColor(name: string, option: ColorOption): this {
+    return this.addColorComponents(
+      name,
+      option,
+      this.options.components,
+    ).addColorUtilities(name, option, this.options.utilities);
   }
 
-  public addColorComponents(name: ColorName, color: ColorOption): this {
-    return this.addComponents(this.stylizeColorComponents(name, color));
-  }
-
-  public addColorUtilities(name: ColorName, color: ColorOption): this {
-    return this.addUtilities(this.stylizeColorUtility(name, color));
-  }
-
-  public stylizeColorComponents(
-    name: ColorName,
-    color: ColorOption,
-  ): RuleSet[] {
-    const { e } = this.api;
-    const rules: RuleSet[] = [];
-    for (const component of Object.entries(this.options.components)) {
-      const componentName = `${component[0]}-${name}`;
-      const utilities = component[1];
-      let rule: RuleSet = {};
-
-      if (typeof utilities === 'string') {
-        rule =
-          typeof color === 'string'
-            ? {
-                [`.${componentName}`]: this.stylizeUtility(utilities, color),
-              }
-            : darkenClass(
-                this.darkMode,
-                componentName,
-                this.stylizeUtility(utilities, color.light),
-                this.stylizeUtility(utilities, color.dark),
-              );
-      } else if (Array.isArray(utilities)) {
-        rule =
-          typeof color === 'string'
-            ? {
-                [`.${componentName}`]: this.stylizeUtilities(utilities, color),
-              }
-            : darkenClass(
-                this.darkMode,
-                componentName,
-                this.stylizeUtilities(utilities, color.light),
-                this.stylizeUtilities(utilities, color.dark),
-              );
-      } else {
-        for (const utility of Object.entries(utilities)) {
-          const utilityName =
-            utility[0] === 'DEFAULT'
-              ? componentName
-              : `${componentName}-${e(utility[0])}`;
-          const properties = utility[1];
-          if (typeof properties === 'string') {
-            if (typeof color === 'string') {
-              rule[`.${utilityName}`] = this.stylizeUtility(properties, color);
-            } else {
-              rule = appendStyle(
-                darkenClass(
-                  this.darkMode,
-                  utilityName,
-                  this.stylizeUtility(properties, color.light),
-                  this.stylizeUtility(properties, color.dark),
-                ),
-                rule,
-              );
-            }
-          } else {
-            if (typeof color === 'string') {
-              rule[`.${utilityName}`] = this.stylizeUtilities(
-                properties,
-                color,
-              );
-            } else {
-              rule = appendStyle(
-                darkenClass(
-                  this.darkMode,
-                  utilityName,
-                  this.stylizeUtilities(properties, color.light),
-                  this.stylizeUtilities(properties, color.dark),
-                ),
-                rule,
-              );
-            }
-          }
-          rules.push(rule);
-        }
-      }
+  public addColorComponents(
+    colorName: string,
+    colorOption: ColorOption,
+    componentList: ComponentList,
+  ): this {
+    for (const [componentName, componentOption] of Object.entries(
+      componentList,
+    )) {
+      this.addColorComponent(
+        componentName,
+        componentOption,
+        colorName,
+        colorOption,
+      );
     }
-    return rules;
+    return this;
   }
 
-  public stylizeColorUtility(name: string, color: ColorOption): RuleSet {
+  public addColorComponent(
+    componentName: string,
+    componentOption: ComponentOption,
+    colorName: string,
+    colorOption: ColorOption,
+  ): this {
+    if (isString(componentOption)) {
+      return this.addColorComponentUtility(
+        componentName,
+        componentOption,
+        colorName,
+        colorOption,
+      );
+    }
+
+    if (isUtilityList(componentOption)) {
+      return this.addColorComponentUtilityList(
+        componentName,
+        componentOption,
+        colorName,
+        colorOption,
+      );
+    }
+
+    return this.addColorComponentVariant(
+      componentName,
+      componentOption,
+      colorName,
+      colorOption,
+    );
+  }
+
+  public addColorComponentUtility(
+    componentName: string,
+    utilityName: string,
+    colorName: string,
+    colorOption: ColorOption,
+  ): this {
+    const className = `${componentName}-${utilityName}-${colorName}`;
+    isString(colorOption)
+      ? this.addUtility(className, utilityName, colorOption)
+      : this.addComponents(
+          darkenClass(
+            this.darkMode,
+            className,
+            this.stylizeUtility(utilityName, colorOption.light),
+            this.stylizeUtility(utilityName, colorOption.dark),
+          ),
+        );
+    return this;
+  }
+
+  public addColorComponentUtilityList(
+    componentName: string,
+    utilityList: UtilityList,
+    colorName: string,
+    colorOption: ColorOption,
+  ): this {
+    const className = `${componentName}-${colorName}`;
+    this.addComponents(
+      isString(colorOption)
+        ? {
+            [`.${className}`]: this.stylizeUtilities(utilityList, colorOption),
+          }
+        : darkenClass(
+            this.darkMode,
+            className,
+            this.stylizeUtilities(utilityList, colorOption.light),
+            this.stylizeUtilities(utilityList, colorOption.dark),
+          ),
+    );
+    return this;
+  }
+
+  public addColorComponentVariant(
+    componentName: string,
+    componentVariant: ComponentVariant,
+    colorName: string,
+    colorOption: ColorOption,
+  ): this {
+    for (const [variantName, utilities] of Object.entries(componentVariant)) {
+      this.addColorComponent(
+        variantName === 'DEFAULT'
+          ? componentName
+          : `${componentName}-${variantName}`,
+        utilities,
+        colorName,
+        colorOption,
+      );
+    }
+    return this;
+  }
+
+  public addColorUtilities(
+    name: string,
+    color: ColorOption,
+    utilities: UtilityMap,
+  ): this {
+    return this.addUtilities(this.stylizeColorUtility(name, color, utilities));
+  }
+
+  public stylizeColorUtility(
+    name: string,
+    color: ColorOption,
+    utilities: UtilityMap,
+  ): RuleSet {
     const { e } = this.api;
     return typeof color === 'string'
-      ? stylizeUtility(this.options.utilities, e(name), color)
+      ? stylizeUtility(utilities, e(name), color)
       : darkenUtility(
           this.darkMode,
-          this.options.utilities,
+          utilities,
           e(name),
           color.light,
           color.dark,

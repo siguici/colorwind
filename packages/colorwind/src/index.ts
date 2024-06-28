@@ -1,18 +1,18 @@
-import plugin from 'tailwindcss/plugin';
-import type { PluginAPI } from 'tailwindcss/types/config';
-import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import {
   type DeclarationBlock,
   PluginWithOptions as Plugin,
   type StyleCallback,
   type TailwindPluginWithOptions,
-} from './plugwind';
+} from 'plugwind.js';
 import {
   stylizeProperties,
   stylizePropertiesCallback,
   stylizeProperty,
   stylizePropertyCallback,
-} from './plugwind-utils';
+} from 'plugwind.js/utils';
+import plugin from 'tailwindcss/plugin';
+import type { PluginAPI } from 'tailwindcss/types/config';
+import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import { isArray, isObject, isString } from './utils';
 
 export type UtilityList = string[];

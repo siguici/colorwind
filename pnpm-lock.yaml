@@ -60,8 +60,8 @@ importers:
   packages/colorwind:
     dependencies:
       plugwind.js:
-        specifier: ^0.1.1
-        version: 0.1.1(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2)))
+        specifier: ^0.1.2
+        version: 0.1.2(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2)))
     devDependencies:
       '@types/node':
         specifier: ^20.14.9
@@ -2277,8 +2277,8 @@ packages:
   pkg-types@1.1.1:
     resolution: {integrity: sha512-ko14TjmDuQJ14zsotODv7dBlwxKhUKQEhuhmbqo1uCi9BB0Z2alo/wAXg6q1dTR5TyuqYyWhjtfe/Tsh+X28jQ==}
 
-  plugwind.js@0.1.1:
-    resolution: {integrity: sha512-7LjobLQ+FI/K4dUYc8fzaOhxKEyeCkH2yJJsduie0g8P0pt+wGaF227DH24p3k6EqR1Fbv5dEw+kkH4kqOe4cg==}
+  plugwind.js@0.1.2:
+    resolution: {integrity: sha512-JmQsRwGVBFu3JQ38AyjWqDVi9SAg4Vk81QN+KfgE6eJOdP/rwQrQQbsrivu1XX0bilX5UxZq5j96VPAY/dI7Kw==}
     engines: {node: '>=20.15', npm: prefer using pnpm, pnpm: '>=9.4', yarn: prefer using pnpm}
     peerDependencies:
       tailwindcss: ^3.4.3
@@ -5739,7 +5739,7 @@ snapshots:
       mlly: 1.7.1
       pathe: 1.1.2
 
-  plugwind.js@0.1.1(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))):
+  plugwind.js@0.1.2(tailwindcss@3.4.4(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))):
     dependencies:
       tailwindcss: 3.4.4(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.2))
 

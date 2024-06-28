@@ -2,7 +2,7 @@
   "name": "@siguici/colorwind",
   "version": "0.1.1",
   "imports": {
-    "npm:plugwind.js": "jsr:@siguici/plugwind@^0.1.0"
+    "npm:plugwind.js": "jsr:@siguici/plugwind@^0.1.2"
   },
   "exports": {
     ".": "./jsr/index.ts",

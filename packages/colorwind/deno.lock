@@ -3,6 +3,7 @@
   "packages": {
     "specifiers": {
       "jsr:@siguici/plugwind": "jsr:@siguici/plugwind@0.1.0",
+      "npm:plugwind.js@0.1.2": "npm:plugwind.js@0.1.2_tailwindcss@3.4.3__postcss@8.4.38",
       "npm:tailwindcss@3.4.3": "npm:tailwindcss@3.4.3_postcss@8.4.38",
       "npm:tailwindcss@3.4.4": "npm:tailwindcss@3.4.4_postcss@8.4.38"
     },
@@ -397,6 +398,12 @@
         "integrity": "sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==",
         "dependencies": {}
       },
+      "plugwind.js@0.1.2_tailwindcss@3.4.3__postcss@8.4.38": {
+        "integrity": "sha512-JmQsRwGVBFu3JQ38AyjWqDVi9SAg4Vk81QN+KfgE6eJOdP/rwQrQQbsrivu1XX0bilX5UxZq5j96VPAY/dI7Kw==",
+        "dependencies": {
+          "tailwindcss": "tailwindcss@3.4.3_postcss@8.4.38"
+        }
+      },
       "postcss-import@15.1.0_postcss@8.4.38": {
         "integrity": "sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==",
         "dependencies": {
@@ -654,13 +661,13 @@
   "remote": {},
   "workspace": {
     "dependencies": [
-      "jsr:@siguici/plugwind@^0.1.0"
+      "jsr:@siguici/plugwind@^0.1.2"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@jsr/siguici__plugwind@^0.1.0",
         "npm:@types/node@^20.14.9",
         "npm:denoify@^1.6.13",
+        "npm:plugwind.js@^0.1.2",
         "npm:rimraf@^5.0.7",
         "npm:tailwindcss@^3.4.4",
         "npm:typescript@^5.5.2"

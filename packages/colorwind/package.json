@@ -18,7 +18,18 @@
   "types": "./ts/",
   "files": ["js/**/*", "ts/**/*"],
   "exports": {
-    ".": "./js/index.js",
+    ".": {
+      "default": "./js/index.js",
+      "types": "./ts/index.d.ts"
+    },
+    "./colors": {
+      "default": "./js/colors.js",
+      "types": "./ts/colors.d.ts"
+    },
+    "./utils": {
+      "default": "./js/utils.js",
+      "types": "./ts/utils.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "bugs": "https://github.com/siguici/colorwind/issues",

@@ -2,8 +2,17 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "jsr:@siguici/plugwind": "jsr:@siguici/plugwind@0.1.0",
       "npm:tailwindcss@3.4.3": "npm:tailwindcss@3.4.3_postcss@8.4.38",
       "npm:tailwindcss@3.4.4": "npm:tailwindcss@3.4.4_postcss@8.4.38"
+    },
+    "jsr": {
+      "@siguici/plugwind@0.1.0": {
+        "integrity": "45985ef64a270b74ae63569413466b96a637cbcf6bf85cd3ccd37e21988b4e3e",
+        "dependencies": [
+          "npm:tailwindcss@3.4.4"
+        ]
+      }
     },
     "npm": {
       "@alloc/quick-lru@5.2.0": {
@@ -644,13 +653,17 @@
   },
   "remote": {},
   "workspace": {
+    "dependencies": [
+      "jsr:@siguici/plugwind@^0.1.0"
+    ],
     "packageJson": {
       "dependencies": [
-        "npm:@types/node@^20.14.2",
+        "npm:@jsr/siguici__plugwind@^0.1.0",
+        "npm:@types/node@^20.14.9",
         "npm:denoify@^1.6.13",
         "npm:rimraf@^5.0.7",
         "npm:tailwindcss@^3.4.4",
-        "npm:typescript@^5.4.5"
+        "npm:typescript@^5.5.2"
       ]
     }
   }

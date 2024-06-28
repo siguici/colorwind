@@ -2,19 +2,53 @@ import plugin from 'tailwindcss/plugin';
 import type { PluginAPI } from 'tailwindcss/types/config';
 import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import {
-  type ComponentList,
-  type ComponentOption,
-  type ComponentVariant,
-  Plugin,
-  type PluginConfig,
-  type PluginWithOptions,
-  type UtilityList,
-  type UtilityMap,
-  isUtilityList,
-} from './plugin';
-import { isString } from './utils';
+  type DeclarationBlock,
+  PluginWithOptions as Plugin,
+  type StyleCallback,
+  type TailwindPluginWithOptions,
+} from './plugwind';
+import {
+  stylizeProperties,
+  stylizePropertiesCallback,
+  stylizeProperty,
+  stylizePropertyCallback,
+} from './plugwind-utils';
+import { isArray, isObject, isString } from './utils';
 
-export interface ColorwindConfig extends PluginConfig {
+export type UtilityList = string[];
+export type UtilityMap = Record<string, string>;
+
+export type ComponentValue = string | UtilityList;
+export type ComponentVariant = Record<string, ComponentValue>;
+export type ComponentOption = ComponentValue | ComponentVariant;
+
+export type ComponentList = Record<string, ComponentOption>;
+
+export function isUtilityList(utilities: unknown): utilities is UtilityList {
+  return isArray<string>(utilities, isString);
+}
+
+export function isUtilityMap(utilities: unknown): utilities is UtilityMap {
+  return isObject<string, string>(utilities, isString, isString);
+}
+
+export function isComponentValue(value: unknown): value is ComponentValue {
+  return isString(value) || isUtilityList(value);
+}
+
+export function isComponentVariant(
+  variant: unknown,
+): variant is ComponentVariant {
+  return isObject<string, ComponentValue>(variant, isString, isComponentValue);
+}
+
+export function isComponentOption(option: unknown): option is ComponentOption {
+  return isComponentValue(option) || isComponentVariant(option);
+}
+
+export interface ColorwindConfig {
+  utilities: UtilityMap;
+  components: ComponentList;
   colors: ColorsConfig;
 }
 
@@ -61,6 +95,40 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   public constructor(api: PluginAPI, options: ColorwindConfig) {
     super(api, options);
     this.addColors();
+  }
+
+  protected getPropertyOf(utility: string): string {
+    return this.options.utilities[utility];
+  }
+
+  protected getPropertiesOf(utilities: UtilityList): string[] {
+    const properties: string[] = [];
+    for (const utility of utilities) {
+      properties.push(this.getPropertyOf(utility));
+    }
+    return properties;
+  }
+
+  protected stylizeUtility(
+    utilityName: string,
+    propertyValue: string,
+  ): DeclarationBlock {
+    return stylizeProperty(this.getPropertyOf(utilityName), propertyValue);
+  }
+
+  protected stylizeUtilityCallback(utilityName: string): StyleCallback {
+    return stylizePropertyCallback(this.getPropertyOf(utilityName));
+  }
+
+  protected stylizeUtilities(
+    utilityList: UtilityList,
+    propertyValue: string,
+  ): DeclarationBlock {
+    return stylizeProperties(this.getPropertiesOf(utilityList), propertyValue);
+  }
+
+  protected stylizeUtilitiesCallback(utilityList: UtilityList): StyleCallback {
+    return stylizePropertiesCallback(this.getPropertiesOf(utilityList));
   }
 
   public addColors(): this {
@@ -138,12 +206,14 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   ): this {
     const className = `${componentName}-${utilityName}-${colorName}`;
     return isString(colorOption)
-      ? this.addUtility(className, utilityName, colorOption)
-      : this.addDarkUtility(
+      ? this.addUtility(
           className,
-          utilityName,
-          colorOption.light,
-          colorOption.dark,
+          this.stylizeUtility(utilityName, colorOption),
+        )
+      : this.addDark(
+          className,
+          this.stylizeUtility(utilityName, colorOption.light),
+          this.stylizeUtility(utilityName, colorOption.dark),
         );
   }
 
@@ -159,7 +229,7 @@ export class Colorwind extends Plugin<ColorwindConfig> {
           className,
           this.stylizeUtilities(utilityList, colorOption),
         )
-      : this.addDarkComponent(
+      : this.addDark(
           className,
           this.stylizeUtilities(utilityList, colorOption.light),
           this.stylizeUtilities(utilityList, colorOption.dark),
@@ -204,24 +274,22 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   ): this {
     const className = `${utilityName}-${colorName}`;
     return isString(colorOption)
-      ? this.addUtility(className, propertyName, colorOption)
-      : this.addDarkUtility(
+      ? this.addUtility(className, stylizeProperty(propertyName, colorOption))
+      : this.addDark(
           className,
-          propertyName,
-          colorOption.light,
-          colorOption.dark,
+          stylizeProperty(propertyName, colorOption.light),
+          stylizeProperty(propertyName, colorOption.dark),
         );
   }
 }
 
-const colorwind: PluginWithOptions<ColorwindOptions> = plugin.withOptions(
-  (options?: ColorwindOptions) => (api: PluginAPI) => {
+const colorwind: TailwindPluginWithOptions<ColorwindOptions> =
+  plugin.withOptions((options?: ColorwindOptions) => (api: PluginAPI) => {
     const opts = options ?? DEFAULT_OPTIONS;
     opts.colors = opts.colors ?? DEFAULT_COLORS;
     opts.utilities = opts.utilities ?? DEFAULT_UTILITIES;
     opts.components = opts.components ?? DEFAULT_COMPONENTS;
     new Colorwind(api, opts as ColorwindConfig);
-  },
-);
+  });
 
 export default colorwind;

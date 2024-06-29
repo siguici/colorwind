@@ -2,7 +2,7 @@ import twColors from 'tailwindcss/colors';
 
 export const modes = ['light', 'dark'] as const;
 
-const css = {
+const cssColors = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
   aqua: '#00ffff',
@@ -154,7 +154,7 @@ const css = {
 } as const;
 
 export const colors = {
-  ...css,
+  ...cssColors,
   pure: {
     light: twColors.white,
     dark: twColors.black,

@@ -5,7 +5,7 @@
     "lib": ["ESNext", "DOM", "webworker", "DOM.Iterable"],
     "module": "ESNext",
     "target": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "moduleDetection": "force",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,

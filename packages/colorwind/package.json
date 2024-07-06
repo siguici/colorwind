@@ -26,6 +26,10 @@
       "default": "./js/colors.js",
       "types": "./ts/colors.d.ts"
     },
+    "./plugin": {
+      "default": "./js/plugin.js",
+      "types": "./ts/plugin.d.ts"
+    },
     "./utils": {
       "default": "./js/utils.js",
       "types": "./ts/utils.d.ts"

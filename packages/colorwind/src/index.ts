@@ -15,6 +15,8 @@ import type { PluginAPI } from 'tailwindcss/types/config';
 import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import { isArray, isObject, isString } from './utils';
 
+export * as config from './config';
+
 export type UtilityList = string[];
 export type UtilityMap = Record<string, string>;
 

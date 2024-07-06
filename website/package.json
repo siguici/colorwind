@@ -17,18 +17,18 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
-    "@astrojs/starlight": "^0.24.4",
+    "@astrojs/starlight": "^0.25.0",
     "@astrojs/starlight-tailwind": "^2.0.3",
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.11.3",
+    "astro": "^4.11.5",
     "colorwind": "workspace:*",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "postcss-import": "^16.1.0",
     "postcss-load-config": "^6.0.1",
     "postcss-nested": "^6.0.1",
     "sharp": "^0.33.4",
     "tailwindcss": "^3.4.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   }
 }

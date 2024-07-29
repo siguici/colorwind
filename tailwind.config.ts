@@ -1,4 +1,4 @@
-import colorwind from 'colorwind/plugin';
+import colorwind from 'colorwind';
 
 export default {
   plugins: [colorwind],

@@ -2,7 +2,6 @@ import {
   type DeclarationBlock,
   PluginWithOptions as Plugin,
   type StyleCallback,
-  type TailwindPluginWithOptions,
 } from 'plugwind.js';
 import {
   stylizeProperties,
@@ -10,7 +9,6 @@ import {
   stylizeProperty,
   stylizePropertyCallback,
 } from 'plugwind.js/utils';
-import plugin from 'tailwindcss/plugin';
 import type { PluginAPI } from 'tailwindcss/types/config';
 import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import { isArray, isObject, isString } from './utils';
@@ -283,13 +281,13 @@ export class Colorwind extends Plugin<ColorwindConfig> {
   }
 }
 
-const colorwind: TailwindPluginWithOptions<ColorwindOptions> =
-  plugin.withOptions((options?: ColorwindOptions) => (api: PluginAPI) => {
-    const opts = options ?? DEFAULT_OPTIONS;
-    opts.colors = opts.colors ?? DEFAULT_COLORS;
-    opts.utilities = opts.utilities ?? DEFAULT_UTILITIES;
-    opts.components = opts.components ?? DEFAULT_COMPONENTS;
-    new Colorwind(api, opts as ColorwindConfig);
-  });
-
-export default colorwind;
+export default function (
+  api: PluginAPI,
+  options?: ColorwindOptions,
+): Colorwind {
+  const opts = options ?? DEFAULT_OPTIONS;
+  opts.colors = opts.colors ?? DEFAULT_COLORS;
+  opts.utilities = opts.utilities ?? DEFAULT_UTILITIES;
+  opts.components = opts.components ?? DEFAULT_COMPONENTS;
+  return new Colorwind(api, opts as ColorwindConfig);
+}

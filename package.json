@@ -2,13 +2,13 @@
   "name": "colorwind-monorepo",
   "version": "0.1.1",
   "license": "MIT",
-  "packageManager": "pnpm@9.4.0",
+  "packageManager": "pnpm@9.6.0",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=20.15",
-    "pnpm": ">=9.4",
+    "node": ">=20.16",
+    "pnpm": ">=9.6",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },

@@ -68,8 +68,8 @@
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
-    "@types/node": "^22.0.0",
-    "@vitest/coverage-v8": "^2.0.4",
+    "@types/node": "^22.0.2",
+    "@vitest/coverage-v8": "^2.0.5",
     "autoprefixer": "^10.4.19",
     "colorwind": "workspace:*",
     "postcss": "^8.4.40",
@@ -81,6 +81,6 @@
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vite-tsconfig-paths": "^4.3.2",
-    "vitest": "^2.0.4"
+    "vitest": "^2.0.5"
   }
 }

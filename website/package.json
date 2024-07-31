@@ -16,11 +16,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.8.3",
+    "@astrojs/check": "^0.9.1",
     "@astrojs/starlight": "^0.25.3",
     "@astrojs/starlight-tailwind": "^2.0.3",
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.12.2",
+    "astro": "^4.12.3",
     "colorwind": "workspace:*",
     "postcss": "^8.4.40",
     "postcss-import": "^16.1.0",

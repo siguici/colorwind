@@ -22,6 +22,10 @@
       "default": "./js/index.js",
       "types": "./ts/index.d.ts"
     },
+    "./config": {
+      "default": "./js/config.js",
+      "types": "./ts/config.d.ts"
+    },
     "./colors": {
       "default": "./js/colors.js",
       "types": "./ts/colors.d.ts"

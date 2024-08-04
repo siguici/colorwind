@@ -31,7 +31,7 @@ const themes = {
   },
 } as const;
 
-export default {
+const defaultConfig = {
   reversible,
   modes,
   colors,
@@ -63,3 +63,5 @@ export type ThemeUtility = keyof ThemeUtilities;
 export type ThemeColors = ThemeUtilities[ThemeUtility];
 export type ThemeColor = ThemeColors[number];
 export type DefaultConfig = typeof defaultConfig;
+
+export default defaultConfig;

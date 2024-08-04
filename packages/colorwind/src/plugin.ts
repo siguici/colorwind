@@ -1,10 +1,5 @@
-import type { DeclarationBlock, PluginAPI, StyleCallback } from 'plugwind.js';
-import {
-  stylizeProperties,
-  stylizePropertiesCallback,
-  stylizeProperty,
-  stylizePropertyCallback,
-} from 'plugwind.js/utils';
+import type { DeclarationBlock, PluginAPI } from 'plugwind.js';
+import { stylizeProperties, stylizeProperty } from 'plugwind.js/utils';
 import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import { isArray, isObject, isString } from './utils';
 
@@ -84,205 +79,207 @@ export const DEFAULT_OPTIONS: ColorwindConfig = {
   components: DEFAULT_COMPONENTS,
 };
 
-export class Colorwind {
-  public constructor(
-    readonly api: PluginAPI,
-    readonly options: ColorwindConfig,
-  ) {
-    this.addColors();
+function getPropertyOf(utility: string, utilities: UtilityMap): string {
+  return utilities[utility];
+}
+
+function getPropertiesOf(
+  utilityList: UtilityList,
+  utilityMap: UtilityMap,
+): string[] {
+  const properties: string[] = [];
+  for (const utility of utilityList) {
+    properties.push(getPropertyOf(utility, utilityMap));
   }
+  return properties;
+}
 
-  protected getPropertyOf(utility: string): string {
-    return this.options.utilities[utility];
+function stylizeUtility(
+  utilityName: string,
+  propertyValue: string,
+  utilities: UtilityMap,
+): DeclarationBlock {
+  return stylizeProperty(getPropertyOf(utilityName, utilities), propertyValue);
+}
+
+function stylizeUtilities(
+  utilityList: UtilityList,
+  propertyValue: string,
+  utilityMap: UtilityMap,
+): DeclarationBlock {
+  return stylizeProperties(
+    getPropertiesOf(utilityList, utilityMap),
+    propertyValue,
+  );
+}
+
+export function addColors(api: PluginAPI, colors: ColorsConfig): void {
+  for (const [colorName, colorOption] of Object.entries(colors)) {
+    addColor(api, colorName, colorOption);
   }
+}
 
-  protected getPropertiesOf(utilities: UtilityList): string[] {
-    const properties: string[] = [];
-    for (const utility of utilities) {
-      properties.push(this.getPropertyOf(utility));
-    }
-    return properties;
-  }
+export function addColor(
+  api: PluginAPI,
+  name: string,
+  option: ColorOption,
+  config = DEFAULT_OPTIONS,
+): void {
+  addColorComponents(api, name, option, config.components);
+  addColorUtilities(api, name, option, config.utilities);
+}
 
-  protected stylizeUtility(
-    utilityName: string,
-    propertyValue: string,
-  ): DeclarationBlock {
-    return stylizeProperty(this.getPropertyOf(utilityName), propertyValue);
-  }
-
-  protected stylizeUtilityCallback(utilityName: string): StyleCallback {
-    return stylizePropertyCallback(this.getPropertyOf(utilityName));
-  }
-
-  protected stylizeUtilities(
-    utilityList: UtilityList,
-    propertyValue: string,
-  ): DeclarationBlock {
-    return stylizeProperties(this.getPropertiesOf(utilityList), propertyValue);
-  }
-
-  protected stylizeUtilitiesCallback(utilityList: UtilityList): StyleCallback {
-    return stylizePropertiesCallback(this.getPropertiesOf(utilityList));
-  }
-
-  public addColors(): void {
-    for (const [colorName, colorOption] of Object.entries(
-      this.options.colors,
-    )) {
-      this.addColor(colorName, colorOption);
-    }
-  }
-
-  public addColor(name: string, option: ColorOption): void {
-    this.addColorComponents(name, option, this.options.components);
-    this.addColorUtilities(name, option, this.options.utilities);
-  }
-
-  public addColorComponents(
-    colorName: string,
-    colorOption: ColorOption,
-    componentList: ComponentList,
-  ): void {
-    for (const [componentName, componentOption] of Object.entries(
-      componentList,
-    )) {
-      this.addColorComponent(
-        componentName,
-        componentOption,
-        colorName,
-        colorOption,
-      );
-    }
-  }
-
-  public addColorComponent(
-    componentName: string,
-    componentOption: ComponentOption,
-    colorName: string,
-    colorOption: ColorOption,
-  ): void {
-    if (isString(componentOption)) {
-      this.addColorComponentUtility(
-        componentName,
-        componentOption,
-        colorName,
-        colorOption,
-      );
-      return;
-    }
-
-    if (isUtilityList(componentOption)) {
-      this.addColorComponentUtilityList(
-        componentName,
-        componentOption,
-        colorName,
-        colorOption,
-      );
-      return;
-    }
-
-    this.addColorComponentVariant(
+export function addColorComponents(
+  api: PluginAPI,
+  colorName: string,
+  colorOption: ColorOption,
+  componentList: ComponentList,
+): void {
+  for (const [componentName, componentOption] of Object.entries(
+    componentList,
+  )) {
+    addColorComponent(
+      api,
       componentName,
       componentOption,
       colorName,
       colorOption,
     );
   }
+}
 
-  public addColorComponentUtility(
-    componentName: string,
-    utilityName: string,
-    colorName: string,
-    colorOption: ColorOption,
-  ): void {
-    const className = `${componentName}-${utilityName}-${colorName}`;
-    isString(colorOption)
-      ? this.api.addUtility(
-          className,
-          this.stylizeUtility(utilityName, colorOption),
-        )
-      : this.api.addDark(
-          className,
-          this.stylizeUtility(utilityName, colorOption.light),
-          this.stylizeUtility(utilityName, colorOption.dark),
-        );
+export function addColorComponent(
+  api: PluginAPI,
+  componentName: string,
+  componentOption: ComponentOption,
+  colorName: string,
+  colorOption: ColorOption,
+): void {
+  if (isString(componentOption)) {
+    addColorComponentUtility(
+      api,
+      componentName,
+      componentOption,
+      colorName,
+      colorOption,
+    );
+    return;
   }
 
-  public addColorComponentUtilityList(
-    componentName: string,
-    utilityList: UtilityList,
-    colorName: string,
-    colorOption: ColorOption,
-  ): void {
-    const className = `${componentName}-${colorName}`;
-    isString(colorOption)
-      ? this.api.addComponent(
-          className,
-          this.stylizeUtilities(utilityList, colorOption),
-        )
-      : this.api.addDark(
-          className,
-          this.stylizeUtilities(utilityList, colorOption.light),
-          this.stylizeUtilities(utilityList, colorOption.dark),
-        );
+  if (isUtilityList(componentOption)) {
+    addColorComponentUtilityList(
+      api,
+      componentName,
+      componentOption,
+      colorName,
+      colorOption,
+    );
+    return;
   }
 
-  public addColorComponentVariant(
-    componentName: string,
-    componentVariant: ComponentVariant,
-    colorName: string,
-    colorOption: ColorOption,
-  ): void {
-    for (const [variantName, utilities] of Object.entries(componentVariant)) {
-      this.addColorComponent(
-        variantName === 'DEFAULT'
-          ? componentName
-          : `${componentName}-${variantName}`,
-        utilities,
-        colorName,
-        colorOption,
+  addColorComponentVariant(
+    api,
+    componentName,
+    componentOption,
+    colorName,
+    colorOption,
+  );
+}
+
+export function addColorComponentUtility(
+  api: PluginAPI,
+  componentName: string,
+  utilityName: string,
+  colorName: string,
+  colorOption: ColorOption,
+  utilityMap: UtilityMap = {},
+): void {
+  const className = `${componentName}-${utilityName}-${colorName}`;
+  isString(colorOption)
+    ? api.addUtility(
+        className,
+        stylizeUtility(utilityName, colorOption, utilityMap),
+      )
+    : api.addDark(
+        className,
+        stylizeUtility(utilityName, colorOption.light, utilityMap),
+        stylizeUtility(utilityName, colorOption.dark, utilityMap),
       );
-    }
-  }
+}
 
-  public addColorUtilities(
-    colorName: string,
-    colorOption: ColorOption,
-    utilityMap: UtilityMap,
-  ): void {
-    for (const [utilityName, propertyName] of Object.entries(utilityMap)) {
-      this.addColorUtility(utilityName, propertyName, colorName, colorOption);
-    }
-  }
+export function addColorComponentUtilityList(
+  api: PluginAPI,
+  componentName: string,
+  utilityList: UtilityList,
+  colorName: string,
+  colorOption: ColorOption,
+  utilityMap: UtilityMap = {},
+): void {
+  const className = `${componentName}-${colorName}`;
+  isString(colorOption)
+    ? api.addComponent(
+        className,
+        stylizeUtilities(utilityList, colorOption, utilityMap),
+      )
+    : api.addDark(
+        className,
+        stylizeUtilities(utilityList, colorOption.light, utilityMap),
+        stylizeUtilities(utilityList, colorOption.dark, utilityMap),
+      );
+}
 
-  public addColorUtility(
-    utilityName: string,
-    propertyName: string,
-    colorName: string,
-    colorOption: ColorOption,
-  ): void {
-    const className = `${utilityName}-${colorName}`;
-    isString(colorOption)
-      ? this.api.addUtility(
-          className,
-          stylizeProperty(propertyName, colorOption),
-        )
-      : this.api.addDark(
-          className,
-          stylizeProperty(propertyName, colorOption.light),
-          stylizeProperty(propertyName, colorOption.dark),
-        );
+export function addColorComponentVariant(
+  api: PluginAPI,
+  componentName: string,
+  componentVariant: ComponentVariant,
+  colorName: string,
+  colorOption: ColorOption,
+): void {
+  for (const [variantName, utilities] of Object.entries(componentVariant)) {
+    addColorComponent(
+      api,
+      variantName === 'DEFAULT'
+        ? componentName
+        : `${componentName}-${variantName}`,
+      utilities,
+      colorName,
+      colorOption,
+    );
   }
 }
 
-export default function (
+export function addColorUtilities(
   api: PluginAPI,
-  options?: ColorwindOptions,
-): Colorwind {
+  colorName: string,
+  colorOption: ColorOption,
+  utilityMap: UtilityMap,
+): void {
+  for (const [utilityName, propertyName] of Object.entries(utilityMap)) {
+    addColorUtility(api, utilityName, propertyName, colorName, colorOption);
+  }
+}
+
+export function addColorUtility(
+  api: PluginAPI,
+  utilityName: string,
+  propertyName: string,
+  colorName: string,
+  colorOption: ColorOption,
+): void {
+  const className = `${utilityName}-${colorName}`;
+  isString(colorOption)
+    ? api.addUtility(className, stylizeProperty(propertyName, colorOption))
+    : api.addDark(
+        className,
+        stylizeProperty(propertyName, colorOption.light),
+        stylizeProperty(propertyName, colorOption.dark),
+      );
+}
+
+export default function (api: PluginAPI, options?: ColorwindOptions): void {
   const opts = options ?? DEFAULT_OPTIONS;
   opts.colors = opts.colors ?? DEFAULT_COLORS;
   opts.utilities = opts.utilities ?? DEFAULT_UTILITIES;
   opts.components = opts.components ?? DEFAULT_COMPONENTS;
-  return new Colorwind(api, opts as ColorwindConfig);
+  addColors(api, opts as ColorwindConfig);
 }

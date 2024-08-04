@@ -113,9 +113,13 @@ function stylizeUtilities(
   );
 }
 
-export function addColors(api: PluginAPI, colors: ColorsConfig): void {
+export function addColors(
+  api: PluginAPI,
+  colors: ColorsConfig,
+  config: ColorwindConfig = DEFAULT_OPTIONS,
+): void {
   for (const [colorName, colorOption] of Object.entries(colors)) {
-    addColor(api, colorName, colorOption);
+    addColor(api, colorName, colorOption, config);
   }
 }
 
@@ -281,5 +285,5 @@ export default function (api: PluginAPI, options?: ColorwindOptions): void {
   opts.colors = opts.colors ?? DEFAULT_COLORS;
   opts.utilities = opts.utilities ?? DEFAULT_UTILITIES;
   opts.components = opts.components ?? DEFAULT_COMPONENTS;
-  addColors(api, opts as ColorwindConfig);
+  addColors(api, opts.colors, opts as ColorwindConfig);
 }

@@ -8,7 +8,7 @@
   },
   "engines": {
     "node": ">=20.16",
-    "pnpm": ">=9.6",
+    "pnpm": ">=9.7",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },

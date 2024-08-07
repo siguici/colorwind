@@ -1,5 +1,4 @@
 import type { DeclarationBlock, PluginAPI } from 'plugwind.js';
-import { stylizeProperties, stylizeProperty } from 'plugwind.js/utils';
 import DEFAULT_COLORS, { type ColorsConfig, type ColorOption } from './colors';
 import { isArray, isObject, isString } from './utils';
 
@@ -79,38 +78,15 @@ export const DEFAULT_OPTIONS: ColorwindConfig = {
   components: DEFAULT_COMPONENTS,
 };
 
-function getPropertyOf(utility: string, utilities: UtilityMap): string {
-  return utilities[utility];
-}
-
-function getPropertiesOf(
-  utilityList: UtilityList,
-  utilityMap: UtilityMap,
-): string[] {
-  const properties: string[] = [];
-  for (const utility of utilityList) {
-    properties.push(getPropertyOf(utility, utilityMap));
-  }
-  return properties;
-}
-
-function stylizeUtility(
-  utilityName: string,
-  propertyValue: string,
-  utilities: UtilityMap,
-): DeclarationBlock {
-  return stylizeProperty(getPropertyOf(utilityName, utilities), propertyValue);
-}
-
 function stylizeUtilities(
   utilityList: UtilityList,
   propertyValue: string,
   utilityMap: UtilityMap,
 ): DeclarationBlock {
-  return stylizeProperties(
-    getPropertiesOf(utilityList, utilityMap),
-    propertyValue,
-  );
+  return utilityList.reduce<DeclarationBlock>((acc, utilityName) => {
+    acc[utilityMap[utilityName]] = propertyValue;
+    return acc;
+  }, {} as DeclarationBlock);
 }
 
 export function addColors(
@@ -199,15 +175,15 @@ export function addColorComponentUtility(
   utilityMap: UtilityMap = {},
 ): void {
   const className = `${componentName}-${utilityName}-${colorName}`;
+  const utility = utilityMap[utilityName];
   isString(colorOption)
-    ? api.addUtility(
-        className,
-        stylizeUtility(utilityName, colorOption, utilityMap),
-      )
+    ? api.addUtility(className, {
+        [utility]: colorOption,
+      })
     : api.addDark(
         className,
-        stylizeUtility(utilityName, colorOption.light, utilityMap),
-        stylizeUtility(utilityName, colorOption.dark, utilityMap),
+        { [utility]: colorOption.light },
+        { [utility]: colorOption.dark },
       );
 }
 
@@ -272,11 +248,11 @@ export function addColorUtility(
 ): void {
   const className = `${utilityName}-${colorName}`;
   isString(colorOption)
-    ? api.addUtility(className, stylizeProperty(propertyName, colorOption))
+    ? api.addUtility(className, { [propertyName]: colorOption })
     : api.addDark(
         className,
-        stylizeProperty(propertyName, colorOption.light),
-        stylizeProperty(propertyName, colorOption.dark),
+        { [propertyName]: colorOption.light },
+        { [propertyName]: colorOption.dark },
       );
 }
 

@@ -72,14 +72,14 @@
     "@vitest/coverage-v8": "^2.0.5",
     "autoprefixer": "^10.4.20",
     "colorwind": "workspace:*",
-    "postcss": "^8.4.40",
+    "postcss": "^8.4.41",
     "postcss-import": "^16.1.0",
     "postcss-load-config": "^6.0.1",
     "postcss-nested": "^6.2.0",
-    "tailwindcss": "^3.4.7",
+    "tailwindcss": "^3.4.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
+    "vite": "^5.4.0",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^2.0.5"
   }

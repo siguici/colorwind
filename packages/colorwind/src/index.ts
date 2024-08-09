@@ -6,6 +6,8 @@ import plug, {
 } from 'plugwind.js';
 import plugin, { type ColorwindOptions } from './plugin';
 
+export { plugin };
+
 export const colorwind: PluginCreatorWithOptions<ColorwindOptions> = plug.with(
   (options) => (api: PluginAPI) => {
     return plugin(api, options);

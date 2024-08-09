@@ -1,14 +1,19 @@
 export * as config from './config';
 import plug, {
   type PluginAPI,
+  type PluginCreator,
   type PluginCreatorWithOptions,
 } from 'plugwind.js';
-import colorwind, { type ColorwindOptions } from './plugin';
+import plugin, { type ColorwindOptions } from './plugin';
 
-const _colorwind: PluginCreatorWithOptions<ColorwindOptions> = plug.with(
-  (options?: ColorwindOptions) => (api: PluginAPI) => {
-    return colorwind(api, options);
+export const colorwind: PluginCreatorWithOptions<ColorwindOptions> = plug.with(
+  (options) => (api: PluginAPI) => {
+    return plugin(api, options);
   },
 );
+
+const _colorwind: PluginCreator = plug((api: PluginAPI) => {
+  return plugin(api);
+});
 
 export default _colorwind;

@@ -20,14 +20,14 @@
     "@astrojs/starlight": "^0.25.4",
     "@astrojs/starlight-tailwind": "^2.0.3",
     "@astrojs/tailwind": "^5.1.0",
-    "astro": "^4.13.1",
+    "astro": "^4.13.3",
     "colorwind": "workspace:*",
     "postcss": "^8.4.41",
     "postcss-import": "^16.1.0",
     "postcss-load-config": "^6.0.1",
     "postcss-nested": "^6.2.0",
     "sharp": "^0.33.4",
-    "tailwindcss": "^3.4.8",
+    "tailwindcss": "^3.4.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }

@@ -16,10 +16,7 @@
   "module": "./js/index.js",
   "main": "./js/index.js",
   "types": "./ts/",
-  "files": [
-    "js/**/*",
-    "ts/**/*"
-  ],
+  "files": ["js/**/*", "ts/**/*"],
   "exports": {
     ".": {
       "default": "./js/index.js",

@@ -83,7 +83,7 @@
     "typescript": "^5.5.4"
   },
   "peerDependencies": {
-    "tailwindcss": "^3.4.7"
+    "tailwindcss": "^3.4.10"
   },
   "dependencies": {
     "plugwind.js": "^0.4.1"

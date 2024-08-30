@@ -20,24 +20,24 @@ export default function (
         api.addDark(
           className,
           {
-            [propertyName]: `var(${colorName}-dark)`,
+            [propertyName]: `var(--${colorName}-dark)`,
           },
           {
-            [propertyName]: `var(${colorName}-light)`,
+            [propertyName]: `var(--${colorName}-light)`,
           },
         );
         api.addDark(
           `${className}-reverse`,
           {
-            [propertyName]: `var(${colorName}-light)`,
+            [propertyName]: `var(--${colorName}-light)`,
           },
           {
-            [propertyName]: `var(${colorName}-dark)`,
+            [propertyName]: `var(--${colorName}-dark)`,
           },
         );
       } else {
         api.addVar(className, colorOption, ':root');
-        api.addProperty(propertyName, colorOption, className);
+        api.addProperty(propertyName, `--${colorOption}`, className);
       }
     }
   }

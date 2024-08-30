@@ -1,7 +1,5 @@
 import colors from './colors';
-
-const reversible = true;
-const modes = ['light', 'dark'] as const;
+import { isArray, isObject } from './utils';
 
 const utilities = {
   text: 'color',
@@ -16,52 +14,79 @@ const utilities = {
   stroke: 'stroke',
   shadow: '--tw-shadow-color',
   ring: '--tw-ring-color',
-} as const;
+};
 
-const components = {
-  link: ['text', 'decoration'],
-} as const;
-
-const themes = {
-  red: {
-    link: {
-      text: 'red',
-      decoration: 'red',
-    },
-  },
-} as const;
-
-const defaultConfig = {
-  reversible,
-  modes,
+export const defaultConfig = {
   colors,
   utilities,
-  components,
-  themes,
 } as const;
 
-export type Reversible = typeof reversible;
-export type Modes = typeof modes;
-export type Mode = Modes[number];
-export type Colors = typeof colors;
-export type ColorName = keyof Colors;
-export type ColorValue = Colors[ColorName];
+export type Mode = 'dark' | 'light';
 export type ColorScheme = { [key in Mode]: string };
-export type Utilities = typeof utilities;
-export type UtilityName = keyof Utilities;
-export type UtilityValue = Utilities[UtilityName];
-export type Components = typeof components;
-export type ComponentName = keyof Components;
-export type ComponentUtilities = Components[ComponentName];
-export type ComponentUtility = ComponentUtilities[number];
-export type Themes = typeof themes;
-export type ThemeName = keyof Themes;
-export type ThemeComponents = Themes[ThemeName];
-export type ThemeComponent = keyof ThemeComponents;
-export type ThemeUtilities = ThemeComponents[ThemeComponent];
-export type ThemeUtility = keyof ThemeUtilities;
-export type ThemeColors = ThemeUtilities[ThemeUtility];
-export type ThemeColor = ThemeColors[number];
-export type DefaultConfig = typeof defaultConfig;
+export type DefaultColors = typeof colors;
+export type DefaultColorName = keyof DefaultColors;
+export type DefaultColorValue = DefaultColors[DefaultColorName];
+export type ColorName = DefaultColorName | string;
+export type ColorOption = DefaultColorValue | ColorScheme | string;
+export type ColorConfig = Record<ColorName, ColorOption>;
+export type ColorOptions = DefaultColorName[] | ColorConfig;
+export type DefaultUtilities = typeof utilities;
+export type DefaultUtilityName = keyof DefaultUtilities;
+export type UtilityConfig =
+  | DefaultUtilities
+  | {
+      [key: string]: string;
+    };
+export type UtilityOptions = DefaultUtilityName[] | UtilityConfig;
 
-export default defaultConfig;
+export type Options = {
+  colors?: ColorOptions;
+  utilities?: UtilityOptions;
+};
+
+export type Config = {
+  colors: ColorConfig;
+  utilities: UtilityConfig;
+};
+
+export function defineColors(options?: ColorOptions): ColorConfig {
+  let config: ColorConfig = {};
+  if (isArray<string>(options)) {
+    for (const color of options) {
+      if (color in colors) {
+        config[color] = colors[color as DefaultColorName];
+      }
+    }
+  } else if (isObject(options)) {
+    config = options;
+  } else {
+    config = defaultConfig.colors;
+  }
+  return config;
+}
+
+export function defineUtilities(options?: UtilityOptions): UtilityConfig {
+  let config: UtilityConfig = {};
+  if (isArray<string>(options)) {
+    for (const utility of options) {
+      if (utility in utilities) {
+        config[utility] = utilities[utility as DefaultUtilityName];
+      }
+    }
+  } else if (isObject(options)) {
+    config = options;
+  } else {
+    config = defaultConfig.utilities;
+  }
+  return config;
+}
+
+export function defineConfig(options?: Options): Config {
+  return options
+    ? {
+        ...defaultConfig,
+        colors: defineColors(options.colors),
+        utilities: defineUtilities(options.utilities),
+      }
+    : defaultConfig;
+}

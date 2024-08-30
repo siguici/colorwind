@@ -1,8 +1,8 @@
-import tailwind from 'tailwindcss/colors';
+import tailwindColors from 'tailwindcss/colors';
 
-export { default as tailwind } from 'tailwindcss/colors';
+export { tailwindColors };
 
-export const css = {
+export const cssColors = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
   aqua: '#00ffff',
@@ -153,482 +153,471 @@ export const css = {
   yellowgreen: '#9acd32',
 } as const;
 
-export type ColorName = string;
-export type ColorScheme = 'dark' | 'light';
-export type ColorValue = string;
-export type ColorVariant = Record<ColorScheme, ColorValue>;
-export type ColorOption = ColorValue | ColorVariant;
-export type ColorsConfig = {
-  [key: ColorName]: ColorOption;
-};
-
-const colors = {
+export default {
   pure: {
-    light: tailwind.white,
-    dark: tailwind.black,
-  },
-  slate: tailwind.slate[500],
-  'slate-xs': {
-    light: tailwind.slate[400],
-    dark: tailwind.slate[600],
-  },
-  'slate-sm': {
-    light: tailwind.slate[300],
-    dark: tailwind.slate[700],
-  },
-  'slate-md': {
-    light: tailwind.slate[200],
-    dark: tailwind.slate[800],
-  },
-  'slate-lg': {
-    light: tailwind.slate[100],
-    dark: tailwind.slate[900],
-  },
-  'slate-xl': {
-    light: tailwind.slate[50],
-    dark: tailwind.slate[950],
-  },
-  gray: tailwind.gray[500],
-  'gray-xs': {
-    light: tailwind.gray[400],
-    dark: tailwind.gray[600],
-  },
-  'gray-sm': {
-    light: tailwind.gray[300],
-    dark: tailwind.gray[700],
-  },
-  'gray-md': {
-    light: tailwind.gray[200],
-    dark: tailwind.gray[800],
-  },
-  'gray-lg': {
-    light: tailwind.gray[100],
-    dark: tailwind.gray[900],
-  },
-  'gray-xl': {
-    light: tailwind.gray[50],
-    dark: tailwind.gray[950],
-  },
-  zinc: tailwind.zinc[500],
-  'zinc-xs': {
-    light: tailwind.zinc[400],
-    dark: tailwind.zinc[600],
-  },
-  'zinc-sm': {
-    light: tailwind.zinc[300],
-    dark: tailwind.zinc[700],
-  },
-  'zinc-md': {
-    light: tailwind.zinc[200],
-    dark: tailwind.zinc[800],
-  },
-  'zinc-lg': {
-    light: tailwind.zinc[100],
-    dark: tailwind.zinc[900],
-  },
-  'zinc-xl': {
-    light: tailwind.zinc[50],
-    dark: tailwind.zinc[950],
-  },
-  neutral: tailwind.neutral[500],
-  'neutral-xs': {
-    light: tailwind.neutral[400],
-    dark: tailwind.neutral[600],
-  },
-  'neutral-sm': {
-    light: tailwind.neutral[300],
-    dark: tailwind.neutral[700],
-  },
-  'neutral-md': {
-    light: tailwind.neutral[200],
-    dark: tailwind.neutral[800],
-  },
-  'neutral-lg': {
-    light: tailwind.neutral[100],
-    dark: tailwind.neutral[900],
-  },
-  'neutral-xl': {
-    light: tailwind.neutral[50],
-    dark: tailwind.neutral[950],
-  },
-  stone: tailwind.stone[500],
-  'stone-xs': {
-    light: tailwind.stone[400],
-    dark: tailwind.stone[600],
-  },
-  'stone-sm': {
-    light: tailwind.stone[300],
-    dark: tailwind.stone[700],
-  },
-  'stone-md': {
-    light: tailwind.stone[200],
-    dark: tailwind.stone[800],
-  },
-  'stone-lg': {
-    light: tailwind.stone[100],
-    dark: tailwind.stone[900],
-  },
-  'stone-xl': {
-    light: tailwind.stone[50],
-    dark: tailwind.stone[950],
-  },
-  red: tailwind.red[500],
-  'red-xs': {
-    light: tailwind.red[400],
-    dark: tailwind.red[600],
-  },
-  'red-sm': {
-    light: tailwind.red[300],
-    dark: tailwind.red[700],
-  },
-  'red-md': {
-    light: tailwind.red[200],
-    dark: tailwind.red[800],
-  },
-  'red-lg': {
-    light: tailwind.red[100],
-    dark: tailwind.red[900],
-  },
-  'red-xl': {
-    light: tailwind.red[50],
-    dark: tailwind.red[950],
-  },
-  orange: tailwind.orange[500],
-  'orange-xs': {
-    light: tailwind.orange[400],
-    dark: tailwind.orange[600],
-  },
-  'orange-sm': {
-    light: tailwind.orange[300],
-    dark: tailwind.orange[700],
-  },
-  'orange-md': {
-    light: tailwind.orange[200],
-    dark: tailwind.orange[800],
-  },
-  'orange-lg': {
-    light: tailwind.orange[100],
-    dark: tailwind.orange[900],
-  },
-  'orange-xl': {
-    light: tailwind.orange[50],
-    dark: tailwind.orange[950],
-  },
-  amber: tailwind.amber[500],
-  'amber-xs': {
-    light: tailwind.amber[400],
-    dark: tailwind.amber[600],
-  },
-  'amber-sm': {
-    light: tailwind.amber[300],
-    dark: tailwind.amber[700],
-  },
-  'amber-md': {
-    light: tailwind.amber[200],
-    dark: tailwind.amber[800],
-  },
-  'amber-lg': {
-    light: tailwind.amber[100],
-    dark: tailwind.amber[900],
-  },
-  'amber-xl': {
-    light: tailwind.amber[50],
-    dark: tailwind.amber[950],
-  },
-  yellow: tailwind.yellow[500],
-  'yellow-xs': {
-    light: tailwind.yellow[400],
-    dark: tailwind.yellow[600],
-  },
-  'yellow-sm': {
-    light: tailwind.yellow[300],
-    dark: tailwind.yellow[700],
-  },
-  'yellow-md': {
-    light: tailwind.yellow[200],
-    dark: tailwind.yellow[800],
-  },
-  'yellow-lg': {
-    light: tailwind.yellow[100],
-    dark: tailwind.yellow[900],
-  },
-  'yellow-xl': {
-    light: tailwind.yellow[50],
-    dark: tailwind.yellow[950],
-  },
-  lime: tailwind.lime[500],
-  'lime-xs': {
-    light: tailwind.lime[400],
-    dark: tailwind.lime[600],
-  },
-  'lime-sm': {
-    light: tailwind.lime[300],
-    dark: tailwind.lime[700],
-  },
-  'lime-md': {
-    light: tailwind.lime[200],
-    dark: tailwind.lime[800],
-  },
-  'lime-lg': {
-    light: tailwind.lime[100],
-    dark: tailwind.lime[900],
-  },
-  'lime-xl': {
-    light: tailwind.lime[50],
-    dark: tailwind.lime[950],
-  },
-  green: tailwind.green[500],
-  'green-xs': {
-    light: tailwind.green[400],
-    dark: tailwind.green[600],
-  },
-  'green-sm': {
-    light: tailwind.green[300],
-    dark: tailwind.green[700],
-  },
-  'green-md': {
-    light: tailwind.green[200],
-    dark: tailwind.green[800],
-  },
-  'green-lg': {
-    light: tailwind.green[100],
-    dark: tailwind.green[900],
-  },
-  'green-xl': {
-    light: tailwind.green[50],
-    dark: tailwind.green[950],
-  },
-  emerald: tailwind.emerald[500],
-  'emerald-xs': {
-    light: tailwind.emerald[400],
-    dark: tailwind.emerald[600],
-  },
-  'emerald-sm': {
-    light: tailwind.emerald[300],
-    dark: tailwind.emerald[700],
-  },
-  'emerald-md': {
-    light: tailwind.emerald[200],
-    dark: tailwind.emerald[800],
-  },
-  'emerald-lg': {
-    light: tailwind.emerald[100],
-    dark: tailwind.emerald[900],
-  },
-  'emerald-xl': {
-    light: tailwind.emerald[50],
-    dark: tailwind.emerald[950],
-  },
-  teal: tailwind.teal[500],
-  'teal-xs': {
-    light: tailwind.teal[400],
-    dark: tailwind.teal[600],
-  },
-  'teal-sm': {
-    light: tailwind.teal[300],
-    dark: tailwind.teal[700],
-  },
-  'teal-md': {
-    light: tailwind.teal[200],
-    dark: tailwind.teal[800],
-  },
-  'teal-lg': {
-    light: tailwind.teal[100],
-    dark: tailwind.teal[900],
-  },
-  'teal-xl': {
-    light: tailwind.teal[50],
-    dark: tailwind.teal[950],
-  },
-  cyan: tailwind.cyan[500],
-  'cyan-xs': {
-    light: tailwind.cyan[400],
-    dark: tailwind.cyan[600],
-  },
-  'cyan-sm': {
-    light: tailwind.cyan[300],
-    dark: tailwind.cyan[700],
-  },
-  'cyan-md': {
-    light: tailwind.cyan[200],
-    dark: tailwind.cyan[800],
-  },
-  'cyan-lg': {
-    light: tailwind.cyan[100],
-    dark: tailwind.cyan[900],
-  },
-  'cyan-xl': {
-    light: tailwind.cyan[50],
-    dark: tailwind.cyan[950],
-  },
-  sky: tailwind.sky[500],
-  'sky-xs': {
-    light: tailwind.sky[400],
-    dark: tailwind.sky[600],
-  },
-  'sky-sm': {
-    light: tailwind.sky[300],
-    dark: tailwind.sky[700],
-  },
-  'sky-md': {
-    light: tailwind.sky[200],
-    dark: tailwind.sky[800],
-  },
-  'sky-lg': {
-    light: tailwind.sky[100],
-    dark: tailwind.sky[900],
-  },
-  'sky-xl': {
-    light: tailwind.sky[50],
-    dark: tailwind.sky[950],
-  },
-  blue: tailwind.blue[500],
-  'blue-xs': {
-    light: tailwind.blue[400],
-    dark: tailwind.blue[600],
-  },
-  'blue-sm': {
-    light: tailwind.blue[300],
-    dark: tailwind.blue[700],
-  },
-  'blue-md': {
-    light: tailwind.blue[200],
-    dark: tailwind.blue[800],
-  },
-  'blue-lg': {
-    light: tailwind.blue[100],
-    dark: tailwind.blue[900],
-  },
-  'blue-xl': {
-    light: tailwind.blue[50],
-    dark: tailwind.blue[950],
-  },
-  indigo: tailwind.indigo[500],
-  'indigo-xs': {
-    light: tailwind.indigo[400],
-    dark: tailwind.indigo[600],
-  },
-  'indigo-sm': {
-    light: tailwind.indigo[300],
-    dark: tailwind.indigo[700],
-  },
-  'indigo-md': {
-    light: tailwind.indigo[200],
-    dark: tailwind.indigo[800],
-  },
-  'indigo-lg': {
-    light: tailwind.indigo[100],
-    dark: tailwind.indigo[900],
-  },
-  'indigo-xl': {
-    light: tailwind.indigo[50],
-    dark: tailwind.indigo[950],
-  },
-  violet: tailwind.violet[500],
-  'violet-xs': {
-    light: tailwind.violet[400],
-    dark: tailwind.violet[600],
-  },
-  'violet-sm': {
-    light: tailwind.violet[300],
-    dark: tailwind.violet[700],
-  },
-  'violet-md': {
-    light: tailwind.violet[200],
-    dark: tailwind.violet[800],
-  },
-  'violet-lg': {
-    light: tailwind.violet[100],
-    dark: tailwind.violet[900],
-  },
-  'violet-xl': {
-    light: tailwind.violet[50],
-    dark: tailwind.violet[950],
-  },
-  purple: tailwind.purple[500],
-  'purple-xs': {
-    light: tailwind.purple[400],
-    dark: tailwind.purple[600],
-  },
-  'purple-sm': {
-    light: tailwind.purple[300],
-    dark: tailwind.purple[700],
-  },
-  'purple-md': {
-    light: tailwind.purple[200],
-    dark: tailwind.purple[800],
-  },
-  'purple-lg': {
-    light: tailwind.purple[100],
-    dark: tailwind.purple[900],
-  },
-  'purple-xl': {
-    light: tailwind.purple[50],
-    dark: tailwind.purple[950],
-  },
-  fuchsia: tailwind.fuchsia[500],
-  'fuchsia-xs': {
-    light: tailwind.fuchsia[400],
-    dark: tailwind.fuchsia[600],
-  },
-  'fuchsia-sm': {
-    light: tailwind.fuchsia[300],
-    dark: tailwind.fuchsia[700],
-  },
-  'fuchsia-md': {
-    light: tailwind.fuchsia[200],
-    dark: tailwind.fuchsia[800],
-  },
-  'fuchsia-lg': {
-    light: tailwind.fuchsia[100],
-    dark: tailwind.fuchsia[900],
-  },
-  'fuchsia-xl': {
-    light: tailwind.fuchsia[50],
-    dark: tailwind.fuchsia[950],
-  },
-  pink: tailwind.pink[500],
-  'pink-xs': {
-    light: tailwind.pink[400],
-    dark: tailwind.pink[600],
-  },
-  'pink-sm': {
-    light: tailwind.pink[300],
-    dark: tailwind.pink[700],
-  },
-  'pink-md': {
-    light: tailwind.pink[200],
-    dark: tailwind.pink[800],
-  },
-  'pink-lg': {
-    light: tailwind.pink[100],
-    dark: tailwind.pink[900],
-  },
-  'pink-xl': {
-    light: tailwind.pink[50],
-    dark: tailwind.pink[950],
-  },
-  rose: tailwind.rose[500],
-  'rose-xs': {
-    light: tailwind.rose[400],
-    dark: tailwind.rose[600],
-  },
-  'rose-sm': {
-    light: tailwind.rose[300],
-    dark: tailwind.rose[700],
-  },
-  'rose-md': {
-    light: tailwind.rose[200],
-    dark: tailwind.rose[800],
-  },
-  'rose-lg': {
-    light: tailwind.rose[100],
-    dark: tailwind.rose[900],
-  },
-  'rose-xl': {
-    light: tailwind.rose[50],
-    dark: tailwind.rose[950],
-  },
-} as const;
-
-export default colors;
+    light: tailwindColors.white,
+    dark: tailwindColors.black,
+  },
+  slate: tailwindColors.slate[500],
+  'slate-4': {
+    light: tailwindColors.slate[400],
+    dark: tailwindColors.slate[600],
+  },
+  'slate-3': {
+    light: tailwindColors.slate[300],
+    dark: tailwindColors.slate[700],
+  },
+  'slate-2': {
+    light: tailwindColors.slate[200],
+    dark: tailwindColors.slate[800],
+  },
+  'slate-1': {
+    light: tailwindColors.slate[100],
+    dark: tailwindColors.slate[900],
+  },
+  'slate-0': {
+    light: tailwindColors.slate[50],
+    dark: tailwindColors.slate[950],
+  },
+  gray: tailwindColors.gray[500],
+  'gray-4': {
+    light: tailwindColors.gray[400],
+    dark: tailwindColors.gray[600],
+  },
+  'gray-3': {
+    light: tailwindColors.gray[300],
+    dark: tailwindColors.gray[700],
+  },
+  'gray-2': {
+    light: tailwindColors.gray[200],
+    dark: tailwindColors.gray[800],
+  },
+  'gray-1': {
+    light: tailwindColors.gray[100],
+    dark: tailwindColors.gray[900],
+  },
+  'gray-0': {
+    light: tailwindColors.gray[50],
+    dark: tailwindColors.gray[950],
+  },
+  zinc: tailwindColors.zinc[500],
+  'zinc-4': {
+    light: tailwindColors.zinc[400],
+    dark: tailwindColors.zinc[600],
+  },
+  'zinc-3': {
+    light: tailwindColors.zinc[300],
+    dark: tailwindColors.zinc[700],
+  },
+  'zinc-2': {
+    light: tailwindColors.zinc[200],
+    dark: tailwindColors.zinc[800],
+  },
+  'zinc-1': {
+    light: tailwindColors.zinc[100],
+    dark: tailwindColors.zinc[900],
+  },
+  'zinc-0': {
+    light: tailwindColors.zinc[50],
+    dark: tailwindColors.zinc[950],
+  },
+  neutral: tailwindColors.neutral[500],
+  'neutral-4': {
+    light: tailwindColors.neutral[400],
+    dark: tailwindColors.neutral[600],
+  },
+  'neutral-3': {
+    light: tailwindColors.neutral[300],
+    dark: tailwindColors.neutral[700],
+  },
+  'neutral-2': {
+    light: tailwindColors.neutral[200],
+    dark: tailwindColors.neutral[800],
+  },
+  'neutral-1': {
+    light: tailwindColors.neutral[100],
+    dark: tailwindColors.neutral[900],
+  },
+  'neutral-0': {
+    light: tailwindColors.neutral[50],
+    dark: tailwindColors.neutral[950],
+  },
+  stone: tailwindColors.stone[500],
+  'stone-4': {
+    light: tailwindColors.stone[400],
+    dark: tailwindColors.stone[600],
+  },
+  'stone-3': {
+    light: tailwindColors.stone[300],
+    dark: tailwindColors.stone[700],
+  },
+  'stone-2': {
+    light: tailwindColors.stone[200],
+    dark: tailwindColors.stone[800],
+  },
+  'stone-1': {
+    light: tailwindColors.stone[100],
+    dark: tailwindColors.stone[900],
+  },
+  'stone-0': {
+    light: tailwindColors.stone[50],
+    dark: tailwindColors.stone[950],
+  },
+  red: tailwindColors.red[500],
+  'red-4': {
+    light: tailwindColors.red[400],
+    dark: tailwindColors.red[600],
+  },
+  'red-3': {
+    light: tailwindColors.red[300],
+    dark: tailwindColors.red[700],
+  },
+  'red-2': {
+    light: tailwindColors.red[200],
+    dark: tailwindColors.red[800],
+  },
+  'red-1': {
+    light: tailwindColors.red[100],
+    dark: tailwindColors.red[900],
+  },
+  'red-0': {
+    light: tailwindColors.red[50],
+    dark: tailwindColors.red[950],
+  },
+  orange: tailwindColors.orange[500],
+  'orange-4': {
+    light: tailwindColors.orange[400],
+    dark: tailwindColors.orange[600],
+  },
+  'orange-3': {
+    light: tailwindColors.orange[300],
+    dark: tailwindColors.orange[700],
+  },
+  'orange-2': {
+    light: tailwindColors.orange[200],
+    dark: tailwindColors.orange[800],
+  },
+  'orange-1': {
+    light: tailwindColors.orange[100],
+    dark: tailwindColors.orange[900],
+  },
+  'orange-0': {
+    light: tailwindColors.orange[50],
+    dark: tailwindColors.orange[950],
+  },
+  amber: tailwindColors.amber[500],
+  'amber-4': {
+    light: tailwindColors.amber[400],
+    dark: tailwindColors.amber[600],
+  },
+  'amber-3': {
+    light: tailwindColors.amber[300],
+    dark: tailwindColors.amber[700],
+  },
+  'amber-2': {
+    light: tailwindColors.amber[200],
+    dark: tailwindColors.amber[800],
+  },
+  'amber-1': {
+    light: tailwindColors.amber[100],
+    dark: tailwindColors.amber[900],
+  },
+  'amber-0': {
+    light: tailwindColors.amber[50],
+    dark: tailwindColors.amber[950],
+  },
+  yellow: tailwindColors.yellow[500],
+  'yellow-4': {
+    light: tailwindColors.yellow[400],
+    dark: tailwindColors.yellow[600],
+  },
+  'yellow-3': {
+    light: tailwindColors.yellow[300],
+    dark: tailwindColors.yellow[700],
+  },
+  'yellow-2': {
+    light: tailwindColors.yellow[200],
+    dark: tailwindColors.yellow[800],
+  },
+  'yellow-1': {
+    light: tailwindColors.yellow[100],
+    dark: tailwindColors.yellow[900],
+  },
+  'yellow-0': {
+    light: tailwindColors.yellow[50],
+    dark: tailwindColors.yellow[950],
+  },
+  lime: tailwindColors.lime[500],
+  'lime-4': {
+    light: tailwindColors.lime[400],
+    dark: tailwindColors.lime[600],
+  },
+  'lime-3': {
+    light: tailwindColors.lime[300],
+    dark: tailwindColors.lime[700],
+  },
+  'lime-2': {
+    light: tailwindColors.lime[200],
+    dark: tailwindColors.lime[800],
+  },
+  'lime-1': {
+    light: tailwindColors.lime[100],
+    dark: tailwindColors.lime[900],
+  },
+  'lime-0': {
+    light: tailwindColors.lime[50],
+    dark: tailwindColors.lime[950],
+  },
+  green: tailwindColors.green[500],
+  'green-4': {
+    light: tailwindColors.green[400],
+    dark: tailwindColors.green[600],
+  },
+  'green-3': {
+    light: tailwindColors.green[300],
+    dark: tailwindColors.green[700],
+  },
+  'green-2': {
+    light: tailwindColors.green[200],
+    dark: tailwindColors.green[800],
+  },
+  'green-1': {
+    light: tailwindColors.green[100],
+    dark: tailwindColors.green[900],
+  },
+  'green-0': {
+    light: tailwindColors.green[50],
+    dark: tailwindColors.green[950],
+  },
+  emerald: tailwindColors.emerald[500],
+  'emerald-4': {
+    light: tailwindColors.emerald[400],
+    dark: tailwindColors.emerald[600],
+  },
+  'emerald-3': {
+    light: tailwindColors.emerald[300],
+    dark: tailwindColors.emerald[700],
+  },
+  'emerald-2': {
+    light: tailwindColors.emerald[200],
+    dark: tailwindColors.emerald[800],
+  },
+  'emerald-1': {
+    light: tailwindColors.emerald[100],
+    dark: tailwindColors.emerald[900],
+  },
+  'emerald-0': {
+    light: tailwindColors.emerald[50],
+    dark: tailwindColors.emerald[950],
+  },
+  teal: tailwindColors.teal[500],
+  'teal-4': {
+    light: tailwindColors.teal[400],
+    dark: tailwindColors.teal[600],
+  },
+  'teal-3': {
+    light: tailwindColors.teal[300],
+    dark: tailwindColors.teal[700],
+  },
+  'teal-2': {
+    light: tailwindColors.teal[200],
+    dark: tailwindColors.teal[800],
+  },
+  'teal-1': {
+    light: tailwindColors.teal[100],
+    dark: tailwindColors.teal[900],
+  },
+  'teal-0': {
+    light: tailwindColors.teal[50],
+    dark: tailwindColors.teal[950],
+  },
+  cyan: tailwindColors.cyan[500],
+  'cyan-4': {
+    light: tailwindColors.cyan[400],
+    dark: tailwindColors.cyan[600],
+  },
+  'cyan-3': {
+    light: tailwindColors.cyan[300],
+    dark: tailwindColors.cyan[700],
+  },
+  'cyan-2': {
+    light: tailwindColors.cyan[200],
+    dark: tailwindColors.cyan[800],
+  },
+  'cyan-1': {
+    light: tailwindColors.cyan[100],
+    dark: tailwindColors.cyan[900],
+  },
+  'cyan-0': {
+    light: tailwindColors.cyan[50],
+    dark: tailwindColors.cyan[950],
+  },
+  sky: tailwindColors.sky[500],
+  'sky-4': {
+    light: tailwindColors.sky[400],
+    dark: tailwindColors.sky[600],
+  },
+  'sky-3': {
+    light: tailwindColors.sky[300],
+    dark: tailwindColors.sky[700],
+  },
+  'sky-2': {
+    light: tailwindColors.sky[200],
+    dark: tailwindColors.sky[800],
+  },
+  'sky-1': {
+    light: tailwindColors.sky[100],
+    dark: tailwindColors.sky[900],
+  },
+  'sky-0': {
+    light: tailwindColors.sky[50],
+    dark: tailwindColors.sky[950],
+  },
+  blue: tailwindColors.blue[500],
+  'blue-4': {
+    light: tailwindColors.blue[400],
+    dark: tailwindColors.blue[600],
+  },
+  'blue-3': {
+    light: tailwindColors.blue[300],
+    dark: tailwindColors.blue[700],
+  },
+  'blue-2': {
+    light: tailwindColors.blue[200],
+    dark: tailwindColors.blue[800],
+  },
+  'blue-1': {
+    light: tailwindColors.blue[100],
+    dark: tailwindColors.blue[900],
+  },
+  'blue-0': {
+    light: tailwindColors.blue[50],
+    dark: tailwindColors.blue[950],
+  },
+  indigo: tailwindColors.indigo[500],
+  'indigo-4': {
+    light: tailwindColors.indigo[400],
+    dark: tailwindColors.indigo[600],
+  },
+  'indigo-3': {
+    light: tailwindColors.indigo[300],
+    dark: tailwindColors.indigo[700],
+  },
+  'indigo-2': {
+    light: tailwindColors.indigo[200],
+    dark: tailwindColors.indigo[800],
+  },
+  'indigo-1': {
+    light: tailwindColors.indigo[100],
+    dark: tailwindColors.indigo[900],
+  },
+  'indigo-0': {
+    light: tailwindColors.indigo[50],
+    dark: tailwindColors.indigo[950],
+  },
+  violet: tailwindColors.violet[500],
+  'violet-4': {
+    light: tailwindColors.violet[400],
+    dark: tailwindColors.violet[600],
+  },
+  'violet-3': {
+    light: tailwindColors.violet[300],
+    dark: tailwindColors.violet[700],
+  },
+  'violet-2': {
+    light: tailwindColors.violet[200],
+    dark: tailwindColors.violet[800],
+  },
+  'violet-1': {
+    light: tailwindColors.violet[100],
+    dark: tailwindColors.violet[900],
+  },
+  'violet-0': {
+    light: tailwindColors.violet[50],
+    dark: tailwindColors.violet[950],
+  },
+  purple: tailwindColors.purple[500],
+  'purple-4': {
+    light: tailwindColors.purple[400],
+    dark: tailwindColors.purple[600],
+  },
+  'purple-3': {
+    light: tailwindColors.purple[300],
+    dark: tailwindColors.purple[700],
+  },
+  'purple-2': {
+    light: tailwindColors.purple[200],
+    dark: tailwindColors.purple[800],
+  },
+  'purple-1': {
+    light: tailwindColors.purple[100],
+    dark: tailwindColors.purple[900],
+  },
+  'purple-0': {
+    light: tailwindColors.purple[50],
+    dark: tailwindColors.purple[950],
+  },
+  fuchsia: tailwindColors.fuchsia[500],
+  'fuchsia-4': {
+    light: tailwindColors.fuchsia[400],
+    dark: tailwindColors.fuchsia[600],
+  },
+  'fuchsia-3': {
+    light: tailwindColors.fuchsia[300],
+    dark: tailwindColors.fuchsia[700],
+  },
+  'fuchsia-2': {
+    light: tailwindColors.fuchsia[200],
+    dark: tailwindColors.fuchsia[800],
+  },
+  'fuchsia-1': {
+    light: tailwindColors.fuchsia[100],
+    dark: tailwindColors.fuchsia[900],
+  },
+  'fuchsia-0': {
+    light: tailwindColors.fuchsia[50],
+    dark: tailwindColors.fuchsia[950],
+  },
+  pink: tailwindColors.pink[500],
+  'pink-4': {
+    light: tailwindColors.pink[400],
+    dark: tailwindColors.pink[600],
+  },
+  'pink-3': {
+    light: tailwindColors.pink[300],
+    dark: tailwindColors.pink[700],
+  },
+  'pink-2': {
+    light: tailwindColors.pink[200],
+    dark: tailwindColors.pink[800],
+  },
+  'pink-1': {
+    light: tailwindColors.pink[100],
+    dark: tailwindColors.pink[900],
+  },
+  'pink-0': {
+    light: tailwindColors.pink[50],
+    dark: tailwindColors.pink[950],
+  },
+  rose: tailwindColors.rose[500],
+  'rose-4': {
+    light: tailwindColors.rose[400],
+    dark: tailwindColors.rose[600],
+  },
+  'rose-3': {
+    light: tailwindColors.rose[300],
+    dark: tailwindColors.rose[700],
+  },
+  'rose-2': {
+    light: tailwindColors.rose[200],
+    dark: tailwindColors.rose[800],
+  },
+  'rose-1': {
+    light: tailwindColors.rose[100],
+    dark: tailwindColors.rose[900],
+  },
+  'rose-0': {
+    light: tailwindColors.rose[50],
+    dark: tailwindColors.rose[950],
+  },
+};

@@ -1,7 +1,9 @@
-import colors from './colors';
+import defaultColors from './colors';
 import { isArray, isObject } from './utils';
 
-const utilities = {
+export { defaultColors };
+
+export const defaultUtilities = {
   text: 'color',
   bg: 'background-color',
   decoration: 'text-decoration-color',
@@ -17,31 +19,34 @@ const utilities = {
 };
 
 export const defaultConfig = {
-  colors,
-  utilities,
+  colors: defaultColors,
+  utilities: defaultUtilities,
 } as const;
 
 export type Mode = 'dark' | 'light';
 export type ColorScheme = { [key in Mode]: string };
-export type DefaultColors = typeof colors;
+export type DefaultColors = typeof defaultColors;
 export type DefaultColorName = keyof DefaultColors;
-export type DefaultColorValue = DefaultColors[DefaultColorName];
-export type ColorName = DefaultColorName | string;
-export type ColorOption = DefaultColorValue | ColorScheme | string;
-export type ColorConfig = Record<ColorName, ColorOption>;
-export type ColorOptions = DefaultColorName[] | ColorConfig;
-export type DefaultUtilities = typeof utilities;
-export type DefaultUtilityName = keyof DefaultUtilities;
-export type UtilityConfig =
-  | DefaultUtilities
-  | {
-      [key: string]: string;
-    };
-export type UtilityOptions = DefaultUtilityName[] | UtilityConfig;
+export type DefaultColorOption = DefaultColors[DefaultColorName];
+export type UserColorName = string;
+export type UserColorOption = ColorScheme | string;
+export type ColorName = DefaultColorName | UserColorName;
+export type ColorValue = DefaultColorOption | UserColorOption;
+export type ColorConfig = Record<ColorName, ColorValue>;
+export type UserColorConfig = DefaultColorName[] | ColorConfig;
+export type DefaultUtilities = typeof defaultUtilities;
+export type DefaultUtility = keyof DefaultUtilities;
+export type DefaultProperty = DefaultUtilities[DefaultUtility];
+export type UserUtilities = Record<string, string>;
+export type UtilityConfig = DefaultUtilities | UserUtilities;
+export type UserUtilityConfig =
+  | DefaultUtility
+  | DefaultProperty
+  | UtilityConfig;
 
-export type Options = {
-  colors?: ColorOptions;
-  utilities?: UtilityOptions;
+export type UserConfig = {
+  colors?: UserColorConfig;
+  utilities?: UserUtilityConfig;
 };
 
 export type Config = {
@@ -49,39 +54,45 @@ export type Config = {
   utilities: UtilityConfig;
 };
 
-export function defineColors(options?: ColorOptions): ColorConfig {
+export function defineColors(colors?: UserColorConfig): ColorConfig {
   let config: ColorConfig = {};
-  if (isArray<string>(options)) {
-    for (const color of options) {
-      if (color in colors) {
-        config[color] = colors[color as DefaultColorName];
+  if (isArray<string>(colors)) {
+    for (const color of colors) {
+      if (color in defaultColors) {
+        config[color] = defaultColors[color as DefaultColorName];
       }
     }
-  } else if (isObject(options)) {
-    config = options;
+  } else if (isObject(colors)) {
+    config = colors;
   } else {
     config = defaultConfig.colors;
   }
   return config;
 }
 
-export function defineUtilities(options?: UtilityOptions): UtilityConfig {
+export function defineUtilities(utilities?: UserUtilityConfig): UtilityConfig {
   let config: UtilityConfig = {};
-  if (isArray<string>(options)) {
-    for (const utility of options) {
-      if (utility in utilities) {
-        config[utility] = utilities[utility as DefaultUtilityName];
+  if (isArray<DefaultUtility>(utilities)) {
+    for (const utility of utilities) {
+      if (utility in defaultUtilities) {
+        config[utility] = defaultUtilities[utility];
+      } else {
+        for (const property of Object.values(defaultUtilities)) {
+          if (property === utility) {
+            config[utility] = property;
+          }
+        }
       }
     }
-  } else if (isObject(options)) {
-    config = options;
+  } else if (isObject(utilities)) {
+    config = utilities;
   } else {
     config = defaultConfig.utilities;
   }
   return config;
 }
 
-export function defineConfig(options?: Options): Config {
+export function defineConfig(options?: UserConfig): Config {
   return options
     ? {
         ...defaultConfig,

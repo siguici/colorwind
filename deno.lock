@@ -1,0 +1,77 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:@biomejs/biome@1.8.3": "npm:@biomejs/biome@1.8.3"
+    },
+    "npm": {
+      "@biomejs/biome@1.8.3": {
+        "integrity": "sha512-/uUV3MV+vyAczO+vKrPdOW0Iaet7UnJMU4bNMinggGJTAnBPjCoLEYcyYtYHNnUNYlv4xZMH6hVIQCAozq8d5w==",
+        "dependencies": {
+          "@biomejs/cli-darwin-arm64": "@biomejs/cli-darwin-arm64@1.8.3",
+          "@biomejs/cli-darwin-x64": "@biomejs/cli-darwin-x64@1.8.3",
+          "@biomejs/cli-linux-arm64": "@biomejs/cli-linux-arm64@1.8.3",
+          "@biomejs/cli-linux-arm64-musl": "@biomejs/cli-linux-arm64-musl@1.8.3",
+          "@biomejs/cli-linux-x64": "@biomejs/cli-linux-x64@1.8.3",
+          "@biomejs/cli-linux-x64-musl": "@biomejs/cli-linux-x64-musl@1.8.3",
+          "@biomejs/cli-win32-arm64": "@biomejs/cli-win32-arm64@1.8.3",
+          "@biomejs/cli-win32-x64": "@biomejs/cli-win32-x64@1.8.3"
+        }
+      },
+      "@biomejs/cli-darwin-arm64@1.8.3": {
+        "integrity": "sha512-9DYOjclFpKrH/m1Oz75SSExR8VKvNSSsLnVIqdnKexj6NwmiMlKk94Wa1kZEdv6MCOHGHgyyoV57Cw8WzL5n3A==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-darwin-x64@1.8.3": {
+        "integrity": "sha512-UeW44L/AtbmOF7KXLCoM+9PSgPo0IDcyEUfIoOXYeANaNXXf9mLUwV1GeF2OWjyic5zj6CnAJ9uzk2LT3v/wAw==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-linux-arm64-musl@1.8.3": {
+        "integrity": "sha512-9yjUfOFN7wrYsXt/T/gEWfvVxKlnh3yBpnScw98IF+oOeCYb5/b/+K7YNqKROV2i1DlMjg9g/EcN9wvj+NkMuQ==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-linux-arm64@1.8.3": {
+        "integrity": "sha512-fed2ji8s+I/m8upWpTJGanqiJ0rnlHOK3DdxsyVLZQ8ClY6qLuPc9uehCREBifRJLl/iJyQpHIRufLDeotsPtw==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-linux-x64-musl@1.8.3": {
+        "integrity": "sha512-UHrGJX7PrKMKzPGoEsooKC9jXJMa28TUSMjcIlbDnIO4EAavCoVmNQaIuUSH0Ls2mpGMwUIf+aZJv657zfWWjA==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-linux-x64@1.8.3": {
+        "integrity": "sha512-I8G2QmuE1teISyT8ie1HXsjFRz9L1m5n83U1O6m30Kw+kPMPSKjag6QGUn+sXT8V+XWIZxFFBoTDEDZW2KPDDw==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-win32-arm64@1.8.3": {
+        "integrity": "sha512-J+Hu9WvrBevfy06eU1Na0lpc7uR9tibm9maHynLIoAjLZpQU3IW+OKHUtyL8p6/3pT2Ju5t5emReeIS2SAxhkQ==",
+        "dependencies": {}
+      },
+      "@biomejs/cli-win32-x64@1.8.3": {
+        "integrity": "sha512-/PJ59vA1pnQeKahemaQf4Nyj7IKUvGQSc3Ze1uIGi+Wvr1xF7rGobSrAAG01T/gUDG21vkDsZYM03NAmPiVkqg==",
+        "dependencies": {}
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@biomejs/biome@^1.8.3",
+        "npm:@tailwindcss/nesting@0.0.0-insiders.565cd3e",
+        "npm:@types/node@^22.5.1",
+        "npm:@vitest/coverage-v8@^2.0.5",
+        "npm:autoprefixer@^10.4.20",
+        "npm:postcss-import@^16.1.0",
+        "npm:postcss-load-config@^6.0.1",
+        "npm:postcss-nested@^6.2.0",
+        "npm:postcss@^8.4.41",
+        "npm:tailwindcss@^3.4.10",
+        "npm:ts-node@^10.9.2",
+        "npm:typescript@^5.5.4",
+        "npm:vite-tsconfig-paths@^5.0.1",
+        "npm:vite@^5.4.2",
+        "npm:vitest@^2.0.5"
+      ]
+    }
+  }
+}

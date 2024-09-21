@@ -11,33 +11,53 @@ export default function (
   const colors = config.colors;
   const utilities = config.utilities;
 
-  for (const [colorName, colorOption] of Object.entries(colors)) {
-    for (const [utilityName, propertyName] of Object.entries(utilities)) {
+  for (const [utilityName, propertyName] of Object.entries(utilities)) {
+    api.addProperty(propertyName, 'var(--color)', utilityName);
+
+    for (const [colorName, colorOption] of Object.entries(colors)) {
       const className = `${utilityName}-${colorName}`;
       if (typeof colorOption === 'object') {
-        api.addVar(`${colorName}-light`, colorOption.light, ':root');
-        api.addVar(`${colorName}-dark`, colorOption.dark, ':root');
+        const lightColor = colorOption.light;
+        const darkColor = colorOption.dark;
+        api.addDark(
+          colorName,
+          {
+            '--color': darkColor,
+          },
+          {
+            '--color': lightColor,
+          },
+        );
+        api.addDark(
+          `${colorName}-reverse`,
+          {
+            '--color': lightColor,
+          },
+          {
+            '--color': darkColor,
+          },
+        );
         api.addDark(
           className,
           {
-            [propertyName]: `var(--${colorName}-dark)`,
+            [propertyName]: darkColor,
           },
           {
-            [propertyName]: `var(--${colorName}-light)`,
+            [propertyName]: lightColor,
           },
         );
         api.addDark(
           `${className}-reverse`,
           {
-            [propertyName]: `var(--${colorName}-light)`,
+            [propertyName]: lightColor,
           },
           {
-            [propertyName]: `var(--${colorName}-dark)`,
+            [propertyName]: darkColor,
           },
         );
       } else {
-        api.addVar(className, colorOption, ':root');
-        api.addProperty(propertyName, `--${colorOption}`, className);
+        api.addProperty('--color', colorOption, colorName);
+        api.addProperty(propertyName, colorOption, className);
       }
     }
   }

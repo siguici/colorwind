@@ -16,7 +16,10 @@
   "module": "./js/index.js",
   "main": "./js/index.js",
   "types": "./ts/",
-  "files": ["js/**/*", "ts/**/*"],
+  "files": [
+    "js/**/*",
+    "ts/**/*"
+  ],
   "exports": {
     ".": {
       "default": "./js/index.js",
@@ -73,11 +76,11 @@
     "denoify": "denoify --out jsr"
   },
   "devDependencies": {
-    "@types/node": "^22.5.1",
+    "@types/node": "^22.6.1",
     "denoify": "^1.6.13",
     "rimraf": "^6.0.1",
-    "tailwindcss": "^3.4.10",
-    "typescript": "^5.5.4"
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2"
   },
   "peerDependencies": {
     "tailwindcss": "^3.4.10"

@@ -155,8 +155,8 @@ export const cssColors = {
 
 export default {
   pure: {
-    light: tailwindColors.white,
-    dark: tailwindColors.black,
+    light: tailwindColors.black,
+    dark: tailwindColors.white,
   },
   slate: tailwindColors.slate[500],
   'slate-4': {

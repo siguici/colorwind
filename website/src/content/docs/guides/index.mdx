@@ -5,15 +5,26 @@ description: ColorWind is a TailwindCSS plugin simplifying light/dark color sche
 
 import Installation from '~/components/installation.mdx';
 import Configuration from '~/components/configuration.mdx';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
 [tailwindcss-installation]: https://tailwindcss.com/docs/installation "Install TailwindCSS"
 
-ColorWind is a TailwindCSS plugin simplifying light/dark color scheme management with intuitive class names.
+**Colorwind** is a TailwindCSS plugin that simplifies the management
+of light and dark mode color schemes by dynamically adjusting colors
+for different utilities like text, background, borders, and more.
+With a single class, you can define colors that automatically adapt to both themes.
 
 :::caution[Work in progress]
 [ColorWind](https//github.com/siguici/colorwind) is in early development.
 If you find something that’s not working, [open an issue on the GitHub repository](https://github.com/siguici/colorwind/issues/new/choose).
 :::
+
+## 🚀 Features
+
+- **Effortless Color Management**: Automatically switch between light and dark mode color schemes using simple utility classes.
+- **All TailwindCSS Colors Supported**: Choose from all available colors in TailwindCSS for your elements.
+- **Gradient and Opacity Support**: Apply background gradients and control opacity seamlessly.
+- **Utility Flexibility**: Use with text, background, border, outline, shadow, fill, stroke, and more.
 
 ## 📋 Requirements
 
@@ -33,30 +44,141 @@ Add `ColorWind` to your [TailwindCSS configuration](https://tailwindcss.com/docs
 
 ## 🧑‍💻 Usage
 
-Simply use the provided class names in your `HTML` or `JSX` to apply color styles that adapt to the light or dark mode.
+With **Colorwind**, you can easily define and apply color utilities that adjust automatically between light and dark modes. Here's how you can use different classes for color management:
 
-### Using Color Classes
+1. **Text with decoration color**:
 
-Use the following class convention to apply color styles that adapt to light/dark themes:
+<Tabs>
+  <TabItem label="Code">
+    ```html
+    <div class="text underline text-decoration red">
+      This text is red with a red underline.
+    </div>
+    ```
+  </TabItem>
+  <TabItem label="Render">
+    <div class="text underline text-decoration red">
+      This text is red with a red underline.
+    </div>
+  </TabItem>
+</Tabs>
 
-- `variant-color-[light|dark]-X` where variant is a `TailwindCSS` variant (`text`, `bg`, `border`, etc.), color is the color name (e.g., `blue`, `red`, `green`, etc.), and X corresponds to:
+2. **Primary button with background and text colors**:
 
-  - 0: color-50 in light mode or color-950 in dark mode
-  - 1: color-100 in light mode or color-900 in dark mode
-  - 2: color-200 in light mode or color-800 in dark mode
-  - 3: color-300 in light mode or color-700 in dark mode
-  - 4: color-400 in light mode or color-600 in dark mode
-- You can also use variant-color for variant-color-500 (adapts to theme)
+<Tabs>
+  <TabItem label="Code">
+    ```html
+    <button class="bg-green-4 text-pure-reverse border-green-4">
+      Primary Button
+    </button>
+    ```
+  </TabItem>
+  <TabItem label="Render">
+    <button class="bg-green-4 text-pure-reverse border-green-4">
+      Primary Button
+    </button>
+  </TabItem>
+</Tabs>
 
-### Example in HTML
+3. **Card with shadow and border**:
 
-```html
-<!-- Light mode -->
-<p class="text-blue-light-0">This is text in a light blue shade.</p>
+<Tabs>
+  <TabItem label="Code">
+    ```html
+    <div class="bg-blue-1 border-slate-2 shadow-lg">
+      Card with a blue background and slate border
+    </div>
+    ```
+  </TabItem>
+  <TabItem label="Render">
+    <div class="bg-blue-1 border-slate-2 shadow-lg">
+      Card with a blue background and slate border
+    </div>
+  </TabItem>
+</Tabs>
 
-<!-- Dark mode -->
-<p class="text-blue-dark-0">This is text in a dark blue shade.</p>
+4. **Input field with outline and text colors**:
 
-<!-- Default color (adapts to theme) -->
-<p class="text-blue-0">This is text in the default blue shade.</p>
-```
+<Tabs>
+  <TabItem label="Code">
+    ```html
+    <input type="text" class="bg-gray-0 text-blue-2 outline-green-3 border divide-gray-2" placeholder="Enter text here" />
+    ```
+  </TabItem>
+  <TabItem label="Render">
+    <input type="text" class="bg-gray-0 text-blue-2 outline-green-3 border divide-gray-2" placeholder="Enter text here" />
+  </TabItem>
+</Tabs>
+
+5. **Icon with `fill` and `stroke`**:
+
+<Tabs>
+  <TabItem label="Code">
+    ```html
+    <svg class="fill-green-2 stroke-red-0 w-24 h-24" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+    ```
+  </TabItem>
+  <TabItem label="Render">
+    <svg class="fill-green-2 stroke-red-0 w-24 h-24" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" />
+    </svg>
+  </TabItem>
+</Tabs>
+
+6. **Section with gradient background**:
+
+<Tabs>
+  <TabItem label="Code">
+    ```html
+    <section class="bg-gradient-to-t from-indigo-2 to-pink-1 bg-opacity-90 p-10 text-white">
+      <h1>Section with gradient</h1>
+      <p>Example of a section with gradient background colors and opacity.</p>
+    </section>
+    ```
+  </TabItem>
+  <TabItem label="Render">
+    <section class="bg-gradient-to-t from-indigo-2 to-pink-1 bg-opacity-90 p-10 text-white">
+      <h1>Section with gradient</h1>
+      <p>Example of a section with gradient background colors and opacity.</p>
+    </section>
+  </TabItem>
+</Tabs>
+
+## 🌈 Color System
+
+Colorwind allows you to define colors using the following utility classes:
+
+| Utility      | Description                     |
+|--------------|---------------------------------|
+| `text`       | `color`                         |
+| `bg`         | `background-color`              |
+| `decoration` | `text-decoration-color`         |
+| `border`     | `border-color`                  |
+| `outline`    | `outline-color`                 |
+| `accent`     | `accent-color`                  |
+| `caret`      | `caret-color`                   |
+| `divide`     | `border-color`                  |
+| `fill`       | `fill`                          |
+| `stroke`     | `stroke`                        |
+| `shadow`     | `--tw-shadow-color`             |
+| `ring`       | `--tw-ring-color`               |
+
+You can specify light/dark color variations using a number system:
+
+- `utility-color-X`, where `X` corresponds to the following:
+  - `0`: `color-50` (light mode) and `color-950` (dark mode)
+  - `1`: `color-100` (light) and `color-900` (dark)
+  - `2`: `color-200` (light) and `color-800` (dark)
+  - `3`: `color-300` (light) and `color-700` (dark)
+  - `4`: `color-400` (light) and `color-600` (dark)
+  - `color`: Shortcut for `color-500` (used in both light and dark modes).
+
+- Example:
+
+  - `text-color-0`: Applies `color-50` in light mode and `color-950` in dark mode.
+  - `bg-color-1`: Applies `color-100` in light mode and `color-900` in dark mode.
+  - `border-color-2`: Applies `color-200` in light mode and `color-800` in dark mode.
+  - `outline-color-3`: Applies `color-300` in light mode and `color-700` in dark mode.
+  - `color`: Shortcut for `color-500` used in both modes.

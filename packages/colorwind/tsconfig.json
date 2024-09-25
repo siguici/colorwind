@@ -26,7 +26,7 @@
     "incremental": true,
     "resolveJsonModule": true,
     "allowArbitraryExtensions": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "assumeChangesOnlyAffectDirectDependencies": true,
     "esModuleInterop": true,
     "sourceRoot": ".",

@@ -3,30 +3,45 @@ import { type Config, type UserConfig, defineConfig } from './config';
 
 export type PluginOptions = UserConfig | undefined;
 
-export function addGradient(api: PluginAPI, color: string) {
-  addGradientFrom(api, color);
-  addGradientVia(api, color);
-  addGradientTo(api, color);
+export function addGradient(
+  api: PluginAPI,
+  from: string,
+  name?: string,
+  to?: string,
+) {
+  addGradientFrom(api, from, name, to);
+  addGradientVia(api, from, name, to);
+  addGradientTo(api, from, name);
 }
 
-export function addGradientFrom(api: PluginAPI, color: string) {
-  api.addUtility('from', {
-    '--tw-gradient-from': `${color} var(--tw-gradient-from-position)`,
-    '--tw-gradient-to': `${color} var(--tw-gradient-to-position)`,
+export function addGradientFrom(
+  api: PluginAPI,
+  from: string,
+  name?: string,
+  to?: string,
+) {
+  api.addUtility(name ? `--from-${name}` : 'from', {
+    '--tw-gradient-from': `${from} var(--tw-gradient-from-position)`,
+    '--tw-gradient-to': `${to ?? from} var(--tw-gradient-to-position)`,
     '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
   });
 }
 
-export function addGradientVia(api: PluginAPI, color: string) {
-  api.addUtility('via', {
-    '--tw-gradient-via': `${color} var(--tw-gradient-via-position)`,
-    '--tw-gradient-stops': `var(--tw-gradient-from), ${color} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+export function addGradientVia(
+  api: PluginAPI,
+  via: string,
+  name?: string,
+  to?: string,
+) {
+  api.addUtility(name ? `--via-${name}` : 'via', {
+    '--tw-gradient-to': `${to ?? via} var(--tw-gradient-via-position)`,
+    '--tw-gradient-stops': `var(--tw-gradient-from), ${via} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
   });
 }
 
-export function addGradientTo(api: PluginAPI, color: string) {
-  api.addUtility('to', {
-    '--tw-gradient-to': `${color} var(--tw-gradient-to-position)`,
+export function addGradientTo(api: PluginAPI, to: string, name?: string) {
+  api.addUtility(name ? `to-${name}` : 'to', {
+    '--tw-gradient-to': `${to} var(--tw-gradient-to-position)`,
   });
 }
 
@@ -134,18 +149,7 @@ export default function (
       );
     } else {
       api.addProperty('--color', colorOption, colorName);
-      api.addUtility(`--from-${colorName}`, {
-        '--tw-gradient-from': `${colorOption} var(--tw-gradient-from-position)`,
-        '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-        '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
-      });
-      api.addUtility(`--via-${colorName}`, {
-        '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-        '--tw-gradient-stops': `var(--tw-gradient-from), ${colorOption} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
-      });
-      api.addUtility(`to-${colorName}`, {
-        '--tw-gradient-to': `${colorOption} var(--tw-gradient-to-position)`,
-      });
+      addGradient(api, colorOption, colorName, 'var(--color)');
     }
 
     for (const [utilityName, propertyName] of Object.entries(utilities)) {

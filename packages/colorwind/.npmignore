@@ -7,4 +7,4 @@ deno.lock
 tsconfig.json
 *.config.ts
 *.config.?ts
-*.tsbuildinfo
+js/tsconfig.tsbuildinfo

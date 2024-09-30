@@ -45,6 +45,92 @@ export function addGradientTo(api: PluginAPI, to: string, name?: string) {
   });
 }
 
+export function addDarkGradient(
+  api: PluginAPI,
+  darkColor: string,
+  lightColor: string,
+  colorName?: string,
+  toColor?: string,
+) {
+  addDarkGradientFrom(api, darkColor, lightColor, colorName, toColor);
+  addDarkGradientFrom(
+    api,
+    lightColor,
+    darkColor,
+    `${colorName}-reverse`,
+    toColor,
+  );
+  addDarkGradientVia(api, darkColor, lightColor, colorName, toColor);
+  addDarkGradientVia(
+    api,
+    lightColor,
+    darkColor,
+    `${colorName}-reverse`,
+    toColor,
+  );
+  addDarkGradientTo(api, darkColor, lightColor, colorName);
+  addDarkGradientTo(api, lightColor, darkColor, `${colorName}-reverse`);
+}
+
+export function addDarkGradientFrom(
+  api: PluginAPI,
+  darkFrom: string,
+  lightFrom: string,
+  name?: string,
+  to?: string,
+) {
+  api.addDark(
+    name ? `--from-${name}` : 'from',
+    {
+      '--tw-gradient-from': `${darkFrom} var(--tw-gradient-from-position)`,
+      '--tw-gradient-to': `${to ?? darkFrom} var(--tw-gradient-to-position)`,
+      '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
+    },
+    {
+      '--tw-gradient-from': `${lightFrom} var(--tw-gradient-from-position)`,
+      '--tw-gradient-to': `${to ?? lightFrom} var(--tw-gradient-to-position)`,
+      '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
+    },
+  );
+}
+
+export function addDarkGradientVia(
+  api: PluginAPI,
+  darkVia: string,
+  lightVia: string,
+  name?: string,
+  to?: string,
+) {
+  api.addDark(
+    name ? `--via-${name}` : 'via',
+    {
+      '--tw-gradient-to': `${to ?? darkVia} var(--tw-gradient-via-position)`,
+      '--tw-gradient-stops': `var(--tw-gradient-from), ${darkVia} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+    },
+    {
+      '--tw-gradient-to': `${to ?? lightVia} var(--tw-gradient-via-position)`,
+      '--tw-gradient-stops': `var(--tw-gradient-from), ${lightVia} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+    },
+  );
+}
+
+export function addDarkGradientTo(
+  api: PluginAPI,
+  darkTo: string,
+  lightTo: string,
+  name?: string,
+) {
+  api.addDark(
+    name ? `to-${name}` : 'to',
+    {
+      '--tw-gradient-to': `${darkTo} var(--tw-gradient-to-position)`,
+    },
+    {
+      '--tw-gradient-to': `${lightTo} var(--tw-gradient-to-position)`,
+    },
+  );
+}
+
 export default function (
   api: PluginAPI,
   options: PluginOptions = undefined,
@@ -75,76 +161,6 @@ export default function (
         },
         {
           '--color': darkColor,
-        },
-      );
-      api.addDark(
-        `from-${colorName}`,
-        {
-          '--tw-gradient-from': `${darkColor} var(--tw-gradient-from-position)`,
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops':
-            'var(--tw-gradient-from), var(--tw-gradient-to)',
-        },
-        {
-          '--tw-gradient-from': `${lightColor} var(--tw-gradient-from-position)`,
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops':
-            'var(--tw-gradient-from), var(--tw-gradient-to)',
-        },
-      );
-      api.addDark(
-        `from-${colorName}-reverse`,
-        {
-          '--tw-gradient-from': `${lightColor} var(--tw-gradient-from-position)`,
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops':
-            'var(--tw-gradient-from), var(--tw-gradient-to)',
-        },
-        {
-          '--tw-gradient-from': `${darkColor} var(--tw-gradient-from-position)`,
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops':
-            'var(--tw-gradient-from), var(--tw-gradient-to)',
-        },
-      );
-      api.addDark(
-        `via-${colorName}`,
-        {
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops': `var(--tw-gradient-from), ${darkColor} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
-        },
-        {
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops': `var(--tw-gradient-from), ${lightColor} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
-        },
-      );
-      api.addDark(
-        `via-${colorName}-reverse`,
-        {
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops': `var(--tw-gradient-from), ${lightColor} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
-        },
-        {
-          '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-          '--tw-gradient-stops': `var(--tw-gradient-from), ${darkColor} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
-        },
-      );
-      api.addDark(
-        `to-${colorName}`,
-        {
-          '--tw-gradient-to': `${darkColor} var(--tw-gradient-to-position)`,
-        },
-        {
-          '--tw-gradient-to': `${lightColor} var(--tw-gradient-to-position)`,
-        },
-      );
-      api.addDark(
-        `to-${colorName}-reverse`,
-        {
-          '--tw-gradient-to': `${lightColor} var(--tw-gradient-to-position)`,
-        },
-        {
-          '--tw-gradient-to': `${darkColor} var(--tw-gradient-to-position)`,
         },
       );
     } else {

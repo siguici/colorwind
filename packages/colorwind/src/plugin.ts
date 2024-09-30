@@ -3,6 +3,33 @@ import { type Config, type UserConfig, defineConfig } from './config';
 
 export type PluginOptions = UserConfig | undefined;
 
+export function addGradient(api: PluginAPI, color: string) {
+  addGradientFrom(api, color);
+  addGradientVia(api, color);
+  addGradientTo(api, color);
+}
+
+export function addGradientFrom(api: PluginAPI, color: string) {
+  api.addUtility('from', {
+    '--tw-gradient-from': `${color} var(--tw-gradient-from-position)`,
+    '--tw-gradient-to': `${color} var(--tw-gradient-to-position)`,
+    '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
+  });
+}
+
+export function addGradientVia(api: PluginAPI, color: string) {
+  api.addUtility('via', {
+    '--tw-gradient-via': `${color} var(--tw-gradient-via-position)`,
+    '--tw-gradient-stops': `var(--tw-gradient-from), ${color} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+  });
+}
+
+export function addGradientTo(api: PluginAPI, color: string) {
+  api.addUtility('to', {
+    '--tw-gradient-to': `${color} var(--tw-gradient-to-position)`,
+  });
+}
+
 export default function (
   api: PluginAPI,
   options: PluginOptions = undefined,
@@ -11,19 +38,7 @@ export default function (
   const colors = config.colors;
   const utilities = config.utilities;
 
-  api.addUtility('from', {
-    '--tw-gradient-from': 'var(--color) var(--tw-gradient-from-position)',
-    '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-    '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
-  });
-  api.addUtility('via', {
-    '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-    '--tw-gradient-stops':
-      'var(--tw-gradient-from), var(--color) var(--tw-gradient-via-position), var(--tw-gradient-to)',
-  });
-  api.addUtility('to', {
-    '--tw-gradient-to': 'var(--color) var(--tw-gradient-to-position)',
-  });
+  addGradient(api, 'var(--color)');
 
   for (const [colorName, colorOption] of Object.entries(colors)) {
     if (typeof colorOption === 'object') {

@@ -5,43 +5,43 @@ export type PluginOptions = UserConfig | undefined;
 
 export function addGradient(
   api: PluginAPI,
-  from: string,
+  color: string,
   name?: string,
   to?: string,
 ) {
-  addGradientFrom(api, from, name, to);
-  addGradientVia(api, from, name, to);
-  addGradientTo(api, from, name);
+  addGradientFrom(api, color, name, to);
+  addGradientVia(api, color, name, to);
+  addGradientTo(api, color, name);
 }
 
 export function addGradientFrom(
   api: PluginAPI,
-  from: string,
+  color: string,
   name?: string,
   to?: string,
 ) {
   api.addUtility(name ? `--from-${name}` : 'from', {
-    '--tw-gradient-from': `${from} var(--tw-gradient-from-position)`,
-    '--tw-gradient-to': `${to ?? from} var(--tw-gradient-to-position)`,
+    '--tw-gradient-from': `${color} var(--tw-gradient-from-position)`,
+    '--tw-gradient-to': `${to ?? color} var(--tw-gradient-to-position)`,
     '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
   });
 }
 
 export function addGradientVia(
   api: PluginAPI,
-  via: string,
+  color: string,
   name?: string,
   to?: string,
 ) {
   api.addUtility(name ? `--via-${name}` : 'via', {
-    '--tw-gradient-to': `${to ?? via} var(--tw-gradient-via-position)`,
-    '--tw-gradient-stops': `var(--tw-gradient-from), ${via} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+    '--tw-gradient-to': `${to ?? color} var(--tw-gradient-via-position)`,
+    '--tw-gradient-stops': `var(--tw-gradient-from), ${color} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
   });
 }
 
-export function addGradientTo(api: PluginAPI, to: string, name?: string) {
+export function addGradientTo(api: PluginAPI, color: string, name?: string) {
   api.addUtility(name ? `to-${name}` : 'to', {
-    '--tw-gradient-to': `${to} var(--tw-gradient-to-position)`,
+    '--tw-gradient-to': `${color} var(--tw-gradient-to-position)`,
   });
 }
 
@@ -74,21 +74,21 @@ export function addDarkGradient(
 
 export function addDarkGradientFrom(
   api: PluginAPI,
-  darkFrom: string,
-  lightFrom: string,
+  darkColor: string,
+  lightColor: string,
   name?: string,
   to?: string,
 ) {
   api.addDark(
     name ? `--from-${name}` : 'from',
     {
-      '--tw-gradient-from': `${darkFrom} var(--tw-gradient-from-position)`,
-      '--tw-gradient-to': `${to ?? darkFrom} var(--tw-gradient-to-position)`,
+      '--tw-gradient-from': `${darkColor} var(--tw-gradient-from-position)`,
+      '--tw-gradient-to': `${to ?? darkColor} var(--tw-gradient-to-position)`,
       '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
     },
     {
-      '--tw-gradient-from': `${lightFrom} var(--tw-gradient-from-position)`,
-      '--tw-gradient-to': `${to ?? lightFrom} var(--tw-gradient-to-position)`,
+      '--tw-gradient-from': `${lightColor} var(--tw-gradient-from-position)`,
+      '--tw-gradient-to': `${to ?? lightColor} var(--tw-gradient-to-position)`,
       '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
     },
   );
@@ -96,37 +96,37 @@ export function addDarkGradientFrom(
 
 export function addDarkGradientVia(
   api: PluginAPI,
-  darkVia: string,
-  lightVia: string,
+  darkColor: string,
+  lightColor: string,
   name?: string,
   to?: string,
 ) {
   api.addDark(
     name ? `--via-${name}` : 'via',
     {
-      '--tw-gradient-to': `${to ?? darkVia} var(--tw-gradient-via-position)`,
-      '--tw-gradient-stops': `var(--tw-gradient-from), ${darkVia} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+      '--tw-gradient-to': `${to ?? darkColor} var(--tw-gradient-via-position)`,
+      '--tw-gradient-stops': `var(--tw-gradient-from), ${darkColor} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
     },
     {
-      '--tw-gradient-to': `${to ?? lightVia} var(--tw-gradient-via-position)`,
-      '--tw-gradient-stops': `var(--tw-gradient-from), ${lightVia} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
+      '--tw-gradient-to': `${to ?? lightColor} var(--tw-gradient-via-position)`,
+      '--tw-gradient-stops': `var(--tw-gradient-from), ${lightColor} var(--tw-gradient-via-position), var(--tw-gradient-to)`,
     },
   );
 }
 
 export function addDarkGradientTo(
   api: PluginAPI,
-  darkTo: string,
-  lightTo: string,
+  darkColor: string,
+  lightColor: string,
   name?: string,
 ) {
   api.addDark(
     name ? `to-${name}` : 'to',
     {
-      '--tw-gradient-to': `${darkTo} var(--tw-gradient-to-position)`,
+      '--tw-gradient-to': `${darkColor} var(--tw-gradient-to-position)`,
     },
     {
-      '--tw-gradient-to': `${lightTo} var(--tw-gradient-to-position)`,
+      '--tw-gradient-to': `${lightColor} var(--tw-gradient-to-position)`,
     },
   );
 }

@@ -2,13 +2,13 @@
   "name": "colorwind",
   "version": "0.2.0",
   "license": "MIT",
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@9.12.2",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=20.17",
-    "pnpm": ">=9.11",
+    "node": ">=20.18",
+    "pnpm": ">=9.12",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },
@@ -72,16 +72,16 @@
     "denoify": "denoify --out jsr"
   },
   "devDependencies": {
-    "@types/node": "^22.7.4",
-    "denoify": "^1.6.13",
+    "@types/node": "^22.7.7",
+    "denoify": "^1.6.16",
     "rimraf": "^6.0.1",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2"
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3"
   },
   "peerDependencies": {
     "tailwindcss": "^3.4.13"
   },
   "dependencies": {
-    "plugwind.js": "^0.5.0"
+    "plugwind.js": "^0.6.0"
   }
 }

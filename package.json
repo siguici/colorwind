@@ -2,13 +2,13 @@
   "name": "colorwind-monorepo",
   "version": "0.1.1",
   "license": "MIT",
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@9.12.2",
   "publishConfig": {
     "access": "public"
   },
   "engines": {
-    "node": ">=20.17",
-    "pnpm": ">=9.11",
+    "node": ">=20.18",
+    "pnpm": ">=9.12",
     "npm": "prefer using pnpm",
     "yarn": "prefer using pnpm"
   },
@@ -66,21 +66,21 @@
     "start": "pnpm doc.start"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.2",
+    "@biomejs/biome": "^1.9.4",
     "@tailwindcss/nesting": "0.0.0-insiders.565cd3e",
-    "@types/node": "^22.7.4",
-    "@vitest/coverage-v8": "^2.1.1",
+    "@types/node": "^22.7.7",
+    "@vitest/coverage-v8": "^2.1.3",
     "autoprefixer": "^10.4.20",
     "colorwind": "workspace:*",
     "postcss": "^8.4.47",
     "postcss-import": "^16.1.0",
     "postcss-load-config": "^6.0.1",
     "postcss-nested": "^6.2.0",
-    "tailwindcss": "^3.4.13",
+    "tailwindcss": "^3.4.14",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.2",
-    "vite": "^5.4.8",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
     "vite-tsconfig-paths": "^5.0.1",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.3"
   }
 }

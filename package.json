@@ -2,7 +2,7 @@
   "name": "colorwind-monorepo",
   "version": "0.1.1",
   "license": "MIT",
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@10.12.4",
   "publishConfig": {
     "access": "public"
   },

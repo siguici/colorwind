@@ -1,15 +1,5 @@
 {
   "root": false,
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
-  "files": {
-    "includes": [
-      "**",
-      "!**/.astro",
-      "!**/.vscode",
-      "!**/dist",
-      "!**/node_modules"
-    ]
-  },
   "linter": {
     "rules": {
       "style": {

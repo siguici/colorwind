@@ -1,9 +1,5 @@
 {
   "root": false,
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
-  "files": {
-    "includes": ["**", "!**/node_modules", "!**/jsr", "!**/js", "!**/ts"]
-  },
   "linter": {
     "rules": {
       "style": {

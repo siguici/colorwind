@@ -9,7 +9,9 @@
       "!**/.astro",
       "!**/.vscode",
       "!**/dist",
-      "!**/node_modules"
+      "!**/jsr",
+      "!**/js",
+      "!**/ts"
     ]
   },
   "linter": {

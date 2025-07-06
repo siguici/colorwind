@@ -17,18 +17,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/starlight": "^0.28.3",
-    "@astrojs/starlight-tailwind": "^2.0.3",
-    "@astrojs/tailwind": "^5.1.2",
-    "astro": "^4.16.6",
+    "@astrojs/starlight": "^0.34.4",
+    "@astrojs/starlight-tailwind": "^4.0.1",
+    "@tailwindcss/vite": "^4.1.11",
+    "astro": "^5.11.0",
     "colorwind": "workspace:*",
-    "postcss": "^8.4.47",
-    "postcss-import": "^16.1.0",
-    "postcss-load-config": "^6.0.1",
-    "postcss-nested": "^6.2.0",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^3.4.14",
+    "sharp": "^0.34.2",
+    "tailwindcss": "^4.1.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.8.3"
   }
 }

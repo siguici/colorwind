@@ -1,4 +1,5 @@
 export * as config from './config';
+
 import {
   type PluginAPI,
   type PluginCreator,

@@ -1,7 +1,6 @@
 import starlight from '@astrojs/starlight';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
-
-import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,9 +15,13 @@ export default defineConfig({
         replacesTitle: false,
       },
       title: 'ColorWind',
-      social: {
-        github: 'https://github.com/siguici/colorwind',
-      },
+      social: [
+        {
+          icon: 'github',
+          label: 'GitHub',
+          href: 'https://github.com/withastro/starlight',
+        },
+      ],
       editLink: {
         baseUrl: 'https://github.com/siguici/colorwind/edit/main/website/',
       },
@@ -45,8 +48,8 @@ export default defineConfig({
       ],
       customCss: ['./src/design/global.css'],
     }),
-    tailwind({
-      applyBaseStyles: false,
-    }),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

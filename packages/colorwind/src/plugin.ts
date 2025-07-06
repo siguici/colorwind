@@ -1,5 +1,5 @@
 import type { PluginAPI } from 'plugwind.js';
-import { type Config, type UserConfig, defineConfig } from './config';
+import { type Config, defineConfig, type UserConfig } from './config';
 
 export type PluginOptions = UserConfig | undefined;
 

@@ -1,11 +1,23 @@
 {
-  "organizeImports": {
-    "ignore": ["node_modules", "jsr", "js", "ts"]
+  "root": false,
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "files": {
+    "includes": ["**", "!**/node_modules", "!**/jsr", "!**/js", "!**/ts"]
   },
   "linter": {
-    "ignore": ["node_modules", "jsr", "js", "ts"]
-  },
-  "formatter": {
-    "ignore": ["node_modules", "jsr", "js", "ts"]
+    "rules": {
+      "style": {
+        "noParameterAssign": "error",
+        "useAsConstAssertion": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "noUnusedTemplateLiteral": "error",
+        "useNumberNamespace": "error",
+        "noInferrableTypes": "error",
+        "noUselessElse": "error"
+      }
+    }
   }
 }

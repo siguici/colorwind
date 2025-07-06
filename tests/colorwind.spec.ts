@@ -2,9 +2,8 @@ import path from 'node:path';
 import postcss from 'postcss';
 import tailwindcss, { type Config } from 'tailwindcss';
 import resolveConfig from 'tailwindcss/resolveConfig';
-import tailwindConfig from '../tailwind.config';
-
 import { describe, expect, it } from 'vitest';
+import tailwindConfig from '../tailwind.config';
 
 const html = String.raw;
 const css = String.raw;

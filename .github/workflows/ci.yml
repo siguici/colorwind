@@ -47,7 +47,7 @@ jobs:
           path: packages/colorwind/jsr
 
       - name: 📚 Install, build, and upload docs
-        uses: withastro/action@v2
+        uses: withastro/action@v4
         with:
           path: ./website
           node-version: ${{ matrix.node-version }}

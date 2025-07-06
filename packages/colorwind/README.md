@@ -1,20 +1,26 @@
-# [ColorWind 🎨](https://colorwind.js.org)
+# [🎨 ColorWind](https://colorwind.js.org)
 
-[ColorWind](https://colorwind.js.org) is a [TailwindCSS](https://tailwindcss.com) plugin simplifying light/dark color scheme management with intuitive class names.
+**ColorWind** is a [TailwindCSS](https://tailwindcss.com) plugin that simplifies
+light/dark color scheme management using intuitive and expressive class names.
+It bridges the gap between Tailwind’s numeric color scales (50–950)
+and accessible theming, allowing you to write once, adapt everywhere.
+
+---
 
 ## 🚀 Installation
 
-You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npmjs.com/package/colorwind) or [`JSR`](https://jsr.io/@siguici/colorwind):
+You can install [`ColorWind`](https://colorwind.js.org)
+from [`NPM`](https://npmjs.com/package/colorwind) or [`JSR`](https://jsr.io/@siguici/colorwind):
 
 - Using `npm`:
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+  [`NPM`](https://npmjs.com/package/colorwind):
 
   ```bash
   npm install colorwind
   ```
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+  [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   npx jsr add @siguici/colorwind
@@ -22,13 +28,13 @@ You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npm
 
 - Using `Yarn`:
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+  [`NPM`](https://npmjs.com/package/colorwind):
 
   ```bash
   yarn add colorwind
   ```
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+  [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   yarn dlx jsr add @siguici/colorwind
@@ -36,13 +42,13 @@ You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npm
 
 - Using `PNPM`:
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+  [`NPM`](https://npmjs.com/package/colorwind):
 
   ```bash
   pnpm add colorwind
   ```
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+  [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   pnpm dlx jsr add @siguici/colorwind
@@ -50,13 +56,13 @@ You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npm
 
 - Using `Bun`:
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+  [`NPM`](https://npmjs.com/package/colorwind):
 
   ```bash
   bun install colorwind
   ```
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+  [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   bunx jsr add @siguici/colorwind
@@ -64,13 +70,13 @@ You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npm
 
 - Using `Deno`:
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+  [`NPM`](https://npmjs.com/package/colorwind):
 
   ```bash
   deno install npm:colorwind
   ```
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+  [`JSR`](https://jsr.io/@siguici/colorwind):
 
   ```bash
   deno add @siguici/colorwind
@@ -82,62 +88,116 @@ You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npm
   import colorwind from 'jsr:@siguici/colorwind';
   ```
 
+---
+
 ## 🔧 Configuration
 
-Add [`ColorWind`](https://colorwind.js.org) to your [TailwindCSS configuration](https://tailwindcss.com/docs/configuration):
+Add `colorwind` to your Tailwind configuration file:
 
-- With `NPM` (from `node_modules`):
+### Node/NPM
 
-  ```javascript ins={1,5}
-  import colorwind from 'colorwind';
+```ts
+import colorwind from 'colorwind';
 
-  /** @type {import('tailwindcss').Config} */
-  export default {
-    plugins: [colorwind],
-  };
-  ```
+/** @type {import('tailwindcss').Config} */
+export default {
+  plugins: [colorwind],
+};
+```
 
-- With `JSR` (using `Deno`):
+### Deno/JSR
 
-  ```javascript ins={1,5}
-  import colorwind from 'jsr:@siguici/colorwind';
+```ts
+import colorwind from 'jsr:@siguici/colorwind';
 
-  /** @type {import('tailwindcss').Config} */
-  export default {
-    plugins: [colorwind],
-  };
-  ```
+export default {
+  plugins: [colorwind],
+};
+```
+
+---
 
 ## 💡 Usage
 
-Simply use the provided class names in your `HTML` or `JSX` to apply color styles that adapt to the light or dark mode.
+Write utility-first color classes that **automatically adapt**
+between **light and dark** modes — no extra logic needed.
 
-### Using Color Classes
+### 🎯 Naming Convention
 
-Use the following class convention to apply color styles that adapt to light/dark themes:
+Use:
 
-- `variant-color-[light|dark]-X` where variant is a `TailwindCSS` variant (`text`, `bg`, `border`, etc.), color is the color name (e.g., `blue`, `red`, `green`, etc.), and X corresponds to:
-
-  - 0: color-50 in light mode or color-950 in dark mode
-  - 1: color-100 in light mode or color-900 in dark mode
-  - 2: color-200 in light mode or color-800 in dark mode
-  - 3: color-300 in light mode or color-700 in dark mode
-  - 4: color-400 in light mode or color-600 in dark mode
-- You can also use variant-color for variant-color-500 (adapts to theme)
-
-### Example in HTML
-
-```html
-<!-- Light mode -->
-<p class="text-blue-light-0">This is text in a light blue shade.</p>
-
-<!-- Dark mode -->
-<p class="text-blue-dark-0">This is text in a dark blue shade.</p>
-
-<!-- Default color (adapts to theme) -->
-<p class="text-blue-0">This is text in the default blue shade.</p>
+```txt
+<variant>-<color>[-X][-reverse][/opacity]
 ```
 
-## 📄 License
+Where:
 
-This project is licensed under the MIT License - see the [LICENSE.md file](./LICENSE.md) for details.
+| Part       | Description                                          |
+| ---------- | ---------------------------------------------------- |
+| `variant`  | Tailwind utility (e.g. `text`, `bg`, `border`, etc.) |
+| `color`    | Tailwind color name (e.g. `blue`, `red`)             |
+| `X`        | Color intensity (0 to 4)                             |
+| `reverse`  | (optional) Inverts the light/dark pairing            |
+| `/opacity` | (optional) Tailwind opacity shorthand                |
+
+#### Color Intensity Mapping
+
+| Level  | Light Mode                | Dark Mode   |
+| ------ | ------------------------- | ----------- |
+| `0`    | `color-50`                | `color-950` |
+| `1`    | `color-100`               | `color-900` |
+| `2`    | `color-200`               | `color-800` |
+| `3`    | `color-300`               | `color-700` |
+| `4`    | `color-400`               | `color-600` |
+| (none) | `color-500` in both modes |             |
+
+---
+
+## ✨ Examples
+
+```html
+<!-- Auto-adjusting to theme -->
+<p class="text-blue-0">Adaptive blue shade</p>
+
+<!-- Explicit light/dark variants -->
+<p class="text-blue-light-1">Blue-100 (light only)</p>
+<p class="text-blue-dark-1">Blue-900 (dark only)</p>
+
+<!-- Reversed behavior -->
+<p class="bg-red-3-reverse">Red-300 dark / Red-700 light</p>
+
+<!-- Opacity -->
+<p class="text-green-2/80">Green-200/800 with 80% opacity</p>
+
+<!-- Multiple utilities, one color -->
+<div class="text underline text-decoration-blue-1">
+  Underlined blue text
+</div>
+```
+
+---
+
+## 📘 Supported Utilities
+
+ColorWind supports the following Tailwind color utilities:
+
+| Utility      | CSS Property            |
+| ------------ | ----------------------- |
+| `text`       | `color`                 |
+| `bg`         | `background-color`      |
+| `border`     | `border-color`          |
+| `outline`    | `outline-color`         |
+| `ring`       | `--tw-ring-color`       |
+| `shadow`     | `--tw-shadow-color`     |
+| `decoration` | `text-decoration-color` |
+| `accent`     | `accent-color`          |
+| `caret`      | `caret-color`           |
+| `divide`     | `border-color`          |
+| `fill`       | `fill`                  |
+| `stroke`     | `stroke`                |
+
+---
+
+## 🪪 License
+
+[MIT](./LICENSE.md) © [SIGUI Kessé Emmanuel](https://siguici.deno.dev)

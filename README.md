@@ -1,143 +1,97 @@
-# [ColorWind 🎨](https://colorwind.js.org)
+# 🎨 ColorWind
 
-[ColorWind](https://colorwind.js.org) is a [TailwindCSS](https://tailwindcss.com) plugin simplifying light/dark color scheme management with intuitive class names.
+**ColorWind** is a powerful [TailwindCSS](https://tailwindcss.com) plugin
+that makes managing light and dark color schemes easy, expressive, and automatic.
 
-## 🚀 Installation
+This repository contains the full source code,
+plugin package, and documentation for the project.
 
-You can install [`ColorWind`](https://colorwind.js.org) from [`NPM`](https://npmjs.com/package/colorwind) or [`JSR`](https://jsr.io/@siguici/colorwind):
+> 📦 The published plugin lives inside [`/packages/colorwind`](./packages/colorwind)
 
-- Using `npm`:
+---
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+## 📚 Documentation
 
-  ```bash
-  npm install colorwind
-  ```
+Interactive usage guide, theming examples, and live playground:
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+👉 **[https://colorwind.js.org](https://colorwind.js.org)**
 
-  ```bash
-  npx jsr add @siguici/colorwind
-  ```
+---
 
-- Using `Yarn`:
+## 📦 Packages
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+| Package           | Description                         | Registry                      |
+|------------------|-------------------------------------|-------------------------------|
+| [`colorwind`](./packages/colorwind) | TailwindCSS plugin for automatic color theming | [NPM](https://npmjs.com/package/colorwind), [JSR](https://jsr.io/@siguici/colorwind) |
 
-  ```bash
-  yarn add colorwind
-  ```
+---
 
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
+## 🚀 Getting Started
 
-  ```bash
-  yarn dlx jsr add @siguici/colorwind
-  ```
+Install from your preferred package manager:
 
-- Using `PNPM`:
+```bash
+npm install colorwind
+````
 
-  From [`NPM`](https://npmjs.com/package/colorwind):
+Or use [JSR](https://jsr.io/@siguici/colorwind):
 
-  ```bash
-  pnpm add colorwind
-  ```
-
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
-
-  ```bash
-  pnpm dlx jsr add @siguici/colorwind
-  ```
-
-- Using `Bun`:
-
-  From [`NPM`](https://npmjs.com/package/colorwind):
-
-  ```bash
-  bun install colorwind
-  ```
-
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
-
-  ```bash
-  bunx jsr add @siguici/colorwind
-  ```
-
-- Using `Deno`:
-
-  From [`NPM`](https://npmjs.com/package/colorwind):
-
-  ```bash
-  deno install npm:colorwind
-  ```
-
-  From [`JSR`](https://jsr.io/@siguici/colorwind):
-
-  ```bash
-  deno add @siguici/colorwind
-  ```
-
-  Without install:
-
-  ```typescript
-  import colorwind from 'jsr:@siguici/colorwind';
-  ```
-
-## 🔧 Configuration
-
-Add [`ColorWind`](https://colorwind.js.org) to your [TailwindCSS configuration](https://tailwindcss.com/docs/configuration):
-
-- With `NPM` (from `node_modules`):
-
-  ```javascript ins={1,5}
-  import colorwind from 'colorwind';
-
-  /** @type {import('tailwindcss').Config} */
-  export default {
-    plugins: [colorwind],
-  };
-  ```
-
-- With `JSR` (using `Deno`):
-
-  ```javascript ins={1,5}
-  import colorwind from 'jsr:@siguici/colorwind';
-
-  /** @type {import('tailwindcss').Config} */
-  export default {
-    plugins: [colorwind],
-  };
-  ```
-
-## 💡 Usage
-
-Simply use the provided class names in your `HTML` or `JSX` to apply color styles that adapt to the light or dark mode.
-
-### Using Color Classes
-
-Use the following class convention to apply color styles that adapt to light/dark themes:
-
-- `variant-color-[light|dark]-X` where variant is a `TailwindCSS` variant (`text`, `bg`, `border`, etc.), color is the color name (e.g., `blue`, `red`, `green`, etc.), and X corresponds to:
-
-  - 0: color-50 in light mode or color-950 in dark mode
-  - 1: color-100 in light mode or color-900 in dark mode
-  - 2: color-200 in light mode or color-800 in dark mode
-  - 3: color-300 in light mode or color-700 in dark mode
-  - 4: color-400 in light mode or color-600 in dark mode
-- You can also use variant-color for variant-color-500 (adapts to theme)
-
-### Example in HTML
-
-```html
-<!-- Light mode -->
-<p class="text-blue-light-0">This is text in a light blue shade.</p>
-
-<!-- Dark mode -->
-<p class="text-blue-dark-0">This is text in a dark blue shade.</p>
-
-<!-- Default color (adapts to theme) -->
-<p class="text-blue-0">This is text in the default blue shade.</p>
+```bash
+npx jsr add @siguici/colorwind
 ```
+
+Then, register the plugin in your Tailwind config:
+
+```ts
+import colorwind from 'colorwind';
+
+export default {
+  plugins: [colorwind],
+};
+```
+
+---
+
+## 🧠 Why ColorWind?
+
+* Simplifies **light/dark mode theming** with one class.
+* Uses **intuitive naming** for color intensity and adaptation.
+* Supports **all Tailwind color utilities**, including gradients and opacity.
+* Automatically **inverts colors** when needed using the `-reverse` suffix.
+
+Read the full plugin usage guide at [colorwind.js.org/guides](https://colorwind.js.org/guides)
+
+---
+
+## 🛠 Development
+
+To contribute or run locally:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Then visit [`localhost:4321`](http://localhost:4321)
+to preview the documentation locally.
+
+---
+
+## 🤝 Contributing
+
+Found a bug or have a feature request?
+
+* Open an issue on [GitHub Issues](https://github.com/siguici/colorwind/issues)
+* Or submit a PR — we welcome contributions!
+
+---
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE.md file](./LICENSE.md) for details.
+[MIT](./packages/colorwind/LICENSE.md) © [SIGUI Kessé Emmanuel](https://siguici.deno.dev)
+
+---
+
+## 💫 Credits
+
+Built with ❤️ using [TailwindCSS](https://tailwindcss.com), [Astro](https://astro.build), and [Starlight](https://starlight.astro.build).

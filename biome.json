@@ -7,6 +7,7 @@
       "**",
       "!**/node_modules",
       "!**/.astro",
+      "!**/_astro",
       "!**/.vscode",
       "!**/dist",
       "!**/jsr",

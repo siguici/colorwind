@@ -1,50 +1,50 @@
 {
-  "name": "@siguici/colorwind",
-  "version": "0.3.0",
-  "imports": {
-    "npm:plugwind.js": "jsr:@siguici/plugwind@^0.8.0"
-  },
-  "exports": {
-    ".": "./jsr/index.ts",
-    "./colors": "./jsr/colors.ts",
-    "./plugin": "./jsr/plugin.ts",
-    "./utils": "./jsr/utils.ts"
-  },
-  "include": ["jsr.json", "jsr/*.ts", "README.md", "LICENSE.md"],
-  "exclude": [
-    ".*",
-    "jsr/*.test.ts",
-    "js/*",
-    "ts/*",
-    "src/*",
-    "tests/*",
-    "biome.json",
-    "tsconfig.json",
-    "deno.lock"
-  ],
-  "publish": {
-    "exclude": ["!jsr/*.ts"]
-  },
-  "fmt": {
-    "useTabs": false,
-    "lineWidth": 80,
-    "indentWidth": 2,
-    "semiColons": true,
-    "singleQuote": true,
-    "proseWrap": "preserve"
-  },
-  "lint": {
-    "include": ["jsr/"],
-    "exclude": ["!jsr/*.ts", "!jsr/*.test.ts"],
-    "rules": {
-      "tags": ["recommended"]
-    }
-  },
-  "tasks": {
-    "check": "deno task check:fmt && deno task check:lint && deno task check:types",
-    "check:fmt": "deno fmt --check",
-    "check:lint": "deno lint",
-    "check:types": "deno check jsr/*.ts",
-    "fix": "deno lint --fix && deno fmt"
-  }
+	"name": "@siguici/colorwind",
+	"version": "0.3.0",
+	"imports": {
+		"npm:plugwind.js": "jsr:@siguici/plugwind@^0.9.0"
+	},
+	"exports": {
+		".": "./jsr/index.ts",
+		"./colors": "./jsr/colors.ts",
+		"./plugin": "./jsr/plugin.ts",
+		"./utils": "./jsr/utils.ts"
+	},
+	"include": ["jsr.json", "jsr/*.ts", "README.md", "LICENSE.md"],
+	"exclude": [
+		".*",
+		"jsr/*.test.ts",
+		"js/*",
+		"ts/*",
+		"src/*",
+		"tests/*",
+		"biome.json",
+		"tsconfig.json",
+		"deno.lock"
+	],
+	"publish": {
+		"exclude": ["!jsr/*.ts"]
+	},
+	"fmt": {
+		"useTabs": false,
+		"lineWidth": 80,
+		"indentWidth": 2,
+		"semiColons": true,
+		"singleQuote": true,
+		"proseWrap": "preserve"
+	},
+	"lint": {
+		"include": ["jsr/"],
+		"exclude": ["!jsr/*.ts", "!jsr/*.test.ts"],
+		"rules": {
+			"tags": ["recommended"]
+		}
+	},
+	"tasks": {
+		"check": "deno task check:fmt && deno task check:lint && deno task check:types",
+		"check:fmt": "deno fmt --check",
+		"check:lint": "deno lint",
+		"check:types": "deno check jsr/*.ts",
+		"fix": "deno lint --fix && deno fmt"
+	}
 }

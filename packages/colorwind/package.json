@@ -1,87 +1,87 @@
 {
-  "name": "colorwind",
-  "version": "0.3.0",
-  "license": "MIT",
-  "packageManager": "pnpm@10.12.4",
-  "publishConfig": {
-    "access": "public"
-  },
-  "engines": {
-    "node": ">=22.17",
-    "pnpm": ">=10.12",
-    "npm": "prefer using pnpm",
-    "yarn": "prefer using pnpm"
-  },
-  "type": "module",
-  "module": "./js/index.js",
-  "main": "./js/index.js",
-  "types": "./ts/",
-  "exports": {
-    ".": {
-      "default": "./js/index.js",
-      "types": "./ts/index.d.ts"
-    },
-    "./config": {
-      "default": "./js/config.js",
-      "types": "./ts/config.d.ts"
-    },
-    "./colors": {
-      "default": "./js/colors.js",
-      "types": "./ts/colors.d.ts"
-    },
-    "./plugin": {
-      "default": "./js/plugin.js",
-      "types": "./ts/plugin.d.ts"
-    },
-    "./utils": {
-      "default": "./js/utils.js",
-      "types": "./ts/utils.d.ts"
-    },
-    "./package.json": "./package.json"
-  },
-  "bugs": "https://github.com/siguici/colorwind/issues",
-  "homepage": "https://github.com/siguici/colorwind",
-  "author": {
-    "name": "Sigui Kessé Emmanuel",
-    "email": "siguici@proton.me",
-    "url": "https://github.com/siguici"
-  },
-  "description": "TailwindCSS plugin simplifying light/dark color scheme management with intuitive class names.",
-  "keywords": [
-    "color-scheme",
-    "colorwind",
-    "componants",
-    "css",
-    "dark-mode",
-    "light-mode",
-    "plugin",
-    "tailwindcss",
-    "tailwind-color-scheme",
-    "typescript",
-    "utilities"
-  ],
-  "sideEffects": false,
-  "private": false,
-  "scripts": {
-    "build": "pnpm build.node && pnpm build.deno",
-    "build.node": "pnpm clear.node && tsc --build",
-    "build.deno": "pnpm clear.deno && pnpm denoify",
-    "clear": "pnpm clear.node && pnpm clear.deno",
-    "clear.node": "rimraf js && rimraf ts",
-    "clear.deno": "rimraf jsr/*",
-    "denoify": "denoify --out jsr"
-  },
-  "devDependencies": {
-    "@types/node": "^24.0.10",
-    "denoify": "^1.6.17",
-    "rimraf": "^6.0.1",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3"
-  },
-  "peerDependencies": {
-    "tailwindcss": "^3.4.13"
-  },
-  "dependencies": {
-    "plugwind.js": "^0.8.0"
-  }
+	"name": "colorwind",
+	"version": "0.3.0",
+	"license": "MIT",
+	"packageManager": "pnpm@10.12.4",
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=22.17",
+		"pnpm": ">=10.12",
+		"npm": "prefer using pnpm",
+		"yarn": "prefer using pnpm"
+	},
+	"type": "module",
+	"module": "./js/index.js",
+	"main": "./js/index.js",
+	"types": "./ts/",
+	"exports": {
+		".": {
+			"default": "./js/index.js",
+			"types": "./ts/index.d.ts"
+		},
+		"./config": {
+			"default": "./js/config.js",
+			"types": "./ts/config.d.ts"
+		},
+		"./colors": {
+			"default": "./js/colors.js",
+			"types": "./ts/colors.d.ts"
+		},
+		"./plugin": {
+			"default": "./js/plugin.js",
+			"types": "./ts/plugin.d.ts"
+		},
+		"./utils": {
+			"default": "./js/utils.js",
+			"types": "./ts/utils.d.ts"
+		},
+		"./package.json": "./package.json"
+	},
+	"bugs": "https://github.com/siguici/colorwind/issues",
+	"homepage": "https://github.com/siguici/colorwind",
+	"author": {
+		"name": "Sigui Kessé Emmanuel",
+		"email": "siguici@proton.me",
+		"url": "https://github.com/siguici"
+	},
+	"description": "TailwindCSS plugin simplifying light/dark color scheme management with intuitive class names.",
+	"keywords": [
+		"color-scheme",
+		"colorwind",
+		"componants",
+		"css",
+		"dark-mode",
+		"light-mode",
+		"plugin",
+		"tailwindcss",
+		"tailwind-color-scheme",
+		"typescript",
+		"utilities"
+	],
+	"sideEffects": false,
+	"private": false,
+	"scripts": {
+		"build": "pnpm build.node && pnpm build.deno",
+		"build.node": "pnpm clear.node && tsc --build",
+		"build.deno": "pnpm clear.deno && pnpm denoify",
+		"clear": "pnpm clear.node && pnpm clear.deno",
+		"clear.node": "rimraf js && rimraf ts",
+		"clear.deno": "rimraf jsr/*",
+		"denoify": "denoify --out jsr"
+	},
+	"devDependencies": {
+		"@types/node": "^24.4.0",
+		"denoify": "^1.6.17",
+		"rimraf": "^6.0.1",
+		"tailwindcss": "^4.1.13",
+		"typescript": "^5.9.2"
+	},
+	"peerDependencies": {
+		"tailwindcss": "^3.4.13"
+	},
+	"dependencies": {
+		"plugwind.js": "^0.9.0"
+	}
 }

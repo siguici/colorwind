@@ -1,30 +1,30 @@
 {
-  "name": "@colorwind/website",
-  "type": "module",
-  "private": true,
-  "version": "0.0.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/siguici/colorwind",
-    "directory": "website"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev --open",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/starlight": "^0.34.4",
-    "@astrojs/starlight-tailwind": "^4.0.1",
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.11.0",
-    "colorwind": "workspace:*",
-    "sharp": "^0.34.2",
-    "tailwindcss": "^4.1.11",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
-  }
+	"name": "@colorwind/website",
+	"type": "module",
+	"private": true,
+	"version": "0.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/siguici/colorwind",
+		"directory": "website"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev --open",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/check": "^0.9.4",
+		"@astrojs/starlight": "^0.35.3",
+		"@astrojs/starlight-tailwind": "^4.0.1",
+		"@tailwindcss/vite": "^4.1.13",
+		"astro": "^5.13.7",
+		"colorwind": "workspace:*",
+		"sharp": "^0.34.3",
+		"tailwindcss": "^4.1.13",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.2"
+	}
 }

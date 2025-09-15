@@ -1,6 +1,6 @@
 {
 	"name": "@siguici/colorwind",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"imports": {
 		"npm:plugwind.js": "jsr:@siguici/plugwind@^0.9.0"
 	},
